@@ -1,0 +1,58 @@
+---
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13.1-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - connection
+    environment:
+      - POSTGRES_PASSWORD=local-password
+      - POSTGRES_DB=software-engineering
+
+  django:
+    build:
+      context: ./backend/
+    command: >
+      bash -c "python3 manage.py collectstatic --noinput &&
+              python3 manage.py migrate &&
+              python3 manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres
+    networks:
+      - connection
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - NAME=software-engineering
+      - USER=postgres
+      - PASSWORD=local-password
+      - HOST=postgres
+      - PORT=5432
+      - SECRET_KEY=${SECRET_KEY}
+
+  react:
+    build:
+      context: frontend
+    command: npm start
+    depends_on:
+      - django
+    networks:
+      - connection
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules/
+
+networks:
+  connection:
+
+volumes:
+  database:
