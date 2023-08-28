@@ -19,3 +19,10 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
+
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: .run_prettier.sh
+        language: script
