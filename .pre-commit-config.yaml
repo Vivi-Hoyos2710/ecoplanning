@@ -5,6 +5,12 @@ repos:
     hooks:
       - id: black
 
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: docker-compose exec react sh .run_prettier.sh
+        language: system
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -22,7 +28,7 @@ repos:
 
   - repo: local
     hooks:
-      - id: prettier and eslint
-        name: prettier and eslint
-        entry: docker-compose exec react npx lint-staged
+      - id: eslint
+        name: eslint
+        entry: docker-compose exec react sh .run_eslint.sh
         language: system
