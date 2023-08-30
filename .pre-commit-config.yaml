@@ -22,7 +22,7 @@ repos:
 
   - repo: local
     hooks:
-      - id: prettier
-        name: prettier
-        entry: .run_prettier.sh
-        language: script
+      - id: prettier and eslint
+        name: prettier and eslint
+        entry: cd ./frontend && npx lint-staged
+        language: system
