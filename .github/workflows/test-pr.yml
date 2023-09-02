@@ -8,18 +8,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-backend-frontend:
+  test-frontend-backend:
     name: Test Backend & Frontend
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/test-backend-frontend
+      - uses: ./.github/actions/test-frontend-backend
 
   publish-results:
     name: Publish test results
     runs-on: ubuntu-20.04
     permissions: write-all
-    needs: [test-backend-frontend]
+    needs: [test-frontend-backend]
     if: ${{ always() }}
 
     steps:
