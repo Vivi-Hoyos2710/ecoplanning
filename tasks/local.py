@@ -38,7 +38,7 @@ def pytest(c):
     container_name = get_full_container_name(c, "django")
     c.run(
         f'docker exec -it {container_name} pytest\
-                --junitxml="./results/rest-results.xml"',
+                --junitxml="./results/backend-results.xml"',
         pty=True,
     )
 
@@ -74,7 +74,7 @@ def build_and_start(c):
 @task
 def test_all(c):
     """Run all tests. Primarily used by CI machines"""
-    c.run("flake8 rest")
+    c.run("flake8 backend")
     build_and_start(c)
     c.run("docker-compose down")
     pytest(c)
