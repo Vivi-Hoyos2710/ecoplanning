@@ -20,7 +20,8 @@ services:
               python3 manage.py migrate &&
               python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - connection
     ports:
