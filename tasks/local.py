@@ -59,7 +59,7 @@ def test_webapp(c):
 
 def build_and_start(c):
     c.run("docker-compose build")
-    c.run("docker-compose up")
+    c.run("docker-compose up -d")
     # Make sure yarn install has been completed and postgres DB created
     print("[INFO] Waiting for Front-end app to respond")
     while True:
@@ -69,7 +69,7 @@ def build_and_start(c):
         except Exception:
             time.sleep(1)
             pass
-    print("[INFO] Servers are running")
+    print("[INFO] Done waiting")
 
 
 @task
