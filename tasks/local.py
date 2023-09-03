@@ -64,14 +64,7 @@ def build_and_start(c):
     print("[INFO] Waiting for Front-end app to respond")
     while True:
         try:
-            print(requests.get("http://127.0.0.1:8000"))
-            break
-        except Exception:
-            time.sleep(1)
-            pass
-    while True:
-        try:
-            print(requests.get("http://127.0.0.1:3000"))
+            requests.get("http://127.0.0.1:3000")
             break
         except Exception:
             time.sleep(1)
