@@ -63,6 +63,14 @@ def build_and_start(c):
     c.run("docker-compose up -d")
     # Make sure yarn install has been completed and postgres DB created
     print("[INFO] Waiting for Backend-end app to respond")
+    while True:
+        try:
+            requests.get("http://127.0.0.1:8000")
+            break
+        except Exception:
+            time.sleep(1)
+            pass
+    print("[INFO] Done waiting Back-end")
     print("[INFO] Waiting for Front-end app to respond")
     while True:
         try:
@@ -71,7 +79,7 @@ def build_and_start(c):
         except Exception:
             time.sleep(1)
             pass
-    print("[INFO] Done waiting")
+    print("[INFO] Done waiting Front-end")
 
 
 @task
