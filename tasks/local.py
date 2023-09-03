@@ -59,7 +59,7 @@ def test_webapp(c):
 
 def build_and_start(c):
     c.run("docker-compose build")
-    c.run("docker-compose up -d")
+    c.run("docker-compose up")
     # Make sure yarn install has been completed and postgres DB created
     print("[INFO] Waiting for Front-end app to respond")
     while True:
