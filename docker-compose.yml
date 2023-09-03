@@ -11,6 +11,11 @@ services:
     environment:
       - POSTGRES_PASSWORD=local-password
       - POSTGRES_DB=software-engineering
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   django:
     build:
