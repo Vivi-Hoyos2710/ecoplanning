@@ -11,9 +11,10 @@ def get_full_container_name(c, name):
             "docker ",
             "ps ",
             f'--filter "name={name}" ',
-            '--format "{{.Names}}" ',
+            '--format "{{.Names}}"',
         ]
     )
+    print(cmd)
     result = c.run(cmd)
 
     full_name = result.stdout.strip()
