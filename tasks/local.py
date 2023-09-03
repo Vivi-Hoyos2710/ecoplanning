@@ -14,12 +14,11 @@ def get_full_container_name(c, name):
             '--format "{{.Names}}"',
         ]
     )
-    print(cmd)
     result = c.run(cmd)
 
     full_name = result.stdout.strip()
     if len(full_name) <= 0:
-        raise Exception("Could not file container for name {name}")
+        raise Exception(f"Could not file container for name {name}")
 
     return full_name
 
@@ -63,6 +62,14 @@ def build_and_start(c):
     c.run("docker-compose up -d")
     # Make sure yarn install has been completed and postgres DB created
     print("[INFO] Waiting for Backend-end app to respond")
+    while True:
+        try:
+            requests.get("http://127.0.0.1:8000")
+            break
+        except Exception:
+            time.sleep(1)
+            pass
+    print("[INFO] Done waiting Back-end")
     print("[INFO] Waiting for Front-end app to respond")
     while True:
         try:
@@ -71,7 +78,7 @@ def build_and_start(c):
         except Exception:
             time.sleep(1)
             pass
-    print("[INFO] Done waiting")
+    print("[INFO] Done waiting Front-end")
 
 
 @task
@@ -79,6 +86,5 @@ def test_all(c):
     """Run all tests. Primarily used by CI machines"""
     c.run("flake8 backend")
     build_and_start(c)
-    c.run("docker-compose down")
     pytest(c)
     test_webapp(c)
