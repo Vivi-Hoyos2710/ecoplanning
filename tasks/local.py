@@ -14,12 +14,11 @@ def get_full_container_name(c, name):
             '--format "{{.Names}}"',
         ]
     )
-    print(cmd)
     result = c.run(cmd)
 
     full_name = result.stdout.strip()
     if len(full_name) <= 0:
-        raise Exception("Could not file container for name {name}")
+        raise Exception(f"Could not file container for name {name}")
 
     return full_name
 
@@ -87,6 +86,5 @@ def test_all(c):
     """Run all tests. Primarily used by CI machines"""
     c.run("flake8 backend")
     build_and_start(c)
-    c.run("docker-compose down")
     pytest(c)
     test_webapp(c)
