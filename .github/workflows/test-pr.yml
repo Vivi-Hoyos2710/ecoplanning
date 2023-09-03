@@ -3,7 +3,7 @@ name: Test PR
 
 on:
   pull_request:
-    branches: [main]
+    branches: [prod, staging]
 
   workflow_dispatch:
 
