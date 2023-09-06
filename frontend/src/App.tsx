@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Spinner } from '@material-tailwind/react';
+import { NoUser, User, UserContext } from './types/UserTypes';
+import AdminApp from './components/admin/AdminApp';
+import HomePage from './components/home/HomePage';
+import DriverApp from './components/driver/DriverApp';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [user, setUser] = useState<User>(NoUser);
+  const [loading, setLoading] = useState<boolean>(false);
+  useEffect(() => {
+    const conseguirUsuario = async () => {
+      // const data = await conseguirUsurioLogeado();
+      // setUser(data);
+      // setLoading(false);
+    };
+    conseguirUsuario();
+  }, []);
+
+  let display;
+
+  if (loading) {
+    display = <Spinner />;
+  } else if (user === NoUser) {
+    display = <HomePage />;
+  } else if (user.admin) {
+    display = <AdminApp />;
+  } else {
+    display = <DriverApp />;
+  }
+
+  return <UserContext.Provider value={user}>{display}</UserContext.Provider>;
 }
 
 export default App;
