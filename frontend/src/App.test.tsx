@@ -1,4 +1,5 @@
-import React from 'react';
+import { assert } from 'console';
 
 test('Test', () => {
+    assert(true);
 });
