@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AxiosRequestConfig } from 'axios';
-import { User, GetUserRequest, NoUser } from '../types/UserTypes';
+import { User, NoUser } from '../types/UserTypes';
 
 function conseguirConfiguracionDeAutenticacion(): AxiosRequestConfig {
   return {
@@ -13,11 +13,8 @@ function conseguirConfiguracionDeAutenticacion(): AxiosRequestConfig {
 export async function conseguirUsurioLogeado(): Promise<User> {
   try {
     const config: AxiosRequestConfig = conseguirConfiguracionDeAutenticacion();
-    const { data, status } = await axios.get<GetUserRequest>(
-      'http://127.0.0.1:8000/auth/users/me/',
-      config
-    );
-    return data.data;
+    const { data, status } = await axios.get<User>('http://127.0.0.1:8000/auth/users/me/', config);
+    return data;
   } catch (error) {
     return NoUser;
   }
