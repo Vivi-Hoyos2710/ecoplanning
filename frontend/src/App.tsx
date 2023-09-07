@@ -5,15 +5,16 @@ import { NoUser, User, UserContext } from './types/UserTypes';
 import AdminApp from './components/admin/AdminApp';
 import HomePage from './components/home/HomePage';
 import DriverApp from './components/driver/DriverApp';
+import { conseguirUsurioLogeado } from './services/AuthService';
 
 function App() {
   const [user, setUser] = useState<User>(NoUser);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const conseguirUsuario = async () => {
-      // const data = await conseguirUsurioLogeado();
-      // setUser(data);
-      // setLoading(false);
+      const data = await conseguirUsurioLogeado();
+      setUser(data);
+      setLoading(false);
     };
     conseguirUsuario();
   }, []);
@@ -24,7 +25,7 @@ function App() {
     display = <Spinner />;
   } else if (user === NoUser) {
     display = <HomePage />;
-  } else if (user.admin) {
+  } else if (user.is_superuser) {
     display = <AdminApp />;
   } else {
     display = <DriverApp />;

@@ -111,3 +111,4 @@ yarn-error.log*
 # Test
 /backend/results/
 /frontend/junit.xml
+.pytest_cache

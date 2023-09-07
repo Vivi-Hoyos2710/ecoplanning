@@ -3,22 +3,16 @@ import { createContext } from 'react';
 type User = {
   id: number;
   email: string;
-  password: string;
-  admin: boolean;
-};
-
-type GetUserRequest = {
-  data: User;
+  is_superuser: boolean;
 };
 
 const NoUser: User = {
   id: -1,
   email: '',
-  password: '',
-  admin: false
+  is_superuser: false
 };
 
 const UserContext = createContext<User>(NoUser);
 
-export type { User, GetUserRequest };
+export type { User };
 export { NoUser, UserContext };
