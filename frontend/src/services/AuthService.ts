@@ -21,18 +21,19 @@ export async function getLoggedUser(): Promise<User> {
   }
 }
 
-export async function getLoginToken(loginForm : LoginFormData) : Promise<any> {
-  const loginRequest : LoginRequest = {
-      "password": loginForm.password,
-      "email": loginForm.email
-  }
+export async function getLoginToken(loginForm: LoginFormData): Promise<any> {
+  const loginRequest: LoginRequest = {
+    password: loginForm.password,
+    email: loginForm.email
+  };
   try {
-      const response = await axios.post<LoginToken>(
-          'http://127.0.0.1:8000/auth/token/login', loginRequest
-      )
-      localStorage.setItem('tokenKey', response.data.auth_token);
-      window.location.href = '/';
+    const response = await axios.post<LoginToken>(
+      'http://127.0.0.1:8000/auth/token/login',
+      loginRequest
+    );
+    localStorage.setItem('tokenKey', response.data.auth_token);
+    window.location.href = '/';
   } catch (error) {
-      return error;
+    return error;
   }
 }

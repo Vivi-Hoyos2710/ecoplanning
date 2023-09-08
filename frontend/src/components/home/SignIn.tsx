@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Input, Checkbox, Button, Typography } from "@material-tailwind/react";
-import'.../';
+import { Card, Input, Checkbox, Button, Typography } from '@material-tailwind/react';
+import '.../';
 const SignIn = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -12,15 +12,13 @@ const SignIn = () => {
           <Typography color="gray" className="mt-1 font-normal">
             Enter your details to register.
           </Typography>
-          <form className="mt-4 space-y-4" >
+          <form className="mt-4 space-y-4">
             <Input size="lg" label="Email" />
             <Input type="password" size="lg" label="Password" />
-            <Button fullWidth>
-              Login
-            </Button>
+            <Button fullWidth>Login</Button>
           </form>
           <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <a href="#" className="font-medium text-gray-900">
               Sign In
             </a>

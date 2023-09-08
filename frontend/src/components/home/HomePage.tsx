@@ -6,8 +6,7 @@ const Homepage = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<h1>Home Pagee</h1>} />
-        <Route path="login" element={<Login/>}/>
-
+        <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
