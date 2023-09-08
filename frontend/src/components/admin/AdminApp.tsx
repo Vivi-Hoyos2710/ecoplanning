@@ -5,7 +5,7 @@ const AdminApp = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="adminApp" element={<h1>Admin Page</h1>} />
+        <Route path="/" element={<h1>Admin Page</h1>} />
       </Routes>
     </BrowserRouter>
   );
