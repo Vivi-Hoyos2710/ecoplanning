@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-tailwind/react": "^2.1.1",
+    "@material-tailwind/react": "^2.1.0",
     "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -53,7 +53,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.4",
     "@types/node": "^18.7.6",
-    "@types/react": "^18.0.15",
+    "@types/react": "^18.2.19",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "autoprefixer": "^10.4.7",
@@ -64,6 +64,7 @@
     "jest-junit": "^16.0.0",
     "prettier": "3.0.3",
     "react-test-renderer": "^18.2.0",
+    "tailwindcss": "^3.3.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
