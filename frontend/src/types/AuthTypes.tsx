@@ -11,5 +11,14 @@ type LoginFormData = {
   email: string;
   password: string;
 };
+type SignInFormData = {
+  name: string;
+  email: string;
+  password: string;
+  brand :string;
+  model: string;
+  regisPlate:string;
 
-export type { LoginRequest, LoginToken, LoginFormData };
+};
+
+export type { LoginRequest, LoginToken, LoginFormData, SignInFormData };
