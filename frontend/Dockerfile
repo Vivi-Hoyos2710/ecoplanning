@@ -4,8 +4,10 @@ WORKDIR /usr/src/app
 
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY . .
+COPY package.json .
 
 RUN npm ci
 
-RUN npm run build
+RUN npm install
+
+COPY . .
