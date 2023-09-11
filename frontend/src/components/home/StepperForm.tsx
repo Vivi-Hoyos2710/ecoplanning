@@ -81,11 +81,11 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                         Bienvenido
                     </Typography>
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                        Comienza a experimentar la verdadera tranquilidad de conducir un coche eléctrico.
+                        Comienza a experimentar la verdadera tranquilidad de conducir un coche eléctrico
                     </Typography>
                     <div className="flex justify-center items-center">
                         <img
-                            width="180" height="140"
+                            width="200" height="160"
                             src={require('../../img/gifCarro.gif')}
                             alt='ImgCar'
 
