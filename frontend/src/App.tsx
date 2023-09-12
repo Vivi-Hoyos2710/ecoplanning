@@ -5,14 +5,14 @@ import { NoUser, User, UserContext } from './types/UserTypes';
 import AdminApp from './components/admin/AdminApp';
 import HomePage from './components/home/HomePage';
 import DriverApp from './components/driver/DriverApp';
-import { conseguirUsurioLogeado } from './services/AuthService';
+import { getLoggedUser } from './services/AuthService';
 
 function App() {
   const [user, setUser] = useState<User>(NoUser);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const conseguirUsuario = async () => {
-      const data = await conseguirUsurioLogeado();
+      const data = await getLoggedUser();
       setUser(data);
       setLoading(false);
     };
