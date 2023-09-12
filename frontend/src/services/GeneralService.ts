@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { FilterSet } from "../types/ServiceTypes";
 
 export function ponerFiltros(filtros: FilterSet){
@@ -11,4 +10,4 @@ export function ponerFiltros(filtros: FilterSet){
 
 export function conseguirHoy(){
     return new Date().toISOString().split('T')[0];
-};
+}
