@@ -6,6 +6,12 @@ type User = {
   is_superuser: boolean;
 };
 
+type UserInfo = {
+    email: string;
+    password: string;
+    name: string;
+}
+
 const NoUser: User = {
   id: -1,
   email: '',
@@ -14,5 +20,5 @@ const NoUser: User = {
 
 const UserContext = createContext<User>(NoUser);
 
-export type { User };
+export type { User, UserInfo };
 export { NoUser, UserContext };
