@@ -1,7 +1,7 @@
 import React from "react";
 import {Tabs,TabsHeader,TabsBody,Tab,TabPanel,Card,Typography} from "@material-tailwind/react";
 import { FiUser,FiTruck,FiBatteryCharging} from "react-icons/fi";
-import fondo1 from '../../img/FondoRecomendacionesBateria.svg';
+import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 import test from '../../img/gifCarro.gif';
 
 const BatteryCareTips = () =>  {
