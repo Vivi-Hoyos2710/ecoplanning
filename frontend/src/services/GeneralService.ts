@@ -8,6 +8,6 @@ export function ponerFiltros(filtros: FilterSet){
     }
 }
 
-export function conseguirHoy(){
+export function getToday(){
     return new Date().toISOString().split('T')[0];
 }

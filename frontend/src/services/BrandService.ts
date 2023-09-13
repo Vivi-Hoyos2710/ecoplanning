@@ -12,7 +12,7 @@ export async function getCarList(filtros: FilterSet): Promise<Brand[]> {
 }
 
 
-export async function crearActividad(car: BrandInfo) {
+export async function createBrand(car: BrandInfo) {
     await axios.post<BrandInfo>(
         'http://127.0.0.1:8000/api/v1/brand/',
         car

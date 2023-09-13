@@ -10,7 +10,6 @@ const DefaultStepper = () => {
   const [isValid, setIsValid] = React.useState(false);
 
   React.useEffect(() => {
-    console.log(isValid)
     if (isValid) {
       !isLastStep && setActiveStep((cur) => cur + 1);
       setIsValid(false);
@@ -19,7 +18,6 @@ const DefaultStepper = () => {
 
   const handleNext = () => {
     const elem = document.getElementsByClassName("test")[0] as HTMLElement;
-    console.log(elem)
     elem?.click();
   }
 
@@ -44,7 +42,7 @@ const DefaultStepper = () => {
           </Step>
         </Stepper>
       </Card>
-      <StepperForm stepIndex={activeStep} checkValid={setIsValid} />
+      <StepperForm stepIndex={activeStep} checkValid={setIsValid} setActiveStep={setActiveStep} />
 
       <div className="mt-16 flex justify-between">
         <Button variant="gradient" color="gray" className="rounded-full" onClick={handlePrev} disabled={isFirstStep}>
