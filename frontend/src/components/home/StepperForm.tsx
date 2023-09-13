@@ -1,20 +1,21 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { getLoginToken } from '../../services/AuthService';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Card, Input, Checkbox, Button, Typography } from '@material-tailwind/react';
+import { Card, Input, Checkbox, Button, Typography , Select, Option } from '@material-tailwind/react';
 import fondo1 from '../../img/fondoLogin.svg';
-import fondo2 from '../../img/fondoHojitas.svg';
+import fondo2 from '../../img/fondohojitas.svg';
 import { SignInFormData } from '../../types/AuthTypes';
 
 interface StepperProps {
     stepIndex: number,
-    checkValid: any //buscar type de una function
+    checkValid: any
 }
 
 
 const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
     const [formData, setFormData] = useState<SignInFormData>();
+    const [selectBrand, setSelectBrand] = useState();
     const {
         register,
         handleSubmit,
@@ -25,6 +26,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
         checkValid(true);
         console.log(data);
     };
+
 
     return (
         <div className="w-full ">
@@ -45,7 +47,14 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                             },
                         })} error={errors.email !== undefined} />
                         {errors.email && <Typography variant="small" color="red">{errors.email?.message}</Typography>}
-                        <Input type="text" label="Contraseña" />
+                        <Input type="password" label="Contraseña" {...register('password', {
+                            required: 'Debes ingresar una contraseña ', pattern: {
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                                message: 'Mínimo 8 caracteres, una minúscula, una mayúscula, y un dígito',
+                            },
+                        })}/>
+                        {errors.password && <Typography variant="small" color="red">{errors.password?.message}</Typography>}
+
                         <button className="test" type="submit" hidden>hidden</button>
                     </form>
                     <Typography color="gray" className="mt-4 text-center font-normal">
@@ -68,8 +77,22 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                         })} error={errors.name !== undefined} />
                         {errors.regisPlate && <Typography variant="small" color="red">{errors.regisPlate?.message}
                         </Typography>}
-                        <Input type="email" label="Modelo" />
-                        <Input type="email" label="Marca" />
+                        <div className="flex w-72 flex-col gap-6">
+                        <Select label="Selecciona marca" >
+                            <Option>Material Tailwind HTML</Option>
+                            <Option>Material Tailwind React</Option>
+                            <Option>Material Tailwind Vue</Option>
+                            <Option>Material Tailwind Angular</Option>
+                            <Option>Material Tailwind Svelte</Option>
+                        </Select>
+                        <Select label="Selecciona modelo">
+                            <Option>Material Tailwind HTML</Option>
+                            <Option>Material Tailwind React</Option>
+                            <Option>Material Tailwind Vue</Option>
+                            <Option>Material Tailwind Angular</Option>
+                            <Option>Material Tailwind Svelte</Option>
+                        </Select>
+                        </div>
                         <button className="test" type="submit" hidden>another test</button>
                     </form>
                 </Card>
