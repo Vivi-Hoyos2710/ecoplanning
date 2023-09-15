@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 type User = {
-  id: number;
   email: string;
+  id: number;
   is_superuser: boolean;
 };
 

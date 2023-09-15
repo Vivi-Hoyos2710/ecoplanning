@@ -5,10 +5,12 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Card, Input, Checkbox, Button, Typography, Alert } from '@material-tailwind/react';
 import { AiFillInfoCircle } from 'react-icons/ai';
 import fondo1 from '../../img/fondoLogin.svg';
-import fondo2 from '../../img/Fondohojitas.svg';
+import fondo2 from '../../img/fondoHojitas.svg';
 import { LoginFormData } from '../../types/AuthTypes';
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [errorsBdd, setErrorsBdd] = useState<boolean>(false);
   const {
     register,
@@ -17,10 +19,21 @@ const Login = () => {
   } = useForm<LoginFormData>();
   const submitFun: SubmitHandler<LoginFormData> = (data: LoginFormData) => {
     const logIn = async () => {
+
       const error = await getLoginToken(data);
-      if (error.response.status == 400) {
-        setErrorsBdd(true);
+      console.log(error);
+      if (error) {
+          setErrorsBdd(true);
+      }else{
+        navigate("/");
+        window.location.reload();
       }
+        
+      
+
+
+      setErrorsBdd(true);
+
     };
     logIn();
   };
@@ -54,7 +67,7 @@ const Login = () => {
 
                 <Input type="password" label="Contraseña" {...register('password', {
                   required: 'Debes ingresar la contraseña'
-                })}  error={errors.password !== undefined}/>
+                })} error={errors.password !== undefined} />
                 {errors.password && <Typography variant="small" color="red">{errors.password?.message}</Typography>}
 
                 <div className="flex flex-col items-center justify-center">
@@ -68,9 +81,9 @@ const Login = () => {
 
               <Typography color="gray" className="mt-4 text-center font-normal">
                 No tienes cuenta?{' '}
-                <a href="#" className="font-medium text-gray-900" >
-                  Registrate
-                </a>
+                <Link to="/signin" className="font-medium text-gray-900">Registrate</Link>
+
+
               </Typography>
             </Card>
           </div>

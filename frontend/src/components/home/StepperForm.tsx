@@ -1,33 +1,110 @@
 import React from 'react';
-import { useState, ChangeEvent } from 'react';
-import { getLoginToken } from '../../services/AuthService';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { Card, Input, Checkbox, Button, Typography , Select, Option } from '@material-tailwind/react';
-import fondo1 from '../../img/fondoLogin.svg';
-import fondo2 from '../../img/fondohojitas.svg';
+import { useState, useEffect } from 'react';
+import { createUser, validateUser } from '../../services/UserService';
+import { createCar } from '../../services/CarService';
+import { UserInfo } from '../../types/UserTypes';
+import { Brand } from '../../types/BrandTypes';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { Card, Input, Typography, Select, Option, Spinner } from '@material-tailwind/react';
 import { SignInFormData } from '../../types/AuthTypes';
+import { Car } from '../../types/CarTypes';
+import { Model } from '../../types/ModelTypes';
+import { getBrandList } from '../../services/BrandService';
+import { Link } from "react-router-dom";
+import { getLoginToken } from '../../services/AuthService';
 
 interface StepperProps {
     stepIndex: number,
-    checkValid: any
+    checkValid: any //buscar type de una function
+
 }
-
-
+//Fill model options untils there is a service related to it
+const modelsFiller = [
+    {
+        id: 1,
+        name: "model1"
+    },
+    {
+        id: 2,
+        name: "model2"
+    },
+    {
+        id: 3,
+        name: "model3"
+    }
+];
+//---------
 const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
-    const [formData, setFormData] = useState<SignInFormData>();
-    const [selectBrand, setSelectBrand] = useState();
+    const [errorUser, setErrorUser] = useState<string>('');
+    const [brands, setBrands] = useState<Brand[]>([]);
+    const [models, setModels] = useState<Model[]>([]);
+    const [brandId, setBrandId] = useState<number>(0);
+    const [modelId, setModelId] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
+    useEffect(() => {
+
+        const getBrands = async () => {
+            const brands = await getBrandList();
+            setBrands(brands);
+            setModels(modelsFiller);
+        }
+        getBrands();
+    }, []);
+
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        control, reset,
     } = useForm<SignInFormData>();
 
     const submitFun: SubmitHandler<SignInFormData> = (data: SignInFormData) => {
-        checkValid(true);
-        console.log(data);
-    };
 
+        if (stepIndex === 0) {
+            const validate = async () => {
+                try {
+                    const user = await validateUser(data);
+                    checkValid(true);
+                } catch (error: any) {
 
+                    console.log(error);
+                    setErrorUser(error.response.data.email);
+                }
+            };
+            validate();
+        }
+        if (stepIndex === 1) {
+            console.log();
+            const userInfo: UserInfo = {
+                email: data.email,
+                password: data.password,
+                name: data.name,
+            };
+            const signIn = async () => {
+                try {
+                    setLoading(true);
+                    const user = await createUser(userInfo);
+                    const userCar: Car = {
+                        user: user.id,
+                        brand: brandId,
+                        brand__name: data.brand,
+                        license_plate: data.regisPlate,
+                        model: modelId,
+                    };
+                    console.log(userCar);
+                    const car = await createCar(userCar);
+                    await getLoginToken(data);
+                    setLoading(false);
+                    checkValid(true);
+                } catch (error: any) {
+                    console.log(error.response.data);
+
+                }
+            };
+            signIn();
+        }
+        
+    }
     return (
         <div className="w-full ">
             {(stepIndex === 0) && (
@@ -40,6 +117,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                             required: 'Debes ingresar tu nombre completo'
                         })} error={errors.name !== undefined} />
                         {errors.name && <Typography variant="small" color="red">{errors.name?.message}</Typography>}
+
                         <Input type="text" label="Correo" {...register('email', {
                             required: 'Debes ingresar un email', pattern: {
                                 value: /^\S+@\S+.\S+$/i,
@@ -47,21 +125,23 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                             },
                         })} error={errors.email !== undefined} />
                         {errors.email && <Typography variant="small" color="red">{errors.email?.message}</Typography>}
+                        {errorUser !== '' && <Typography variant="small" color="red">{errorUser}</Typography>}
+
+
                         <Input type="password" label="Contraseña" {...register('password', {
                             required: 'Debes ingresar una contraseña ', pattern: {
                                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
                                 message: 'Mínimo 8 caracteres, una minúscula, una mayúscula, y un dígito',
                             },
-                        })}/>
+                        })} error={errors.password !== undefined} />
                         {errors.password && <Typography variant="small" color="red">{errors.password?.message}</Typography>}
 
                         <button className="test" type="submit" hidden>hidden</button>
                     </form>
                     <Typography color="gray" className="mt-4 text-center font-normal">
                         Ya tienes cuenta?{' '}
-                        <a href="#" className="font-medium text-gray-900" >
-                            Inicia Sesión
-                        </a>
+                        <Link to="/login" className="font-medium text-gray-900">Login</Link>
+
                     </Typography>
                 </Card>
             )
@@ -72,27 +152,70 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                         Registra los datos de uno de tus vehiculos
                     </Typography>
                     <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
-                    <Input type="text" label="Placa" {...register('regisPlate', {
-                            required: 'Debes ingresar una regisPlate'
+                        <Input type="text" label="Placa" {...register('regisPlate', {
+                            required: 'Debes ingresar una regisPlate', pattern: {
+                                value: /^[A-Z]{3}\d{3}/,
+                                message: 'Ingresa una placa válida: ej: ABC123',
+                            },
                         })} error={errors.name !== undefined} />
                         {errors.regisPlate && <Typography variant="small" color="red">{errors.regisPlate?.message}
                         </Typography>}
-                        <div className="flex w-72 flex-col gap-6">
-                        <Select label="Selecciona marca" >
-                            <Option>Material Tailwind HTML</Option>
-                            <Option>Material Tailwind React</Option>
-                            <Option>Material Tailwind Vue</Option>
-                            <Option>Material Tailwind Angular</Option>
-                            <Option>Material Tailwind Svelte</Option>
-                        </Select>
-                        <Select label="Selecciona modelo">
-                            <Option>Material Tailwind HTML</Option>
-                            <Option>Material Tailwind React</Option>
-                            <Option>Material Tailwind Vue</Option>
-                            <Option>Material Tailwind Angular</Option>
-                            <Option>Material Tailwind Svelte</Option>
-                        </Select>
+                        <div className="flex justify-center items-center h-full">
+                            <div className="flex w-72 flex-col gap-6 flex">
+
+                                <Controller
+                                    name="brand"
+                                    control={control}
+                                    rules={{ required: 'Debes ingresar marca' }}
+
+                                    render={({ field }) => (
+                                        <Select
+                                            label="Selecciona marca"
+                                            error={errors.brand !== undefined}
+                                            {...field}
+                                        >
+                                            {brands.map((brand) => (
+                                                <Option value={brand.name} key={brand.id} onClick={() => {
+                                                    setBrandId(brand.id);
+                                                    field.onChange(brand.name);
+                                                }}>
+                                                    {brand.name}
+                                                </Option>
+                                            ))}
+                                        </Select>
+                                    )}
+                                />
+                                <Controller
+                                    name="model"
+                                    control={control}
+                                    rules={{ required: 'Debes ingresar modelo' }}
+                                    render={({ field }) => (
+                                        <Select
+                                            label="Selecciona modelo"
+                                            error={errors.model !== undefined}
+                                            {...field}
+
+                                        >
+                                            {models.map((model) => (
+                                                <Option
+                                                    value={model.name}
+                                                    key={model.id}
+                                                    onClick={() => {
+                                                        setModelId(model.id);
+                                                        field.onChange(model.name);
+                                                    }}
+                                                >
+                                                    {model.name}
+                                                </Option>
+                                            ))}
+                                        </Select>
+                                    )}
+                                />
+                                {loading ? <Spinner color="green" /> : <span />}
+                            </div>
+
                         </div>
+
                         <button className="test" type="submit" hidden>another test</button>
                     </form>
                 </Card>
@@ -114,9 +237,11 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
 
                         />
                     </div>
+
                 </Card>
             )
             }
+
         </div>
     );
 };

@@ -13,7 +13,7 @@ export async function getStationList(filtros: FilterSet): Promise<Station[]> {
 }
 
 
-export async function crearActividad(car: StationInfo) {
+export async function createStation(car: StationInfo) {
     await axios.post<Station>(
         'http://127.0.0.1:8000/api/v1/station/',
         car

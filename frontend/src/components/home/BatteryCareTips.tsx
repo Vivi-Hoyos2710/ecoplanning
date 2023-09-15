@@ -5,7 +5,7 @@ import { FiUser,FiTruck,FiBatteryCharging} from "react-icons/fi";
 import { LiaTemperatureHighSolid} from "react-icons/lia";
 import {FaTrafficLight} from "react-icons/fa";
 import {AiOutlineCaretRight} from "react-icons/ai";
-import fondo1 from '../../img/FondoRecomendacionesBateria.svg';
+import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 
 import test from '../../img/gifCarro.gif';
 import { IconContext } from "react-icons";

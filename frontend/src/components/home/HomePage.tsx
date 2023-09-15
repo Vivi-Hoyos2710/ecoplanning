@@ -11,7 +11,7 @@ const Homepage = () => {
         <Route path="/" element={<h1>Home Pagee</h1>} />
         <Route path="login" element={<Login />} />
         <Route path="signin" element={<SignIn />} />
-        <Route path="bct" element={< BatteryCareTips/>} />
+        <Route path="bct" element={< BatteryCareTips />} />
       </Routes>
     </BrowserRouter>
   );

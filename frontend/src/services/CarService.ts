@@ -12,7 +12,7 @@ export async function getCarList(filtros: FilterSet): Promise<Car[]> {
 }
 
 
-export async function crearActividad(car: Car) {
+export async function createCar(car: Car) {
     await axios.post<Car>(
         'http://127.0.0.1:8000/api/v1/car/',
         car
