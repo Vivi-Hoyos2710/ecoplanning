@@ -1,6 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
-import { Card, Input, Checkbox, Button, Typography } from '@material-tailwind/react';
 import fondo1 from '../../img/fondoSignUp.svg';
 import fondo2 from '../../img/fondoHojitas.svg';
 import DefaultStepper from './Stepper';
