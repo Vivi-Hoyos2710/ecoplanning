@@ -12,6 +12,7 @@ class Brand(models.Model):
 class Car(models.Model):
     brand = models.ForeignKey("Brand", on_delete=models.CASCADE)
     user = models.ForeignKey("user.User", on_delete=models.CASCADE)
+    license_plate = models.CharField(max_length=255)
     model = models.IntegerField()
 
 

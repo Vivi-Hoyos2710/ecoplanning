@@ -32,7 +32,7 @@ export async function getLoginToken(loginForm: LoginFormData): Promise<any> {
       loginRequest
     );
     localStorage.setItem('tokenKey', response.data.auth_token);
-    window.location.href = '/';
+    
   } catch (error) {
     return error;
   }

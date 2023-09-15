@@ -18,6 +18,7 @@ class CarSerializer(ModelSerializer):
             "user",
             "brand",
             "brand__name",
+            "license_plate",
             "model",
         ]
 
