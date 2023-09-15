@@ -1,11 +1,10 @@
 import React from "react";
 import {Tabs,TabsHeader,TabsBody,Tab,TabPanel,Card,Typography, Timeline,TimelineItem,TimelineConnector,TimelineHeader,TimelineIcon,TimelineBody,} from "@material-tailwind/react";
-import { FiUser,FiTruck,FiBatteryCharging} from "react-icons/fi";
-
-import { LiaTemperatureHighSolid} from "react-icons/lia";
+import {FiTruck,FiBatteryCharging} from "react-icons/fi";
+import {LiaTemperatureHighSolid} from "react-icons/lia";
 import {FaTrafficLight} from "react-icons/fa";
 import {AiOutlineCaretRight} from "react-icons/ai";
-import fondo1 from '../../img/FondoRecomendacionesBateria.svg';
+import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 
 import test from '../../img/gifCarro.gif';
 import { IconContext } from "react-icons";

@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Card, Input, Checkbox, Button, Typography, Alert } from '@material-tailwind/react';
 import { AiFillInfoCircle } from 'react-icons/ai';
 import fondo1 from '../../img/fondoLogin.svg';
-import fondo2 from '../../img/Fondohojitas.svg';
+import fondo2 from '../../img/fondoHojitas.svg';
 import { LoginFormData } from '../../types/AuthTypes';
 
 const Login = () => {
