@@ -1,11 +1,17 @@
 from rest_framework.serializers import ModelSerializer, CharField, FloatField
-from .models import Brand, Car, Station
+from .models import AppModel, Brand, Car, Station
 
 
 class BrandSerializer(ModelSerializer):
     class Meta:
         model = Brand
         fields = ["id", "name"]
+
+
+class AppModelSerializer(ModelSerializer):
+    class Meta:
+        model = AppModel
+        fields = ["id", "name", "brand"]
 
 
 class CarSerializer(ModelSerializer):
