@@ -1,6 +1,7 @@
 import React from "react";
 import {Navbar,MobileNav,Typography,Button,IconButton,Card} from "@material-tailwind/react";
 import logo from '../../img/logo.svg';
+import { Link} from "react-router-dom";
 export function NavbarDefault() {
   const [openNav, setOpenNav] = React.useState(false);
 
@@ -13,62 +14,33 @@ export function NavbarDefault() {
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
-      </Typography>
+      <Button variant="outlined" color="gray"  size="sm" className="rounded-full shadow-md ">
+        About us
+      </Button>
+      <Button variant="outlined" color="gray"  size="sm" className="rounded-full shadow-md">
+      Testimonials
+      </Button>
+      <Button variant="outlined"  color="gray" size="sm" className="rounded-full shadow-md">
+      Analytics
+      </Button>
     </ul>
   );
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 mb-10">
+    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 mb-30" style={{ borderRadius: '50px', backgroundColor: 'white' }}>
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
       <img
-                           width="130" height="80"
+                           width="160" height="100"
                             src={logo}
                             alt='logo'
 
                         />
         <div className="hidden lg:block">{navList}</div>
-        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-          <span>Buy Now</span>
-        </Button>
+        <Link to="/signin">
+          <Button variant="gradient" color="gray" size="sm" fullWidth className="hidden lg:inline-block mb-2 rounded-full shadow-md">
+            Sign Up
+            </Button>
+            </Link>
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -110,9 +82,12 @@ export function NavbarDefault() {
       <MobileNav open={openNav}>
         <div className="container mx-auto">
           {navList}
-          <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Buy Now</span>
+          <Link to="/signin">
+          <Button variant="gradient" color="gray" size="sm" fullWidth className="mb-2 rounded-full">
+            <span>Sign Up</span>
+
           </Button>
+          </Link>
         </div>
       </MobileNav>
     </Navbar>

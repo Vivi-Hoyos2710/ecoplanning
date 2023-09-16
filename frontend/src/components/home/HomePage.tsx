@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import SignIn from './SignIn';
 import Home from './Home';
-import BatteryCareTips from './BatteryCareTips';
+import BatteryCareTips from '../driver/BatteryCareTips';
 
 const Homepage = () => {
   return (
@@ -12,7 +12,6 @@ const Homepage = () => {
         <Route path="/" element={<Home/>} />
         <Route path="login" element={<Login />} />
         <Route path="signin" element={<SignIn />} />
-        <Route path="bct" element={< BatteryCareTips />} />
       </Routes>
     </BrowserRouter>
 
