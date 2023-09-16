@@ -10,6 +10,7 @@ from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import (
     DjangoFilterBackend,
 )
+from .models import Car
 
 
 class BrandView(ModelViewSet):
@@ -49,7 +50,6 @@ class CarView(ModelViewSet):
     serializer_class = CarSerializer
     filter_backends = [
         DjangoFilterBackend,
-        OrderingFilter,
     ]
     filterset_fields = {
         "id": ["exact"],
@@ -61,6 +61,9 @@ class CarView(ModelViewSet):
         "model__name": ["exact"],
     }
     ordering_fields = filterset_fields
+
+    def get_queryset(self):
+        return Car.objects.all()
 
     def get_queryset(self):
         return Car.objects.all()

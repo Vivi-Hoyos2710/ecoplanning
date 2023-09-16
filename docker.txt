@@ -1,0 +1,2 @@
+docker compose exec (contenedor) comando
+docker compose exec react npm i dotenv
