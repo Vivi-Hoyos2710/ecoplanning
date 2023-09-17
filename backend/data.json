@@ -1,0 +1,330 @@
+[
+    {
+        "model": "ecoparking.brand",
+        "pk": 1,
+        "fields":{
+            "name": "Renault"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 1,
+        "fields":{
+            "name": "Zoe Phase 2",
+            "brand": 1
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 2,
+        "fields":{
+            "name": "Twizy",
+            "brand": 1
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 3,
+        "fields":{
+            "name": "Zoe",
+            "brand": 1
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 2,
+        "fields":{
+            "name": "Mercedes"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 4,
+        "fields":{
+            "name": "Smart ED Gen.3",
+            "brand": 2
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 5,
+        "fields":{
+            "name": "Smart ED/EQ Gen.4",
+            "brand": 2
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 3,
+        "fields":{
+            "name": "Tesla"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 6,
+        "fields":{
+            "name": "Model S",
+            "brand": 3
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 7,
+        "fields":{
+            "name": "Roadsters",
+            "brand": 3
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 4,
+        "fields":{
+            "name": "Toyota"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 8,
+        "fields":{
+            "name": "RAV4 EV",
+            "brand": 4
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 5,
+        "fields":{
+            "name": "Volkswagen"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 9,
+        "fields":{
+            "name": "e-Up",
+            "brand": 5
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 6,
+        "fields":{
+            "name": "BMW"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 10,
+        "fields":{
+            "name": "i3",
+            "brand": 6
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 11,
+        "fields":{
+            "name": "i3s",
+            "brand": 6
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 7,
+        "fields":{
+            "name": "Mini"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 12,
+        "fields":{
+            "name": "Cooper SE",
+            "brand": 7
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 8,
+        "fields":{
+            "name": "Fiat"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 13,
+        "fields":{
+            "name": "500e",
+            "brand": 8
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 9,
+        "fields":{
+            "name": "Hyundai"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 14,
+        "fields":{
+            "name": "Ioniq vFL",
+            "brand": 9
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 15,
+        "fields":{
+            "name": "Ioniq 5",
+            "brand": 9
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 16,
+        "fields":{
+            "name": "Kona",
+            "brand": 9
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 17,
+        "fields":{
+            "name": "Ioniq FL",
+            "brand": 9
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 10,
+        "fields":{
+            "name": "Jaguar"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 18,
+        "fields":{
+            "name": "IPace",
+            "brand": 10
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 11,
+        "fields":{
+            "name": "Kia"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 19,
+        "fields":{
+            "name": "e-Niro",
+            "brand": 11
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 20,
+        "fields":{
+            "name": "Soul EV",
+            "brand": 11
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 12,
+        "fields":{
+            "name": "Maxus"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 21,
+        "fields":{
+            "name": "eDeliver3",
+            "brand": 12
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 13,
+        "fields":{
+            "name": "Mercedes-Benz"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 22,
+        "fields":{
+            "name": "B250E W242",
+            "brand": 13
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 14,
+        "fields":{
+            "name": "MG"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 23,
+        "fields":{
+            "name": "EV",
+            "brand": 14
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 24,
+        "fields":{
+            "name": "ZS EV",
+            "brand": 14
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 15,
+        "fields":{
+            "name": "Mitsubishi"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 25,
+        "fields":{
+            "name": "Trio",
+            "brand": 15
+        }
+    },
+    {
+        "model": "ecoparking.brand",
+        "pk": 16,
+        "fields":{
+            "name": "Nissan"
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 26,
+        "fields":{
+            "name": "Leaf",
+            "brand": 16
+        }
+    },
+    {
+        "model": "ecoparking.appmodel",
+        "pk": 27,
+        "fields":{
+            "name": "e-NV200",
+            "brand": 16
+        }
+    }
+]
