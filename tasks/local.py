@@ -33,6 +33,11 @@ def debug_django(c):
 
 
 @task
+def add_fixtures(c):
+    c.run("docker-compose exec django python manage.py loaddata")
+
+
+@task
 def pytest(c):
     """Run django manage.py commands"""
     container_name = get_full_container_name(c, "django")
