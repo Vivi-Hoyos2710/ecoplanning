@@ -5,7 +5,7 @@ import SignIn from './SignIn';
 import Home from './Home';
 import BatteryCareTips from '../driver/BatteryCareTips';
 
-const Homepage = () => {
+const HomeApp = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -17,4 +17,4 @@ const Homepage = () => {
 
   );
 };
-export default Homepage;
+export default HomeApp;

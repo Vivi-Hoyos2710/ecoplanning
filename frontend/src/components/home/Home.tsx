@@ -59,8 +59,8 @@ const Section1 = () => {
               </Typography>
 
               <div className="flex flex-col items-center justify-center mt-3">
-              <Link to="/login">
-                  <Button type="submit" variant="gradient" color="cyan" className="rounded-full">Start</Button>
+              <Link to="/signin">
+                  <Button type="submit" variant="gradient" color="cyan" className="rounded-full">Sign Up</Button>
                   </Link>
                 </div>
 

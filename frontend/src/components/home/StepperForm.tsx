@@ -103,35 +103,35 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             };
             signIn();
         }
-        
+
     }
     return (
         <div className="w-full ">
             {(stepIndex === 0) && (
                 <Card shadow={true} className="shadow-lg w-full rounded-t-lg p-8 " style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)" }} >
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                        Registra tus datos personales
+                    Register your personal data
                     </Typography>
                     <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
-                        <Input type="text" label="Nombre" {...register('name', {
-                            required: 'Debes ingresar tu nombre completo'
+                        <Input type="text" label="Name" {...register('name', {
+                            required: 'You must enter your full name'
                         })} error={errors.name !== undefined} />
                         {errors.name && <Typography variant="small" color="red">{errors.name?.message}</Typography>}
 
-                        <Input type="text" label="Correo" {...register('email', {
-                            required: 'Debes ingresar un email', pattern: {
+                        <Input type="text" label="E-mail" {...register('email', {
+                            required: 'You must enter an email', pattern: {
                                 value: /^\S+@\S+.\S+$/i,
-                                message: 'El email ingresado no es válido',
+                                message: 'The email entered is invalid "someone@example.com" ',
                             },
                         })} error={errors.email !== undefined} />
                         {errors.email && <Typography variant="small" color="red">{errors.email?.message}</Typography>}
                         {errorUser !== '' && <Typography variant="small" color="red">{errorUser}</Typography>}
 
 
-                        <Input type="password" label="Contraseña" {...register('password', {
-                            required: 'Debes ingresar una contraseña ', pattern: {
+                        <Input type="password" label="Password" {...register('password', {
+                            required: 'You must enter a password', pattern: {
                                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                                message: 'Mínimo 8 caracteres, una minúscula, una mayúscula, y un dígito',
+                                message: 'Minimum 8 characters, one lowercase, one uppercase, and one digit',
                             },
                         })} error={errors.password !== undefined} />
                         {errors.password && <Typography variant="small" color="red">{errors.password?.message}</Typography>}
@@ -139,7 +139,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                         <button className="test" type="submit" hidden>hidden</button>
                     </form>
                     <Typography color="gray" className="mt-4 text-center font-normal">
-                        Ya tienes cuenta?{' '}
+                    Already have an account?{' '}
                         <Link to="/login" className="font-medium text-gray-900">Login</Link>
 
                     </Typography>
@@ -149,28 +149,28 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             {(stepIndex === 1) && (
                 <Card shadow={true} className="shadow-lg w-full rounded-t-lg p-8 " style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)" }} >
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                        Registra los datos de uno de tus vehiculos
+                    Register the details of one of your vehicles
                     </Typography>
                     <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
-                        <Input type="text" label="Placa" {...register('regisPlate', {
-                            required: 'Debes ingresar una regisPlate', pattern: {
+                        <Input type="text" label="Vehicle plate" {...register('regisPlate', {
+                            required: 'You must enter a vehicle plate', pattern: {
                                 value: /^[A-Z]{3}\d{3}/,
-                                message: 'Ingresa una placa válida: ej: ABC123',
+                                message: 'Enter a valid vehicle plate "ABC123" ',
                             },
                         })} error={errors.name !== undefined} />
                         {errors.regisPlate && <Typography variant="small" color="red">{errors.regisPlate?.message}
                         </Typography>}
-                        <div className="flex justify-center items-center h-full">
-                            <div className="flex w-72 flex-col gap-6 flex">
+                        <div className="flex justify-center items-center w-full h-full">
+                            <div className="flex w-72 flex-col gap-6 flex w-full ">
 
                                 <Controller
                                     name="brand"
                                     control={control}
-                                    rules={{ required: 'Debes ingresar marca' }}
+                                    rules={{ required: 'You must enter the brand' }}
 
                                     render={({ field }) => (
                                         <Select
-                                            label="Selecciona marca"
+                                            label="Select a brand"
                                             error={errors.brand !== undefined}
                                             {...field}
                                         >
@@ -188,10 +188,10 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                                 <Controller
                                     name="model"
                                     control={control}
-                                    rules={{ required: 'Debes ingresar modelo' }}
+                                    rules={{ required: 'You must enter a vehicle model' }}
                                     render={({ field }) => (
                                         <Select
-                                            label="Selecciona modelo"
+                                            label="Select a model"
                                             error={errors.model !== undefined}
                                             {...field}
 
@@ -224,10 +224,10 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             {(stepIndex === 2) && (
                 <Card shadow={true} className="shadow-lg w-full rounded-t-lg p-8 " style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)" }} >
                     <Typography variant="h4" color="gray" className="text-center">
-                        Bienvenido
+                    Welcome
                     </Typography>
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                        Comienza a experimentar la verdadera tranquilidad de conducir un coche eléctrico
+                    Start experiencing the true peace of mind of driving an electric car.
                     </Typography>
                     <div className="flex justify-center items-center">
                         <img
