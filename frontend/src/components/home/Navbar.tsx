@@ -36,9 +36,9 @@ export function NavbarDefault() {
 
                         />
         <div className="hidden lg:block">{navList}</div>
-        <Link to="/signin">
+        <Link to="/login">
           <Button variant="gradient" color="gray" size="sm" fullWidth className="hidden lg:inline-block mb-2 rounded-full shadow-md">
-            Sign Up
+            Login
             </Button>
             </Link>
         <IconButton
@@ -82,9 +82,9 @@ export function NavbarDefault() {
       <MobileNav open={openNav}>
         <div className="container mx-auto">
           {navList}
-          <Link to="/signin">
+          <Link to="/login">
           <Button variant="gradient" color="gray" size="sm" fullWidth className="mb-2 rounded-full">
-            <span>Sign Up</span>
+            <span>Login</span>
 
           </Button>
           </Link>

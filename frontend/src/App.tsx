@@ -3,7 +3,7 @@ import './App.css';
 import { Spinner } from '@material-tailwind/react';
 import { NoUser, User, UserContext } from './types/UserTypes';
 import AdminApp from './components/admin/AdminApp';
-import HomePage from './components/home/HomePage';
+import HomeApp from './components/home/HomeApp';
 import DriverApp from './components/driver/DriverApp';
 import { getLoggedUser } from './services/AuthService';
 
@@ -24,7 +24,7 @@ function App() {
   if (loading) {
     display = <Spinner />;
   } else if (user === NoUser) {
-    display = <HomePage />;
+    display = <HomeApp />;
   } else if (user.is_superuser) {
     display = <AdminApp />;
   } else {

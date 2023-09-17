@@ -5,59 +5,59 @@ import {LiaTemperatureHighSolid} from "react-icons/lia";
 import {FaTrafficLight} from "react-icons/fa";
 import {AiOutlineCaretRight} from "react-icons/ai";
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
-
+import fondo2 from '../../img/fondoRecomendacionesBateria1.svg';
 import test from '../../img/gifCarro.gif';
 import { IconContext } from "react-icons";
 
 const BatteryCareTips = () =>  {
   const data = [
     {
-      label: "Carga",
+      label: "Charge",
       value: "html",
-      tittle:`Recargar la batería de forma regular` ,
+      tittle:`Recharging the battery consciously` ,
       icon:FiBatteryCharging,
 
       icon1:AiOutlineCaretRight,
-      desc:`Es recomendable mantenerla con una carga aproximada del 20 al 80%, evitando tanto la descarga completa como la sobrecarga máxima en el momento de la recarga.`,
-      desc1:`El objetivo principal de esta práctica es reducir al mínimo el desgaste de las celdas de la batería, reservando la carga completa únicamente para situaciones en las que sea necesario, como en viajes prolongados.`,
-      desc2:`Limitar el uso de la carga rápida y favorecer la carga normal es beneficioso, ya que contribuye a una mayor duración de la batería y reduce el desgaste a largo plazo.`,
+      desc:`It is advisable to maintain it with a charge of approximately 20 to 80%, avoiding both full discharge and maximum overcharge at the time of recharging.`,
+      desc1:`The main objective of this practice is to minimize the wear and tear on the battery cells, reserving full charging only for situations where it is necessary, such as long trips.`,
+      desc2:`Limiting the use of fast charging and favoring normal charging is beneficial, as it contributes to longer battery life and reduces long-term wear and tear.`,
       image:"https://www.mundodeportivo.com/urbantecno/hero/2022/04/que-se-necesita-para-cargar-coche-electrico-casa.jpg?width=1200&aspect_ratio=16:9"
 
     },
     {
-      label: "Temperatura",
+      label: "Temperature",
       value: "react",
-      tittle:`Reduce la exposición a temperaturas muy altas o bajas` ,
+      tittle:`Reduces exposure to very high or low temperatures` ,
       icon:LiaTemperatureHighSolid,
 
       icon1:AiOutlineCaretRight,
-      desc:`La batería es susceptible a las temperaturas extremas, lo que puede comprometer su durabilidad. Por esta razón, es esencial evitar la exposición prolongada a condiciones climáticas extremas en la medida de lo posible.`,
-      desc1:`Se recomienda estacionar el vehículo en áreas sombreadas o bajo techo siempre que sea factible.`,
-      desc2:`Es aconsejable no dejar el automóvil al aire libre durante largos períodos cuando las temperaturas sean inferiores a 5°C o superiores a 35°C.`,
+      desc:`The battery is susceptible to extreme temperatures, which may compromise its durability, for this reason, it is essential to avoid prolonged exposure to extreme weather conditions as much as possible.`,
+      desc1:`It is recommended to park the vehicle in shaded areas or under cover whenever feasible.`,
+      desc2:`It is advisable not to leave the car in the open air for long periods of time when temperatures are below 5°C or above 35°C.`,
 
       image: test
     },
     {
-      label: "Conducción",
+      label: "Driving",
       value: "vue",
-      tittle:`Conduce con eficacia` ,
+      tittle:`Drive efficiently` ,
       icon:FiTruck,
 
       icon1:AiOutlineCaretRight,
-      desc:`Opta por una conducción suave y eficiente, evitando aceleraciones bruscas y frenadas fuertes, lo que contribuirá a reducir la demanda de la batería.`,
-      desc1:`La forma de conducir importa. La potencia de descarga también afecta al envejecimiento de las celdas. Usar constantemente la máxima potencia estresa la batería.`,
-      desc2:`Planifica tus rutas con nosotros para evitar pendientes pronunciadas y congestiones de tráfico, lo que contribuirá a reducir la carga sobre la batería`,
+      desc:`Opt for smooth and efficient driving, avoiding sudden acceleration and hard braking, which will help reduce the demand on the battery.`,
+      desc1:`The way you drive matters, discharge power also affects cell aging, constantly using maximum power stresses the battery.`,
+      desc2:`Plan your routes with us to avoid steep slopes and traffic congestion, which will help reduce the load on the battery.`,
       image: test
     },
     {
-      label:"Trayecto",
+      label:"Highway",
       value:"angular",
-      tittle:`Realiza un mantenimiento adecuado`,
+      tittle:`Efficient pathways`,
       icon:FaTrafficLight,
       icon1:AiOutlineCaretRight,
-      desc:`El mayor consumo de batería se produce en el arranque.Hasta pasados unos minutos el alternador no empieza a recargarla. Cuando abusas de trayectos cortos, la vida útil se acorta considerablemente.`,
-      desc1:`Quienes utilizan el coche muy de vez en cuando, sobre todo cuando la batería ya tiene un tiempo, habrán comprobado que puede descargarse por completo.`,
-      desc2:`Lo ideal es poner en marcha el coche al menos una vez al mes y recorre 30 o 40 kilómetros por carretera o autovía.`,
+      desc:`The highest battery consumption occurs at start-up, and the alternator does not start recharging the battery until after a few minutes, when you abuse short journeys, the service life is considerably shortened.`,
+      desc1:`It is advisable to opt for flatter routes and avoid uneven roads and steep climbs, as the latter can affect the battery of an electric car, reducing energy efficiency and decreasing the vehicle's range.`,
+      desc2:`If you use your electric car rarely, especially with an older battery, avoid discharging it completely, run it at least once a month and drive about 30-40 miles on the highway to maintain battery health.`,
 
       image: test
     },
@@ -65,19 +65,19 @@ const BatteryCareTips = () =>  {
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-screen"
-      style={{ backgroundImage: `url(${fondo1}), url(${fondo1})`, margin: '0', padding: '0' }}
+      style={{ backgroundImage: `url(${fondo1}), url(${fondo2})`, margin: '0', padding: '0' }}
     >
       <div className="flex flex-col justify-center items-center min-h-screen  p-5 md:p-0">
 
       <div className="flex flex-col items-center space-y-8 w-full max-w-screen-lg">
       <Card shadow={true} className="shadow-lg rounded-tl rounded-br p-3 " >
-            <Typography  color="gray" className="mt-1 font-bold text-center">
-            Para conservar la batería de tu coche eléctrico debes seguir estas sugerencias
+            <Typography variant="h4" color="gray" className="mt-1 font-bold text-center">
+            To conserve the battery of your electric car, you should follow these tips
             </Typography>
           </Card>
     <div className="w-full ">
-    <Tabs value="html">
-      <TabsHeader>
+    <Tabs value="html" >
+      <TabsHeader style={{ backgroundColor: '#dcf6de' }}>
         {data.map(({ label, value }) => (
           <Tab key={value} value={value}>
             {label}
