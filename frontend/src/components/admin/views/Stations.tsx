@@ -1,17 +1,23 @@
 import React from 'react';
-import { Card, Typography } from "@material-tailwind/react";
+import { Card, Typography,Button, Input } from "@material-tailwind/react";
 import { useState } from 'react';
+
 interface TableData{
     name:string,
     coordinate:string
 }
+const szs = ()=>{console.log("ho")}
 export const Stations = () => {
     const [tableData,setTableData]= useState<TableData|null>(null);
   return (
-    <div className="bg-white">
-        <div className="border-b-4 border-black">
+    <div className="bg-white p-5">
+        <div className="flex flex-row justify-between border-b-4 border-black pb-5">
             <h1> Stations</h1>
-
+            <div className="flex flex-row m-2 w-1/2 justify-center justify-items-center	items-center">
+              <Input label='Name'></Input>
+              <Input label='Address' type='number'></Input>
+              <Button color='blue' onClick={szs}  >AddStation</Button>
+            </div>
         </div>
         <div>
             <DefaultTable/>
@@ -20,9 +26,9 @@ export const Stations = () => {
   );
 };
 
- 
+
 const TABLE_HEAD = ["Name", "Coordinate","Edit"];
- 
+
 const TABLE_ROWS = [
   {
     name: "Aguacatala",
@@ -33,7 +39,7 @@ const TABLE_ROWS = [
     coordinate: "Cra 1236257",
   }
 ];
- 
+
 const DefaultTable=() =>{
   return (
     <Card className="h-full w-full overflow-scroll">
@@ -71,7 +77,7 @@ const DefaultTable=() =>{
                     {name}
                   </Typography>
                 </td>
-                
+
                 <td className={classes}>
                   <Typography
                     variant="small"
