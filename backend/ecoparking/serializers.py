@@ -5,7 +5,7 @@ from .models import AppModel, Brand, Car, Station
 class BrandSerializer(ModelSerializer):
     class Meta:
         model = Brand
-        fields = ["id", "name"]
+        fields = ["id", "name",]
 
 
 class AppModelSerializer(ModelSerializer):
@@ -48,3 +48,8 @@ class StationSerializer(ModelSerializer):
             "coordinate__longitud",
             "coordinate__latitud",
         ]
+class BrandModelSerializer(ModelSerializer):
+    models = AppModelSerializer(many=True, read_only=True, source='appmodel_set')
+    class Meta:
+        model = Brand
+        fields = ('id', 'name', 'models')

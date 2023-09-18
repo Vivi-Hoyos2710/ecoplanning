@@ -9,31 +9,21 @@ import { Card, Input, Typography, Select, Option, Spinner } from '@material-tail
 import { SignInFormData } from '../../types/AuthTypes';
 import { Car } from '../../types/CarTypes';
 import { Model } from '../../types/ModelTypes';
-import { getBrandList } from '../../services/BrandService';
+import { getBrandListFilter, getBrandModelList } from '../../services/BrandService';
+import { getModelListFilter } from '../../services/ModelService';
 import { Link } from "react-router-dom";
 import { getLoginToken } from '../../services/AuthService';
+import { FilterOrder, FilterNameValue } from '../../types/ServiceTypes';
 
 interface StepperProps {
     stepIndex: number,
     checkValid: any //buscar type de una function
 
 }
-//Fill model options untils there is a service related to it
-const modelsFiller = [
-    {
-        id: 1,
-        name: "model1"
-    },
-    {
-        id: 2,
-        name: "model2"
-    },
-    {
-        id: 3,
-        name: "model3"
-    }
-];
-//---------
+const BrandOrder: FilterOrder = {
+    ordering: "name",
+};
+
 const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
     const [errorUser, setErrorUser] = useState<string>('');
     const [brands, setBrands] = useState<Brand[]>([]);
@@ -42,14 +32,31 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
     const [modelId, setModelId] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     useEffect(() => {
-
+        console.log(modelId);
         const getBrands = async () => {
-            const brands = await getBrandList();
+            const brands = await getBrandListFilter(BrandOrder);
             setBrands(brands);
-            setModels(modelsFiller);
         }
         getBrands();
-    }, []);
+        const getModels = async () => {
+            const ModelFilter: FilterNameValue = {
+                name: "",
+                value: "",
+                brand: brandId,
+            };
+            try {
+                const models = await getModelListFilter(ModelFilter);
+                console.log(models);
+                setModels(models);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        if (brandId!=0) {
+            getModels();
+        }
+
+    }, [brandId,modelId]);
 
     const {
         register,
@@ -110,7 +117,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             {(stepIndex === 0) && (
                 <Card shadow={true} className="shadow-lg w-full rounded-t-lg p-8 " style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)" }} >
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                    Register your personal data
+                        Register your personal data
                     </Typography>
                     <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
                         <Input type="text" label="Name" {...register('name', {
@@ -139,7 +146,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                         <button className="test" type="submit" hidden>hidden</button>
                     </form>
                     <Typography color="gray" className="mt-4 text-center font-normal">
-                    Already have an account?{' '}
+                        Already have an account?{' '}
                         <Link to="/login" className="font-medium text-gray-900">Login</Link>
 
                     </Typography>
@@ -149,7 +156,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             {(stepIndex === 1) && (
                 <Card shadow={true} className="shadow-lg w-full rounded-t-lg p-8 " style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)" }} >
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                    Register the details of one of your vehicles
+                        Register the details of one of your vehicles
                     </Typography>
                     <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
                         <Input type="text" label="Vehicle plate" {...register('regisPlate', {
@@ -193,7 +200,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                                         <Select
                                             label="Select a model"
                                             error={errors.model !== undefined}
-                                            {...field}
+                                        
 
                                         >
                                             {models.map((model) => (
@@ -224,10 +231,10 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             {(stepIndex === 2) && (
                 <Card shadow={true} className="shadow-lg w-full rounded-t-lg p-8 " style={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)" }} >
                     <Typography variant="h4" color="gray" className="text-center">
-                    Welcome
+                        Welcome
                     </Typography>
                     <Typography color="gray" className="mt-1 font-normal text-center" >
-                    Start experiencing the true peace of mind of driving an electric car.
+                        Start experiencing the true peace of mind of driving an electric car.
                     </Typography>
                     <div className="flex justify-center items-center">
                         <img

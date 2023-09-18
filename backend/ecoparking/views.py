@@ -1,9 +1,11 @@
 from .models import AppModel, Car, Station, Brand
+from django.db.models import Prefetch
 from .serializers import (
     AppModelSerializer,
     BrandSerializer,
     CarSerializer,
     StationSerializer,
+    BrandModelSerializer
 )
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import OrderingFilter
@@ -80,3 +82,10 @@ class StationView(ModelViewSet):
 
     def get_queryset(self):
         return Station.objects.all()
+
+class BrandModel(ModelViewSet):
+    serializer_class = BrandModelSerializer
+
+    def get_queryset(self):
+        queryset = Brand.objects.prefetch_related('appmodel_set').all()
+        return queryset

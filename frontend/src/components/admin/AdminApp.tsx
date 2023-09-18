@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import {AdminHome} from './AdminHome';
+import { AdminHome } from './AdminHome';
 const AdminApp = () => {
   return (
     <BrowserRouter>
