@@ -49,7 +49,6 @@ class CarView(ModelViewSet):
     serializer_class = CarSerializer
     filter_backends = [
         DjangoFilterBackend,
-        OrderingFilter,
     ]
     filterset_fields = {
         "id": ["exact"],
