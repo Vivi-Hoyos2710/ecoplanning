@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, CharField, FloatField
-from .models import AppModel, Brand, Car, Station
+from .models import AppModel, Brand, Car, Station, Coordinate
 
 
 class BrandSerializer(ModelSerializer):
@@ -35,11 +35,11 @@ class CarSerializer(ModelSerializer):
 
 
 class StationSerializer(ModelSerializer):
-    coordinate__longitud = FloatField(
-        source="coordinate.longitud", read_only=True, required=False
+    coordinate__longitude = FloatField(
+        source="coordinate.longitude", read_only=True, required=False
     )
-    coordinate__latitud = FloatField(
-        source="coordinate.latitud", read_only=True, required=False
+    coordinate__latitude = FloatField(
+        source="coordinate.latitude", read_only=True, required=False
     )
 
     class Meta:
@@ -47,10 +47,33 @@ class StationSerializer(ModelSerializer):
         fields = [
             "id",
             "name",
+            "address",
             "coordinate",
-            "coordinate__longitud",
-            "coordinate__latitud",
+            "coordinate__longitude",
+            "coordinate__latitude",
         ]
+        
+     def create(self, validated_data):
+        print(validated_data, flush=True)
+        coordinate = Coordinate.objects.get_or_create(
+            [
+                validated_data["coordinate__latitude"],
+                validated_data["coordinate__longitude"],
+            ]
+        )
+        validated_data["coordinate"] = coordinate.id
+        return super.create(validated_data)
+
+    def update(self, station, validated_data):
+        coordinate = Coordinate.objects.get_or_create(
+            [
+                validated_data["coordinate__latitude"],
+                validated_data["coordinate__longitude"],
+            ]
+        )
+        validated_data["coordinate"] = coordinate.id
+        return super.update(validated_data)
+
 
 
 class BrandModelSerializer(ModelSerializer):

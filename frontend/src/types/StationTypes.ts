@@ -2,14 +2,28 @@ type Station = {
     "id": number;
     "name": string;
     "coordinate": number;
-    "coordinate__longitud": number;
-    "coordinate__latitud": number;
+    "coordinate__longitude": number;
+    "coordinate__latitude": number;
 };
 
 type StationInfo = {
     "name": string;
-    "longitud": number;
-    "latitud": number;
+    "longitude": number;
+    "latitude": number;
+    "address": string;
 }
 
-export type { Station , StationInfo };
+type GeocodingCoords={
+    "lng":number,
+    "lat":number,
+}
+
+type Coords ={
+    "longitude":number,
+    "latitude":number
+}
+type StationForm ={
+    "name" : string,
+    "address" : string,
+}
+export type { Station , StationInfo, StationForm, Coords ,GeocodingCoords};

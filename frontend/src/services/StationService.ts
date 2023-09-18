@@ -13,9 +13,11 @@ export async function getStationList(filtros: FilterNameValue): Promise<Station[
 }
 
 
-export async function createStation(car: StationInfo) {
+export async function createStation(station: StationInfo) {
+    console.log("creando gonorreas")
+    console.log(station)
     await axios.post<Station>(
         'http://127.0.0.1:8000/api/v1/station/',
-        car
+        station
     );
 }
