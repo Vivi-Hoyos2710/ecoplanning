@@ -9,12 +9,11 @@ const HomeApp = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="signin" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
-
   );
 };
 export default HomeApp;

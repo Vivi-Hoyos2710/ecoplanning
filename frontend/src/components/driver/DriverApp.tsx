@@ -6,8 +6,8 @@ const DriverApp = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MapView/>} />
-        <Route path="bct" element={< BatteryCareTips />} />
+        <Route path="/" element={<MapView />} />
+        <Route path="bct" element={<BatteryCareTips />} />
       </Routes>
     </BrowserRouter>
   );

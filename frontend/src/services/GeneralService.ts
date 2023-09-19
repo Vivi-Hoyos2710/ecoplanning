@@ -1,13 +1,11 @@
-import { FilterNameValue,FilterOrder } from "../types/ServiceTypes";
+import { Filter } from '../types/ServiceTypes';
 
-export function ponerFiltros(filtros: FilterNameValue|FilterOrder){
-    return {
-        params:{
-            ...filtros
-        }
-    }
-}
-
-export function getToday(){
-    return new Date().toISOString().split('T')[0];
+export function ponerFiltros(filters: Filter[]) {
+  const params: { [key: string]: string } = {};
+  filters.forEach((filter: Filter) => {
+    params[filter.name] = filter.value;
+  });
+  return {
+    params
+  };
 }

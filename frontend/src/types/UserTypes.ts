@@ -7,10 +7,10 @@ type User = {
 };
 
 type UserInfo = {
-    email: string;
-    password: string;
-    name: string;
-}
+  email: string;
+  password: string;
+  name: string;
+};
 
 const NoUser: User = {
   id: -1,

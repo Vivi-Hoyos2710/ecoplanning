@@ -1,11 +1,11 @@
 type Model = {
-    id: number,
-    name: string,
-    brand: number
+  id: number;
+  name: string;
+  brand: number;
 };
 type ModelInfo = {
-    name: string,
-    brand: number
+  name: string;
+  brand: number;
 };
 
-export type { Model,ModelInfo };
+export type { Model, ModelInfo };
