@@ -1,4 +1,10 @@
-from rest_framework.serializers import ModelSerializer, CharField, FloatField
+from rest_framework.serializers import (
+    ModelSerializer,
+    CharField,
+    FloatField,
+    PrimaryKeyRelatedField,
+    ValidationError,
+)
 from .models import AppModel, Brand, Car, Station, Coordinate
 
 
@@ -35,12 +41,15 @@ class CarSerializer(ModelSerializer):
 
 
 class StationSerializer(ModelSerializer):
+    coordinate = PrimaryKeyRelatedField(read_only=True)
     coordinate__longitude = FloatField(
         source="coordinate.longitude", read_only=True, required=False
     )
     coordinate__latitude = FloatField(
         source="coordinate.latitude", read_only=True, required=False
     )
+    longitude = FloatField(write_only=True)
+    latitude = FloatField(write_only=True)
 
     class Meta:
         model = Station
@@ -48,31 +57,29 @@ class StationSerializer(ModelSerializer):
             "id",
             "name",
             "address",
+            "longitude",
+            "latitude",
             "coordinate",
             "coordinate__longitude",
             "coordinate__latitude",
         ]
-        
-     def create(self, validated_data):
-        print(validated_data, flush=True)
-        coordinate = Coordinate.objects.get_or_create(
-            [
-                validated_data["coordinate__latitude"],
-                validated_data["coordinate__longitude"],
-            ]
-        )
-        validated_data["coordinate"] = coordinate.id
-        return super.create(validated_data)
 
-    def update(self, station, validated_data):
-        coordinate = Coordinate.objects.get_or_create(
-            [
-                validated_data["coordinate__latitude"],
-                validated_data["coordinate__longitude"],
-            ]
+    def create(self, validated_data):
+        coordinate, created = Coordinate.objects.get_or_create(
+            longitude=validated_data["longitude"],
+            latitude=validated_data["latitude"],
         )
-        validated_data["coordinate"] = coordinate.id
-        return super.update(validated_data)
+        if not created:
+            station_exist = Station.objects.filter(
+                coordinate=coordinate, name=validated_data["name"]
+            ).first()
+            if station_exist is not None:
+                raise ValidationError({"name": "This station already exist"})
+        validated_data.pop("longitude")
+        validated_data.pop("latitude")
+        station = Station.objects.create(coordinate=coordinate, **validated_data)
+        return station
+
 
 
 
