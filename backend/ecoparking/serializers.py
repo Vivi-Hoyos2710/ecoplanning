@@ -81,8 +81,6 @@ class StationSerializer(ModelSerializer):
         return station
 
 
-
-
 class BrandModelSerializer(ModelSerializer):
     models = AppModelSerializer(many=True, read_only=True, source="appmodel_set")
 
