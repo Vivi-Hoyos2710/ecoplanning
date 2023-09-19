@@ -105,7 +105,11 @@ export const IndexCars = () => {
                 </div>
               </div>
               {
-                brand.models.length > 0 ? (<DefaultTable header={["Id", "name"]} tableRow={brand.models} tableKeys={["id", "name"]} />) :
+                brand.models.length > 0 ? (<DefaultTable 
+                  header={["Id", "name","Delete","Edit"]} 
+                  tableRow={brand.models} 
+                  tableKeys={["id", "name"]} 
+                  actions={["DELETE", "EDIT"]}/>) :
                   <Alert variant="ghost">
                     <span>No models added in the brand {brand.name}</span>
                   </Alert>

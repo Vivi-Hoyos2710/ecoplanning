@@ -1,13 +1,13 @@
 import React from 'react';
-import { Card, Typography } from "@material-tailwind/react";
-
+import { Card, Typography,IconButton } from "@material-tailwind/react";
+import { FiEdit2,FiTrash } from "react-icons/fi";
 interface DefaultTableProps {
     header: string[],
-    tableRow: any,
-    tableKeys: string[], 
+    tableRow: any[],
+    tableKeys: string[],
+    actions: string[]; // Use React.ReactNode for dynamic actions
 }
-
-export const DefaultTable = ({ header, tableRow, tableKeys }: DefaultTableProps) => {
+export const DefaultTable = ({ header, tableRow, tableKeys, actions }: DefaultTableProps) => {
     return (
         <Card className="h-full w-full overflow-scroll">
             <table className="w-full min-w-max table-auto text-center">
@@ -30,10 +30,10 @@ export const DefaultTable = ({ header, tableRow, tableKeys }: DefaultTableProps)
                     </tr>
                 </thead>
                 <tbody>
-                    {tableRow.map((row:any, index:any) => {
+                    {tableRow.map((row: any, index: any) => {
                         return (
                             <tr key={index}>
-                                {tableKeys.map((key:any) => (
+                                {tableKeys.map((key: any) => (
                                     <td
                                         key={key}
                                         className="p-4 border-b border-blue-gray-50"
@@ -47,6 +47,17 @@ export const DefaultTable = ({ header, tableRow, tableKeys }: DefaultTableProps)
                                         </Typography>
                                     </td>
                                 ))}
+                                {
+                                    actions.map((action: any) => (
+                                        <td
+                                    key={'delete'}
+                                    className="p-4 border-b border-blue-gray-50"
+                                >
+                                    <IconButton onClick={()=>{console.log(row['id'])}}> {action==='EDIT' && <FiEdit2/>}{action==='DELETE' && <FiTrash/>}</IconButton>
+                                    </td>
+                                    ))
+                                }
+                                
                             </tr>
                         );
                     })}
