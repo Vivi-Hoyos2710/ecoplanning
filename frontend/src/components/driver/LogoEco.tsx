@@ -5,7 +5,7 @@ import logo from '../../img/logo.svg';
 const LogoEco = () => {
   return (
     <div>
-      <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg p-1">
+      <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg">
         <img width="160" height="100" src={logo} alt="logo" />
       </Card>
     </div>
