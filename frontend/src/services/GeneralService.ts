@@ -1,6 +1,6 @@
-import { FilterSet } from "../types/ServiceTypes";
+import { FilterNameValue,FilterOrder } from "../types/ServiceTypes";
 
-export function ponerFiltros(filtros: FilterSet){
+export function ponerFiltros(filtros: FilterNameValue|FilterOrder){
     return {
         params:{
             ...filtros

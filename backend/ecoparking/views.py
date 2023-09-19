@@ -4,6 +4,7 @@ from .serializers import (
     BrandSerializer,
     CarSerializer,
     StationSerializer,
+    BrandModelSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import OrderingFilter
@@ -80,3 +81,20 @@ class StationView(ModelViewSet):
 
     def get_queryset(self):
         return Station.objects.all()
+
+
+class BrandModel(ModelViewSet):
+    serializer_class = BrandModelSerializer
+    filter_backends = [
+        DjangoFilterBackend,
+        OrderingFilter,
+    ]
+    filterset_fields = {
+        "id": ["exact"],
+        "name": ["exact"],
+    }
+    ordering_fields = filterset_fields
+
+    def get_queryset(self):
+        queryset = Brand.objects.prefetch_related("appmodel_set").all()
+        return queryset

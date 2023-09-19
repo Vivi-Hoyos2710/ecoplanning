@@ -1,7 +1,16 @@
-type Filter = {
+type FilterNameValue = {
+    id: number|null;
     name: string;
-    value: string;
+    brand: number|null;
+}
+type FilterNameValueBrandModel = {
+    id: number|null;
+    name: string;
+
+}
+type FilterOrder = {
+    ordering: string;
 }
 
-type FilterSet = Filter[];
-export type { FilterSet };
+
+export type { FilterNameValue,FilterOrder,FilterNameValueBrandModel};

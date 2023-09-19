@@ -1,5 +1,11 @@
 type Model = {
     id: number,
     name: string,
+    brand: number
 };
-export type { Model };
+type ModelInfo = {
+    name: string,
+    brand: number
+};
+
+export type { Model,ModelInfo };
