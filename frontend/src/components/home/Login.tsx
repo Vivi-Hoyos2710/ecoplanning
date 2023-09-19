@@ -78,7 +78,7 @@ const Login = () => {
                 </div>
 
                 {errorsBdd && <Alert variant="gradient">
-                  <AiFillInfoCircle /><Typography variant="small">Incorrect credentials: The email or password provided is invalid. Please try again.</Typography>
+                  <AiFillInfoCircle /><Typography variant="small">The email or password provided is invalid. Please try again.</Typography>
                 </Alert>}
               </form>
 
