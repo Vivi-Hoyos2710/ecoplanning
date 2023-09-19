@@ -1,5 +1,6 @@
 from rest_framework import routers
-from .views import AppModelView, BrandView, CarView, StationView,BrandModel
+from .views import AppModelView, BrandView, CarView, StationView, BrandModel
+
 router = routers.DefaultRouter()
 router.register("brand", BrandView, "brand")
 router.register("app-model", AppModelView, "app-model")
