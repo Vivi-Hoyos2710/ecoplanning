@@ -1,6 +1,6 @@
 import pytest
 from rest_framework.reverse import reverse
-from rest_framework.test import APIClient, force_authenticate
+from rest_framework.test import force_authenticate
 from .factories import UserFactory
 from .views import UserView
 from djoser.views import UserViewSet as DjoserUserViewSet
@@ -39,20 +39,18 @@ class TestUserViewset:
         assert response.data["email"] == user_request[0]["email"]
         assert response.data["is_superuser"] is False
 
-    def test_validate_success(self, request_factory, user_request):
+    def test_validate_success(self, request_factory, user_request, client):
         """Test listing multiple users"""
 
-        client = APIClient()
         url = "/user/validation/"
         response = client.post(url, user_request[0], format="json")
 
         assert response.status_code == 200
         assert response.data["message"] == "Data is valid"
 
-    def test_validate_failure_1(self, request_factory, user_request):
+    def test_validate_failure_1(self, request_factory, user_request, client):
         """Test listing multiple users"""
 
-        client = APIClient()
         user_request[0]["password"] = "Toshor1"
         url = "/user/validation/"
         response = client.post(url, user_request[0], format="json")
@@ -63,10 +61,9 @@ class TestUserViewset:
             == "This password is too short. It must contain at least 8 characters."
         )
 
-    def test_validate_failure_2(self, request_factory, user_request):
+    def test_validate_failure_2(self, request_factory, user_request, client):
         """Test listing multiple users"""
 
-        client = APIClient()
         user = UserFactory()
         user_request[0]["email"] = user.email
         url = "/user/validation/"
