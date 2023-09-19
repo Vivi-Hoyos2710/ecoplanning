@@ -30,4 +30,10 @@ def car_request():
 
 @pytest.fixture()
 def station_request():
-    return {"id": 2, "name": "station", "longitude": "3.14", "latitude": "3.14"}
+    return {
+        "id": 2,
+        "name": "station",
+        "longitude": "3.14",
+        "latitude": "3.14",
+        "address": "address",
+    }

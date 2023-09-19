@@ -32,7 +32,6 @@ class TestCarView:
 
         response = view(request)
 
-        print(response.data)
         assert response.status_code == 201
         assert response.data["license_plate"] == car_request["license_plate"]
         assert response.data["brand"] == car_request["brand"]

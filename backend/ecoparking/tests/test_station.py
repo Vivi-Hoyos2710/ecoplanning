@@ -33,8 +33,12 @@ class TestStationView:
 
         assert response.status_code == 201
         assert response.data["name"] == station_request["name"]
-        assert response.data["coordinate__longitude"] == station_request["longitude"]
-        assert response.data["coordinate__latitude"] == station_request["latitude"]
+        assert response.data["coordinate__longitude"] == float(
+            station_request["longitude"]
+        )
+        assert response.data["coordinate__latitude"] == float(
+            station_request["latitude"]
+        )
 
     def test_create_station_failure(self, request_factory, user, station_request):
         coordinate = CoordinateFactory(longitude=3.14, latitude=3.14)
@@ -47,6 +51,5 @@ class TestStationView:
 
         response = view(request)
 
-        print(response.data)
         assert response.status_code == 400
-        assert response.data["name"][0] == "brand with this name already exists."
+        assert response.data["name"] == "This station already exist"
