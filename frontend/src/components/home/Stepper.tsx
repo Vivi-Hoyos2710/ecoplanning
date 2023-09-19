@@ -1,8 +1,8 @@
-import React from "react";
-import { Stepper, Step, Button, Card } from "@material-tailwind/react";
-import StepperForm from "./StepperForm";
-import { FiUser, FiTruck, FiBatteryCharging } from "react-icons/fi";
-import { useNavigate, Link } from "react-router-dom";
+import React from 'react';
+import { Stepper, Step, Button, Card } from '@material-tailwind/react';
+import StepperForm from './StepperForm';
+import { FiUser, FiTruck, FiBatteryCharging } from 'react-icons/fi';
+import { useNavigate, Link } from 'react-router-dom';
 
 const DefaultStepper = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -20,17 +20,17 @@ const DefaultStepper = () => {
 
   const handleNext = () => {
     if (isLastStep) {
-      navigate("/");
+      navigate('/');
       window.location.reload();
     } else {
-      const elem = document.getElementsByClassName("test")[0] as HTMLElement;
+      const elem = document.getElementsByClassName('test')[0] as HTMLElement;
       elem?.click();
     }
   };
 
   const handlePrev = () => {
     if (activeStep === 0) {
-      window.location.href = "/";
+      window.location.href = '/';
     } else {
       setIsValid(false);
       setActiveStep((cur) => cur - 1);
@@ -46,9 +46,14 @@ const DefaultStepper = () => {
           isLastStep={(value) => setIsLastStep(value)}
           isFirstStep={(value) => setIsFirstStep(value)}
         >
-          <Step style={{ backgroundColor: 'gray' }} ><FiUser /></Step>
-          <Step style={{ backgroundColor: 'gray' }} ><FiTruck /></Step>
-          <Step style={{ backgroundColor: 'gray' }} ><FiBatteryCharging />
+          <Step style={{ backgroundColor: 'gray' }}>
+            <FiUser />
+          </Step>
+          <Step style={{ backgroundColor: 'gray' }}>
+            <FiTruck />
+          </Step>
+          <Step style={{ backgroundColor: 'gray' }}>
+            <FiBatteryCharging />
           </Step>
         </Stepper>
       </Card>
@@ -58,11 +63,10 @@ const DefaultStepper = () => {
         {activeStep === 0 ? (
           <Link to="/">
             <Button variant="gradient" color="gray" className="rounded-full">
-            Back to Home
+              Back to Home
             </Button>
           </Link>
         ) : (
-
           activeStep !== 2 && (
             <Button variant="gradient" color="gray" className="rounded-full" onClick={handlePrev}>
               Back
@@ -70,12 +74,18 @@ const DefaultStepper = () => {
           )
         )}
 
-        <Button type="submit" variant="gradient" color="gray" className="rounded-full" onClick={handleNext}>
-          {isLastStep ? "Finish" : "Next"}
+        <Button
+          type="submit"
+          variant="gradient"
+          color="gray"
+          className="rounded-full"
+          onClick={handleNext}
+        >
+          {isLastStep ? 'Finish' : 'Next'}
         </Button>
       </div>
     </div>
   );
-}
+};
 
 export default DefaultStepper;

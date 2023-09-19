@@ -1,5 +1,11 @@
-from rest_framework.serializers import ModelSerializer, CharField, FloatField
-from .models import AppModel, Brand, Car, Station
+from rest_framework.serializers import (
+    ModelSerializer,
+    CharField,
+    FloatField,
+    PrimaryKeyRelatedField,
+    ValidationError,
+)
+from .models import AppModel, Brand, Car, Station, Coordinate
 
 
 class BrandSerializer(ModelSerializer):
@@ -35,22 +41,44 @@ class CarSerializer(ModelSerializer):
 
 
 class StationSerializer(ModelSerializer):
-    coordinate__longitud = FloatField(
-        source="coordinate.longitud", read_only=True, required=False
+    coordinate = PrimaryKeyRelatedField(read_only=True)
+    coordinate__longitude = FloatField(
+        source="coordinate.longitude", read_only=True, required=False
     )
-    coordinate__latitud = FloatField(
-        source="coordinate.latitud", read_only=True, required=False
+    coordinate__latitude = FloatField(
+        source="coordinate.latitude", read_only=True, required=False
     )
+    longitude = FloatField(write_only=True)
+    latitude = FloatField(write_only=True)
 
     class Meta:
         model = Station
         fields = [
             "id",
             "name",
+            "address",
+            "longitude",
+            "latitude",
             "coordinate",
-            "coordinate__longitud",
-            "coordinate__latitud",
+            "coordinate__longitude",
+            "coordinate__latitude",
         ]
+
+    def create(self, validated_data):
+        coordinate, created = Coordinate.objects.get_or_create(
+            longitude=validated_data["longitude"],
+            latitude=validated_data["latitude"],
+        )
+        if not created:
+            station_exist = Station.objects.filter(
+                coordinate=coordinate, name=validated_data["name"]
+            ).first()
+            if station_exist is not None:
+                raise ValidationError({"name": "This station already exist"})
+        validated_data.pop("longitude")
+        validated_data.pop("latitude")
+        station = Station.objects.create(coordinate=coordinate, **validated_data)
+        return station
 
 
 class BrandModelSerializer(ModelSerializer):

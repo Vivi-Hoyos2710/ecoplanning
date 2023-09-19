@@ -76,6 +76,7 @@ class StationView(ModelViewSet):
         "id": ["exact"],
         "name": ["exact"],
         "coordinate": ["exact"],
+        "address": ["exact"],
     }
     ordering_fields = filterset_fields
 

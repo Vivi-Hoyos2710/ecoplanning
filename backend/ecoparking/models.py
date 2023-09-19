@@ -38,4 +38,5 @@ class Station(models.Model):
         unique_together = ["name", "coordinate"]
 
     name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
     coordinate = models.ForeignKey("Coordinate", on_delete=models.CASCADE)
