@@ -1,19 +1,5 @@
 import React from 'react';
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-  Card,
-  Typography,
-  Timeline,
-  TimelineItem,
-  TimelineConnector,
-  TimelineIcon,
-  TimelineBody,
-  Button
-} from '@material-tailwind/react';
+import {Tabs,TabsHeader,TabsBody,Tab,TabPanel,Card,Typography,Timeline,TimelineItem,TimelineConnector,TimelineIcon,TimelineBody,Button} from '@material-tailwind/react';
 import { FiTruck, FiBatteryCharging } from 'react-icons/fi';
 import { LiaTemperatureHighSolid } from 'react-icons/lia';
 import { FaTrafficLight } from 'react-icons/fa';
