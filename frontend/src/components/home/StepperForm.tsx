@@ -13,7 +13,7 @@ import { getBrandListFilter, getBrandModelList } from '../../services/BrandServi
 import { getModelListFilter } from '../../services/ModelService';
 import { Link } from "react-router-dom";
 import { getLoginToken } from '../../services/AuthService';
-import { FilterOrder, FilterNameValue } from '../../types/ServiceTypes';
+import { FilterOrder} from '../../types/ServiceTypes';
 
 interface StepperProps {
     stepIndex: number,
@@ -39,13 +39,8 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
         }
         getBrands();
         const getModels = async () => {
-            const ModelFilter: FilterNameValue = {
-                name: "",
-                value: "",
-                brand: brandId,
-            };
             try {
-                const models = await getModelListFilter(ModelFilter);
+                const models = await getModelListFilter({id:null,name:"",brand:brandId});
                 console.log(models);
                 setModels(models);
             } catch (error) {
@@ -200,8 +195,6 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
                                         <Select
                                             label="Select a model"
                                             error={errors.model !== undefined}
-                                        
-
                                         >
                                             {models.map((model) => (
                                                 <Option

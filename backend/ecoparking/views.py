@@ -85,7 +85,15 @@ class StationView(ModelViewSet):
 
 class BrandModel(ModelViewSet):
     serializer_class = BrandModelSerializer
-
+    filter_backends = [
+        DjangoFilterBackend,
+        OrderingFilter,
+    ]
+    filterset_fields = {
+        "id": ["exact"],
+        "name": ["exact"],
+    }
+    ordering_fields = filterset_fields
     def get_queryset(self):
         queryset = Brand.objects.prefetch_related('appmodel_set').all()
         return queryset

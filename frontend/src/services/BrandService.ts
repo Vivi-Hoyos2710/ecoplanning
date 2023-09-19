@@ -16,9 +16,9 @@ export async function getBrandList(): Promise<Brand[]> {
     );
     return response.data;
 }
-export async function getBrandModelList(): Promise<BrandModel[]> {
+export async function getBrandModelList(filter:any): Promise<BrandModel[]> {
     const response = await axios.get<BrandModel[]>(
-        'http://127.0.0.1:8000/api/v1/brand-model/'
+        'http://127.0.0.1:8000/api/v1/brand-model/',ponerFiltros(filter)
     );
     return response.data;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { getLoginToken } from '../../services/AuthService';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Card, Input, Checkbox, Button, Typography, Alert } from '@material-tailwind/react';
+import { Card, Input, Button, Typography, Alert } from '@material-tailwind/react';
 import { AiFillInfoCircle } from 'react-icons/ai';
 import fondo1 from '../../img/fondoLogin.svg';
 import fondo2 from '../../img/fondoHojitas.svg';

@@ -2,8 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Dashboard } from "./views/Dashboard";
 import { Stations } from "./views/Stations";
-import { Cars } from "./views/Cars";
-
+import { IndexCars } from './views/Cars/IndexCars';
 
 import {
   Card,
@@ -20,7 +19,8 @@ export const AdminHome = () => {
     setView(newView);
   }
   return (
-    <div className="flex ">
+    
+    <div className="flex h-screen">
       <DefaultSidebar
         changeView={changeView}
       />
@@ -35,10 +35,11 @@ export const AdminHome = () => {
         }
         {
           view === 'cars' &&
-          <Cars/>
+          <IndexCars/>
         }
       </div>
     </div>
+
   );
 };
 

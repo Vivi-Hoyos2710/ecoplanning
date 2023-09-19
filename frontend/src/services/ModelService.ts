@@ -17,7 +17,7 @@ export async function getModelList(): Promise<Model[]> {
     return response.data;
 }
 
-export async function createBrand(model: ModelInfo) {
+export async function createModel(model: ModelInfo) {
     await axios.post<ModelInfo>(
         'http://127.0.0.1:8000/api/v1/app-model/',
         model

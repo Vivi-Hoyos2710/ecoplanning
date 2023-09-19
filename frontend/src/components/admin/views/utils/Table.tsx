@@ -4,13 +4,13 @@ import { Card, Typography } from "@material-tailwind/react";
 interface DefaultTableProps {
     header: string[],
     tableRow: any,
-    tableKeys: string[], // Change the type to an array of strings
+    tableKeys: string[], 
 }
 
 export const DefaultTable = ({ header, tableRow, tableKeys }: DefaultTableProps) => {
     return (
         <Card className="h-full w-full overflow-scroll">
-            <table className="w-full min-w-max table-auto text-left">
+            <table className="w-full min-w-max table-auto text-center">
                 <thead>
                     <tr>
                         {header.map((head) => (
