@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  Button,
-  Dialog,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Input
-} from '@material-tailwind/react';
-import { AiFillCloseSquare } from 'react-icons/ai';
+import {Button,Dialog,Card,CardHeader,CardBody,CardFooter,Typography,Input} from '@material-tailwind/react';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ModelInfo } from '../../../../types/ModelTypes';
 import { createModel } from '../../../../services/ModelService';
@@ -60,16 +51,15 @@ export const ModelForm = ({ handleOpen, open, brandId, brandName }: ModelForm) =
         <Card className="mx-auto w-full max-w-[24rem]">
           <CardHeader
             variant="gradient"
-            color="light-green"
-            className="mb-2 grid h-10 place-items-center"
+            className="mb-2 grid h-10 place-items-center bg-blue-gray-500"
           >
             <Typography variant="h4" color="white">
-              Add Model to {brandName}
+              Add model to {brandName}
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-6 items-end">
-            <button onClick={() => handleOpen('model')} className="w-auto p-2">
-              <AiFillCloseSquare size={20} /> {/* You can adjust the size as needed */}
+            <button onClick={() => handleOpen('model')} className="w-auto">
+              <AiFillCloseCircle size={30} />
             </button>
             <form className="w-full" onSubmit={handleSubmit(submitBrandForm)}>
               <Input

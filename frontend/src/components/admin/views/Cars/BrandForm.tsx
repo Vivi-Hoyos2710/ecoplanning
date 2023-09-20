@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  Button,
-  Dialog,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Input
-} from '@material-tailwind/react';
-import { AiFillCloseSquare } from 'react-icons/ai';
+import {Button,Dialog,Card,CardHeader,CardBody,CardFooter,Typography,Input} from '@material-tailwind/react';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { BrandInfo } from '../../../../types/BrandTypes';
 import { createBrand } from '../../../../services/BrandService';
@@ -53,16 +44,16 @@ export const BrandForm = ({ handleOpen, open }: BrandForm) => {
         <Card className="mx-auto w-full max-w-[24rem]">
           <CardHeader
             variant="gradient"
-            color="green"
+            color="cyan"
             className="mb-2 grid h-10 place-items-center"
           >
             <Typography variant="h4" color="white">
-              Add New Brand
+              Add new brand
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-6 items-end">
-            <button onClick={() => handleOpen('brand')} className="w-auto p-2">
-              <AiFillCloseSquare size={20} /> {/* You can adjust the size as needed */}
+            <button onClick={() => handleOpen('brand')} className="w-auto">
+              <AiFillCloseCircle size={30} />
             </button>
             <form className="w-full" onSubmit={handleSubmit(submitBrandForm)}>
               <Input

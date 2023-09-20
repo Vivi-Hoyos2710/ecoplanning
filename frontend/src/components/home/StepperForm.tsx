@@ -48,6 +48,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
       }
     };
     if (brandId != 0) {
+      //reset('model');
       getModels();
     }
   }, [brandId, modelId]);

@@ -9,7 +9,7 @@ import { getLoggedUser } from './services/AuthService';
 
 function App() {
   const [user, setUser] = useState<User>(NoUser);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const conseguirUsuario = async () => {
       const data = await getLoggedUser();
@@ -21,14 +21,16 @@ function App() {
 
   let display;
 
-  if (loading) {
-    display = <Spinner />;
-  } else if (user === NoUser) {
-    display = <HomeApp />;
-  } else if (user.is_superuser) {
-    display = <AdminApp />;
+  if (!loading) {
+    if (user === NoUser) {
+      display = <HomeApp />;
+    } else if (user.is_superuser) {
+      display = <AdminApp />;
+    }else{
+      display = <DriverApp />
+    }
   } else {
-    display = <DriverApp />;
+    display = <Spinner />;
   }
 
   return <UserContext.Provider value={user}>{display}</UserContext.Provider>;

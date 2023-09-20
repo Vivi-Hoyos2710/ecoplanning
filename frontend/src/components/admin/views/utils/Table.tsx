@@ -5,9 +5,10 @@ interface DefaultTableProps {
   header: string[];
   tableRow: any[];
   tableKeys: string[];
-  actions: string[]; // Use React.ReactNode for dynamic actions
+  actions: string[];
+  handleActions: (type: string, id:number) => void;
 }
-export const DefaultTable = ({ header, tableRow, tableKeys, actions }: DefaultTableProps) => {
+export const DefaultTable = ({ header, tableRow, tableKeys, actions,handleActions }: DefaultTableProps) => {
   return (
     <Card className="h-full w-full overflow-scroll">
       <table className="w-full min-w-max table-auto text-center">
@@ -38,11 +39,9 @@ export const DefaultTable = ({ header, tableRow, tableKeys, actions }: DefaultTa
                   </td>
                 ))}
                 {actions.map((action: any) => (
-                  <td key={'delete'} className="p-4 border-b border-blue-gray-50">
+                  <td key={action} className="p-4 border-b border-blue-gray-50">
                     <IconButton
-                      onClick={() => {
-                        console.log(row['id']);
-                      }}
+                      onClick={() => handleActions(action,row['id'])}
                     >
                       {' '}
                       {action === 'EDIT' && <FiEdit2 />}
