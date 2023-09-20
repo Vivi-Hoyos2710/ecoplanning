@@ -3,10 +3,9 @@ import { Brand, BrandInfo, BrandModel } from '../types/BrandTypes';
 import { Filter } from '../types/ServiceTypes';
 import { ponerFiltros } from './GeneralService';
 
-export async function getBrandListFilter(filters: Filter[]): Promise<Brand[]> {
+export async function getBrandListFilter(filter: any): Promise<Brand[]> {
   const response = await axios.get<Brand[]>(
-    'http://127.0.0.1:8000/api/v1/brand/',
-    ponerFiltros(filters)
+    'http://127.0.0.1:8000/api/v1/brand/',ponerFiltros(filter)
   );
   return response.data;
 }
@@ -14,7 +13,7 @@ export async function getBrandList(): Promise<Brand[]> {
   const response = await axios.get<Brand[]>('http://127.0.0.1:8000/api/v1/brand/');
   return response.data;
 }
-export async function getBrandModelList(filter: Filter[]): Promise<BrandModel[]> {
+export async function getBrandModelList(filter: any): Promise<BrandModel[]> {
   const response = await axios.get<BrandModel[]>(
     'http://127.0.0.1:8000/api/v1/brand-model/',
     ponerFiltros(filter)
