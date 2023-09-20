@@ -6,6 +6,6 @@ export function ponerFiltros(filters: Filter[]) {
     params[filter.name] = filter.value;
   });
   return {
-    params
+    params: params
   };
 }

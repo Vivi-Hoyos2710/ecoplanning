@@ -27,11 +27,9 @@ export const IndexCars = () => {
       const brandsQ = await getBrandModelList([
         {
           value: selectBrandId ? selectBrandId.toString() : '',
-          name: ''
+          name: 'id'
         }
       ]);
-      console.log(brandsQ);
-      console.log(brandId);
       setBrands(brandsQ);
     };
     getBrandsAndModels();

@@ -17,6 +17,5 @@ export async function validateUser(user: UserInfo): Promise<UserInfo> {
 }
 export async function createUser(user: UserInfo): Promise<User> {
   const response = await axios.post<User>('http://127.0.0.1:8000/auth/users/', user);
-  console.log(response);
   return response.data;
 }

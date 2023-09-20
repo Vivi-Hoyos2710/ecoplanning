@@ -4,8 +4,8 @@ import { Dashboard } from './views/Dashboard';
 import { Stations } from './views/Stations';
 import { IndexCars } from './views/Cars/IndexCars';
 import LogoEco from '../driver/LogoEco';
-import { AiFillHome, AiFillCar} from 'react-icons/ai';
-import { FaChargingStation} from 'react-icons/fa';
+import { AiFillHome, AiFillCar } from 'react-icons/ai';
+import { FaChargingStation } from 'react-icons/fa';
 import { Card, Typography, List, ListItem, ListItemPrefix } from '@material-tailwind/react';
 
 export const AdminHome = () => {
@@ -29,34 +29,26 @@ const DefaultSidebar = ({ changeView }: { changeView: (newView: string) => void 
   return (
     <Card className="h-screen w-full max-w-[20rem] p-4 shadow-blue-500 shadow-xl rounded-tl-lg rounded-br-lg p-4">
       <div className="p-2">
-        <LogoEco/>
-        <Typography className="text-gray-500 mt-3 font-bold text-center">
-          Admin Panel
-        </Typography>
+        <LogoEco />
+        <Typography className="text-gray-500 mt-3 font-bold text-center">Admin Panel</Typography>
       </div>
       <List>
         <ListItem onClick={() => changeView('dashboard')}>
           <div className=" flex space-x-2 text-gray-600 ">
-          <AiFillHome/>
-          <ListItemPrefix>
-          Dashboard
-          </ListItemPrefix>
+            <AiFillHome />
+            <ListItemPrefix>Dashboard</ListItemPrefix>
           </div>
         </ListItem>
         <ListItem onClick={() => changeView('stations')}>
-        <div className="flex  space-x-2 text-gray-600">
-        <FaChargingStation/>
-          <ListItemPrefix >
-          Stations
-          </ListItemPrefix>
+          <div className="flex  space-x-2 text-gray-600">
+            <FaChargingStation />
+            <ListItemPrefix>Stations</ListItemPrefix>
           </div>
         </ListItem>
         <ListItem onClick={() => changeView('cars')}>
-        <div className=" flex  space-x-2 text-gray-600">
-        <AiFillCar/>
-          <ListItemPrefix>
-          Cars
-          </ListItemPrefix>
+          <div className=" flex  space-x-2 text-gray-600">
+            <AiFillCar />
+            <ListItemPrefix>Cars</ListItemPrefix>
           </div>
         </ListItem>
       </List>

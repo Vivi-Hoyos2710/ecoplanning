@@ -44,11 +44,9 @@ const Map = ({ children }: { children: React.ReactNode }) => {
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position);
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         setCenter({ lat, lng });
-        console.log(center);
       },
       (err) => {
         console.log(err);
