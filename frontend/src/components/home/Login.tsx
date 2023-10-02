@@ -7,10 +7,9 @@ import { AiFillInfoCircle } from 'react-icons/ai';
 import fondo1 from '../../img/fondoLogin.svg';
 import fondo2 from '../../img/fondoHojitas.svg';
 import { LoginFormData } from '../../types/AuthTypes';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const navigate = useNavigate();
   const [errorsBdd, setErrorsBdd] = useState<boolean>(false);
   const {
     register,
@@ -24,10 +23,8 @@ const Login = () => {
       if (error) {
         setErrorsBdd(true);
       } else {
-        navigate('/');
-        window.location.reload();
+        window.location.assign('/');
       }
-      setErrorsBdd(true);
     };
     logIn();
   };

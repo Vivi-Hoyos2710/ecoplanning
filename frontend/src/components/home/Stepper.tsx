@@ -2,14 +2,13 @@ import React from 'react';
 import { Stepper, Step, Button, Card } from '@material-tailwind/react';
 import StepperForm from './StepperForm';
 import { FiUser, FiTruck, FiBatteryCharging } from 'react-icons/fi';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const DefaultStepper = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(true);
   const [isValid, setIsValid] = React.useState(false);
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (isValid) {
@@ -20,8 +19,7 @@ const DefaultStepper = () => {
 
   const handleNext = () => {
     if (isLastStep) {
-      navigate('/');
-      window.location.reload();
+      window.location.assign('/');
     } else {
       const elem = document.getElementsByClassName('test')[0] as HTMLElement;
       elem?.click();
