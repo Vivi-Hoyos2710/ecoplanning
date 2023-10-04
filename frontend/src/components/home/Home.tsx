@@ -29,6 +29,7 @@ const Section1 = () => {
 
       <div className="flex justify-center items-center pt-20">
         <div className="relative w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
+        <Link to="/signin">
           <div
             className={`relative transition-transform transform ${
               isHovered ? 'scale-110' : 'scale-100'
@@ -67,6 +68,7 @@ const Section1 = () => {
               </div>
             </div>
           </div>
+          </Link>
         </div>
       </div>
     </div>
