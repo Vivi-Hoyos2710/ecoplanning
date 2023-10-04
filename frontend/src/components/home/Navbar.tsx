@@ -31,6 +31,17 @@ export function NavbarDefault() {
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <img width="160" height="100" src={logo} alt="logo" />
         <div className="hidden lg:block">{navList}</div>
+        <div className="flex space-x-4">
+        <Link to="/signin">
+                  <Button
+                  variant="outlined"
+                  color="gray"
+                  size="sm"
+                  className="rounded-full shadow-md"
+                  >
+                    Sign Up
+                  </Button>
+        </Link>
         <Link to="/login">
           <Button
             variant="gradient"
@@ -42,6 +53,7 @@ export function NavbarDefault() {
             Login
           </Button>
         </Link>
+        </div>
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
