@@ -69,16 +69,17 @@ const BatteryCareTips = () => {
       style={{ backgroundImage: `url(${fondo1}), url(${fondo2})`, margin: '0', padding: '0' }}
     >
       <div className="p-5 space-y-4 lg:space-y-0">
-        <div className=" flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 flex text-left ">
-          <LogoEco />
+        <div className=" flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 flex text-left p-4 ">
+
           <Link to="/">
-            <Button variant="gradient" color="gray" className="rounded-full ml-4">
-              Back to main page
+            <Button variant="gradient" color="gray" size="lg" className="rounded-full ml-4">
+              Back
             </Button>
           </Link>
+          <LogoEco />
         </div>
 
-        <div className="flex flex-col justify-center  items-center ">
+        <div className="flex flex-col justify-center pt-10 items-center ">
           <div className="flex flex-col items-center space-y-8 w-full max-w-screen-lg">
             <Card shadow={true} className="shadow-lg rounded-tl rounded-br p-3 ">
               <Typography variant="h4" color="gray" className="mt-1 font-bold text-center">
