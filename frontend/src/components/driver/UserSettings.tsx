@@ -76,8 +76,7 @@ const UserSettings = () => {
 
 
     } catch (error: any) {
-
-
+        console.log(error);
     }
   };
 
