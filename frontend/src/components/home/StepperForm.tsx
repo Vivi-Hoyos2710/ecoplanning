@@ -40,7 +40,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
     getBrands();
     const getModels = async () => {
       try {
-        const models = await getModelListFilter([{ name: '', value: brandId.toString() }]);
+        const models = await getModelListFilter([{ name: 'brand', value: brandId.toString() }]);
         console.log(models);
         setModels(models);
       } catch (error) {
@@ -48,7 +48,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
       }
     };
     if (brandId != 0) {
-      //reset('model');
+      
       getModels();
     }
   }, [brandId, modelId]);

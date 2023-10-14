@@ -38,7 +38,7 @@ class CarSerializer(ModelSerializer):
             "model",
             "model__name",
         ]
-
+    
 
 class StationSerializer(ModelSerializer):
     coordinate = PrimaryKeyRelatedField(read_only=True)

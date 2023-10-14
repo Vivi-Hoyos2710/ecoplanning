@@ -20,5 +20,12 @@ type SignInFormData = {
   model: string;
   regisPlate: string;
 };
-
-export type { LoginRequest, LoginToken, LoginFormData, SignInFormData };
+type CarFormInfo={
+  user: number;
+  brand: number;
+  brand__name: string;
+  license_plate: string;
+  model: number;
+  model__name:string
+}
+export type { LoginRequest, LoginToken, LoginFormData, SignInFormData, CarFormInfo };
