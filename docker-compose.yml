@@ -41,6 +41,11 @@ services:
       - PASSWORD=local-password
       - HOST=postgres
       - PORT=5432
+      - OVMS_NAME=${OVMS_NAME}
+      - OVMS_USER=${OVMS_USER}
+      - OVMS_PASSWORD=${OVMS_PASSWORD}
+      - OVMS_HOST=${OVMS_HOST}
+      - OVMS_PORT=${OVMS_PORT}
 
   react:
     build:
