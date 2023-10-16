@@ -4,7 +4,7 @@ import { Input } from '@material-tailwind/react';
 import axios from 'axios';
 
 import {
-  useJsApiLoader,
+  useLoadScript,
   GoogleMap,
   Marker,
   Autocomplete,
@@ -19,9 +19,9 @@ const Map = ({ children }: { children: React.ReactNode }) => {
   const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.244203, lng: -75.581215});
   const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.1673, lng: 75.5837 });
   const [directions, setDirections] = useState<DirectionResult>();
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? ''
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? '',
+    libraries:['places']
   });
   // const [map, setMap] = useState(null);
   // const [directionsResponse, setDirectionsResponse] = useState(null);

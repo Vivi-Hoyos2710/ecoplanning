@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React,{useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { Input, Card, Button, Typography, Select, Option } from '@material-tailwind/react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
@@ -6,7 +6,7 @@ import { FiBatteryCharging, FiMapPin } from 'react-icons/fi';
 import { HiMapPin } from 'react-icons/hi2';
 import { FaPercent } from 'react-icons/fa';
 import { GiBatteryPack } from 'react-icons/gi';
-// import Places from './Places';
+import Places from './Places';
 import {
   BsExclamationCircleFill,
   BsFillBarChartLineFill,
@@ -20,6 +20,7 @@ import Map from './Map';
 import {
   DirectionsRenderer,
   DirectionsService,
+  useGoogleMap
 } from '@react-google-maps/api';
 
 type LatlngLiteral = google.maps.LatLngLiteral;
@@ -28,10 +29,20 @@ type DirectionResult = google.maps.DirectionsResult;
 const MapView = () => {
   const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.1870354, lng:-75.56875661587414});
   const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.203440, lng: -75.556541 });
-  const [directions, setDirections] = useState<DirectionResult>();
+  const [directions, setDirections] = useState<DirectionResult|null>();
+
+  useEffect(() => {
+    if (directions) {
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      // directionsRenderer.setMap(map); // Replace 'yourMap' with your map object
+      directionsRenderer.setDirections(directions);
+    }
+  }, [directions]);
+
   const getRoute = ()=>
   {
     if(!origin) return;
+
     console.log(origin), console.log(destination)
     console.log("running");
     const service  = new google.maps.DirectionsService();
@@ -45,6 +56,7 @@ const MapView = () => {
         console.log(result)
         console.log(status)
         if(status == google.maps.DirectionsStatus.OK && result){
+          console.log(result)
           setDirections(result);
         }
       }
@@ -95,12 +107,22 @@ const MapView = () => {
 
               <div className="flex items-center space-x-2">
                 <FiMapPin />
-                {/* <Places setPlace ={setOrigin}/> */}
-                <Input label="Starting address" className="bg-white flex-grow" />
+                <Places
+                setPlace={(position) => {
+                  setOrigin(position);
+                }}
+                 placeholder="Starting Address"
+                 />
+                {/* <Input label="Starting address" className="bg-white flex-grow" /> */}
               </div>
               <div className="flex items-center space-x-2">
                 <HiMapPin />
-                <Input label="Destination address" className="bg-white flex-grow" />
+                <Places
+                setPlace={(position) => {
+                  setDestination(position);
+                }}
+                 placeholder="Destination Address"
+                 />
               </div>
               <div className="flex items-center space-x-2">
                 <FiBatteryCharging />
