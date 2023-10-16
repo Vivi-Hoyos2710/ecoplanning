@@ -6,39 +6,66 @@ import { FiBatteryCharging, FiMapPin } from 'react-icons/fi';
 import { HiMapPin } from 'react-icons/hi2';
 import { FaPercent } from 'react-icons/fa';
 import { GiBatteryPack } from 'react-icons/gi';
-import { UserContext } from '../../types/UserTypes';
-import { UserMenu } from './utils/UserMenu';
-import { getCarList } from '../../services/CarService';
+// import Places from './Places';
 import {
   BsExclamationCircleFill,
   BsFillBarChartLineFill,
   BsGearWideConnected
 } from 'react-icons/bs';
 import LogoEco from './LogoEco';
+import { useState } from 'react';
+
 import Map from './Map';
-import { Car } from '../../types/CarTypes';
+
+import {
+  DirectionsRenderer,
+  DirectionsService,
+} from '@react-google-maps/api';
+
+type LatlngLiteral = google.maps.LatLngLiteral;
+type DirectionResult = google.maps.DirectionsResult;
+
 const MapView = () => {
-  const [myCars, setMyCars] = useState<Car[]>([]);
-  const user = useContext(UserContext);
-  useEffect(() => {
-    const getUserCars = async () => {
-      try {
-        const cars = await getCarList([{ name: 'user', value: user.id.toString() }]);
-        console.log(cars);
-        setMyCars(cars);
-
-      } catch (error) {
-        console.log(error);
+  const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.1870354, lng:-75.56875661587414});
+  const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.203440, lng: -75.556541 });
+  const [directions, setDirections] = useState<DirectionResult>();
+  const getRoute = ()=>
+  {
+    if(!origin) return;
+    console.log(origin), console.log(destination)
+    console.log("running");
+    const service  = new google.maps.DirectionsService();
+    service.route(
+      {
+        origin,
+        destination,
+        travelMode : google.maps.TravelMode.DRIVING,
+      },
+      (result,status) => {
+        console.log(result)
+        console.log(status)
+        if(status == google.maps.DirectionsStatus.OK && result){
+          setDirections(result);
+        }
       }
-
-    };
-    getUserCars();
-
-  }, []);
-
+    )
+  }
   return (
     <div className="">
       <Map>
+          {directions && (
+          <DirectionsRenderer
+          directions={directions}
+          options={{
+            polylineOptions:{
+              zIndex:50,
+              strokeColor : "#1976D2",
+              strokeWeight : 5
+            },
+
+          }}/>)
+          }
+
         <div className="flex flex-col lg:flex-row p-5 justify-between">
           <div className="w-full lg:w-1/4 lg:mr-4 space-y-4">
             <div>
@@ -62,24 +89,29 @@ const MapView = () => {
 
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <FiMapPin />
-                  <Input label="Starting address" className="bg-white flex-grow" />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <HiMapPin />
-                  <Input label="Destination address" className="bg-white flex-grow" />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <FiBatteryCharging />
-                  <Input label="Current battery" className="bg-white flex-grow" />
-                  <FaPercent />
-                </div>
-                <div className="flex flex-col items-center justify-center">
-                  <Button className="z-10  rounded-full" variant="gradient" color="cyan">
-                    Calculate Route
-                  </Button>
-                </div>
+                    </Select>
+
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <FiMapPin />
+                {/* <Places setPlace ={setOrigin}/> */}
+                <Input label="Starting address" className="bg-white flex-grow" />
+              </div>
+              <div className="flex items-center space-x-2">
+                <HiMapPin />
+                <Input label="Destination address" className="bg-white flex-grow" />
+              </div>
+              <div className="flex items-center space-x-2">
+                <FiBatteryCharging />
+                <Input label="Current battery" className="bg-white flex-grow" />
+                <FaPercent />
+              </div>
+              <div className="flex flex-col items-center justify-center">
+              <Button onClick={getRoute}  className="z-10  rounded-full" variant="gradient" color="cyan">
+                Calculate Route
+              </Button>
+              </div>
               </form>
             </Card>
           </div>

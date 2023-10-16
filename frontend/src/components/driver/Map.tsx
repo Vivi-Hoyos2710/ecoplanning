@@ -2,39 +2,52 @@ import React, { useState, useRef, SetStateAction, useEffect } from 'react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 import { Input } from '@material-tailwind/react';
 import axios from 'axios';
+
 import {
   useJsApiLoader,
   GoogleMap,
   Marker,
   Autocomplete,
-  DirectionsRenderer
+  DirectionsRenderer,
+  DirectionsService,
 } from '@react-google-maps/api';
 
+type LatlngLiteral = google.maps.LatLngLiteral;
+type DirectionResult = google.maps.DirectionsResult;
 const { REACT_APP_GOOGLE_MAPS_API } = process.env;
 const Map = ({ children }: { children: React.ReactNode }) => {
-  // let map: google.maps.Map;
-  // const center: google.maps.LatLngLiteral = {lat: 30, lng: -110};
-
-  // function initMap(): void {
-  // map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-  //   center,
-  //   zoom: 8
-  // });
-  // }
-
+  const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.244203, lng: -75.581215});
+  const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.1673, lng: 75.5837 });
+  const [directions, setDirections] = useState<DirectionResult>();
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? ''
   });
-  const [map, setMap] = useState(null);
-  const [directionsResponse, setDirectionsResponse] = useState(null);
-  const originRef = useRef();
-  const destiantionRef = useRef();
-  const [IP, setIP] = useState('');
+  // const [map, setMap] = useState(null);
+  // const [directionsResponse, setDirectionsResponse] = useState(null);
+  // const originRef = useRef();
+  // const destiantionRef = useRef();
+  // const [IP, setIP] = useState('');
   const [center, setCenter] = useState({
     lat: 6.244203,
     lng: -75.581215
   });
+  // const getRoute = ()=>
+  // {
+  //   const service  = new google.maps.DirectionsService();
+  //   service.route(
+  //     {
+  //       origin,
+  //       destination,
+  //       travelMode : google.maps.TravelMode.DRIVING
+  //     },
+  //     (result,status) => {
+  //       if(status === 'OK' && result){
+  //         setDirections(result);
+  //       }
+  //     }
+  //   )
+  // }
 
   const options = {
     enableHighAccuracy: false,
@@ -44,11 +57,11 @@ const Map = ({ children }: { children: React.ReactNode }) => {
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position);
+        // console.log(position);
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         setCenter({ lat, lng });
-        console.log(center);
+        // console.log(center);
       },
       (err) => {
         console.log(err);
@@ -74,7 +87,9 @@ const Map = ({ children }: { children: React.ReactNode }) => {
           streetViewControl: false,
           mapTypeControl: false,
           fullscreenControl: false
+
         }}
+
         // onLoad={(map) => setMap(map)}
       >
         <Marker position={center} />
@@ -92,3 +107,10 @@ const Map = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default Map;
+
+
+/*
+
+juancamilo@gmail.com
+Mac123
+*/
