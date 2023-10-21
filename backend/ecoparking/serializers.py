@@ -38,8 +38,6 @@ class CarSerializer(ModelSerializer):
             "model",
             "model__name",
         ]
-    
-
 class StationSerializer(ModelSerializer):
     coordinate = PrimaryKeyRelatedField(read_only=True)
     coordinate__longitude = FloatField(
@@ -79,8 +77,6 @@ class StationSerializer(ModelSerializer):
         validated_data.pop("latitude")
         station = Station.objects.create(coordinate=coordinate, **validated_data)
         return station
-
-
 class BrandModelSerializer(ModelSerializer):
     models = AppModelSerializer(many=True, read_only=True, source="appmodel_set")
 
