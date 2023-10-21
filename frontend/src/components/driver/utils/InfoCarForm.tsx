@@ -7,16 +7,19 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { getModelListFilter } from '../../../services/ModelService';
 import { getBrandListFilter, getBrandModelList } from '../../../services/BrandService';
 import { CarFormInfo } from '../../../types/AuthTypes';
-import { createCar, updateCar } from '../../../services/CarService';
+import { createCar, deleteCarById, updateCar } from '../../../services/CarService';
+import { ConfirmationModal } from './ConfirmationModal';
 
 interface CarForm {
     mode: string;
     carInfo: CarInfo | null;
     userId: number;
     setIsUpdating: (parameter: boolean) => void;
+    setIsCreating: (parameter: boolean) => void;
+    setIsDeleting: (parameter: boolean) => void;
 }
 
-export const CarForm = ({ mode, carInfo, userId, setIsUpdating }: CarForm) => {
+export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,setIsDeleting }: CarForm) => {
     const [brands, setBrands] = useState<Brand[]>([]);
     const [models, setModels] = useState<Model[]>([]);
     const [brandId, setBrandId] = useState<number>(mode == "edit" && carInfo ? carInfo?.brand : 0);
@@ -24,6 +27,7 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating }: CarForm) => {
     const [selectedBrand, setSelectedBrand] = useState(mode == "edit" ? carInfo?.brand__name : "");
     const [selectedModel, setSelectedModel] = useState(mode == "edit" ? carInfo?.model__name : "");
     const [carId, setCarId] = useState(mode == "edit" ? carInfo?.id : null);
+    const [open, setOpen] = useState<boolean>(false);
     useEffect(() => {
         const getBrands = async () => {
             const brands = await getBrandListFilter([{
@@ -44,7 +48,6 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating }: CarForm) => {
 
         if (carInfo && mode == "edit" && carInfo?.id != carId) {
             reset();
-            console.log("kk");
             setValue('brand__name', undefined);
             setSelectedBrand(carInfo?.brand__name);
             setSelectedModel(carInfo?.model__name);
@@ -78,29 +81,35 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating }: CarForm) => {
                     license_plate: data.license_plate,
                     model: modelId,
                 };
-                console.log(carId, carUser);
                 if (carId != null && mode == "edit") {
                     setIsUpdating(true);
                     await updateCar(carUser, carId);
-                    setIsUpdating(false);
+                    
                 }
                 if (mode == "create") {
-                    setIsUpdating(true);
+                    setIsCreating(true);
                     await createCar(carUser);
-                    setIsUpdating(false);
                 }
-
-
-
             } catch (error: any) {
                 console.log(error);
             }
         };
         submitCarForm();
-
-
     };
-
+    const handleDelete: (id: number) => void = async (id) => {
+        try {
+            await deleteCarById(id);
+            setIsDeleting(true);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const handleOpen = (isConfirmed: boolean): void => {
+        if (isConfirmed && carId) {
+            handleDelete(carId);
+        }
+        setOpen(!open);
+      };
     return (
         <div>
             <form onSubmit={handleSubmit(carSubmit)} className="mt-4 space-y-4">
@@ -184,12 +193,13 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating }: CarForm) => {
                     }}
 
                 />
-                {mode == "edit" && <Button variant="outlined" >
+                {mode == "edit" && <Button variant="outlined" onClick={() => carId && handleOpen(false)}>
                     Delete
                 </Button>}
                 <Button variant="gradient" color="blue" type="submit">
                     {mode == "edit" ? "Update Car" : "Add New Car"}
                 </Button>
+                <ConfirmationModal handleOpen={handleOpen} open={open} info={"¿Are you sure do you want to delete this car?"} title={"Warning"}/>
             </form>
         </div>
     );
