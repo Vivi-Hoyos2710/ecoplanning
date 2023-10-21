@@ -21,17 +21,18 @@ const MapView = () => {
   const [myCars, setMyCars] = useState<Car[]>([]);
   const user = useContext(UserContext);
   useEffect(() => {
-    const getCars = async () => {
+    const getUserCars = async () => {
       try {
-        const userCars = await getCarList([{ name: 'user', value: user.id.toString() }]);
-        setMyCars(userCars);
-        console.log(userCars);
+        const cars = await getCarList([{ name: 'user', value: user.id.toString() }]);
+        console.log(cars);
+        setMyCars(cars);
+
       } catch (error) {
         console.log(error);
       }
 
-    }
-    getCars();
+    };
+    getUserCars();
 
   }, []);
 
@@ -48,10 +49,15 @@ const MapView = () => {
               <form className="space-y-4">
                 <div className="flex items-center space-x-2">
 
-                  <Select label="My cars">
-                    <Option
-                      value="hola">
-                    </Option>
+                  <Select  label="Select a car">
+                    {myCars.map((car: any) => (
+                      <Option
+                        value={`${car.brand__name} ${car.model__name}`}
+                        key={car.id}
+                      >
+                        {`${car.brand__name} ${car.model__name}`}
+                      </Option>
+                    ))}
                   </Select>
 
                 </div>
@@ -81,13 +87,15 @@ const MapView = () => {
             <Card className=" shadow-lg w-full rounded-t-lg p-5 ">
               <div className="flex flex-col items-center justify-center space-y-5">
                 <div className="flex flex-col space-y-2">
-                  <div>
+                  <div className="flex justify-center items-center pb-3">
                     <UserMenu userEmail={user.email} />
 
                   </div>
+                  <Link to="/statistics">
                   <Button className="rounded-full" variant="gradient" color="blue">
                     <BsFillBarChartLineFill style={{ fontSize: '30px' }} />
                   </Button>
+                  </Link>
                   <Typography color="gray" className="font-bold text-center text-xs">
                     Vehicle Statistics
                   </Typography>
