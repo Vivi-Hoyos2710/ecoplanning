@@ -3,6 +3,7 @@ import { Card, Button, Avatar, Typography, Select, Option } from '@material-tail
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 import fondo2 from '../../img/fondoRecomendacionesBateria1.svg';
 import messageSuccess from '../../img/updateSuccess.svg'
+import { UserMenu } from './utils/UserMenu';
 import { Link } from 'react-router-dom';
 import { Filter } from '../../types/ServiceTypes';
 import { createCar, getCarList } from '../../services/CarService';
@@ -18,7 +19,8 @@ const UserSettings = () => {
   const [carId, setCarId] = useState<number>(0);
   const [modeForm, setModeForm] = useState<string>("");
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const [message, setMessage] = useState<boolean>(false);
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   useEffect(() => {
     const getUserCars = async () => {
       try {
@@ -28,13 +30,13 @@ const UserSettings = () => {
       } catch (error) {
         console.log(error);
       }
-      if (isUpdating) {
-        setModeForm("");
-        setMessage(true);
-      }
+
     };
+    if (isUpdating || isCreating || isDeleting) {
+      setModeForm("");
+    }
     getUserCars();
-  }, [modeForm, carId, isUpdating]);
+  }, [modeForm, carId, isUpdating, isCreating, isDeleting]);
   const iconStyle = {
     width: '300px',
     height: '300px',
@@ -54,12 +56,14 @@ const UserSettings = () => {
               Back
             </Button>
           </Link>
-          <div>
-
-            <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg p-3">
+          <div className="flex flex-col space-y-3">
+            <div className="max-w-2xl mx-auto">
+            <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg p-4">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-2">
-                  <Avatar withBorder={true} color="cyan" />
+                  <div >
+                    <UserMenu userEmail={user.email} />
+                  </div>
                   <div>
                     <Typography variant="h5">User</Typography>
                     <Typography variant="small" color="gray" className="font-normal">
@@ -69,27 +73,33 @@ const UserSettings = () => {
                 </div>
               </div>
             </Card>
+            </div>
             <Button variant="gradient" color="green" onClick={() => {
-              setMessage(false);
+              setIsUpdating(false);
+              setIsCreating(false);
+              setIsDeleting(false);
               setModeForm("create")
               setSelectedCar(null);
             }}>
               Add Car
             </Button>
+
           </div>
         </div>
 
         <div className="flex flex-col justify-center pt-10 items-center ">
 
           <div className="flex flex-col items-center space-y-8 w-full max-w-screen-lg">
-
+            <div className="w-1/4 float-left">
             <Select label="Select a car">
               {cars.map((car: any) => (
                 <Option
                   value={`${car.brand__name} ${car.model__name}`}
                   key={car.id}
                   onClick={() => {
-                    setMessage(false);
+                    setIsUpdating(false);
+                    setIsCreating(false);
+                    setIsDeleting(false);
                     setCarId(car.id);
                     setModeForm("edit");
                     setSelectedCar(car);
@@ -99,6 +109,7 @@ const UserSettings = () => {
                 </Option>
               ))}
             </Select>
+            </div>
             <Card
               shadow={true}
               className="shadow-lg w-full rounded-t-lg p-8 "
@@ -108,12 +119,12 @@ const UserSettings = () => {
                 {modeForm == "edit" && <span>Edit your selected car</span>}
                 {modeForm == "create" && <span>Register a new Car</span>}
               </Typography>
-              {modeForm == "edit" && <CarForm mode={modeForm} carInfo={selectedCar} userId={user.id} setIsUpdating={setIsUpdating} />}
-              {modeForm == "create" && <CarForm mode={modeForm} carInfo={selectedCar} userId={user.id} setIsUpdating={setIsUpdating} />}
-              {message && (
+              {modeForm == "edit" && <CarForm mode={modeForm} carInfo={selectedCar} userId={user.id} setIsUpdating={setIsUpdating} setIsCreating={setIsCreating} setIsDeleting={setIsDeleting} />}
+              {modeForm == "create" && <CarForm mode={modeForm} carInfo={selectedCar} userId={user.id} setIsUpdating={setIsUpdating} setIsCreating={setIsCreating} setIsDeleting={setIsDeleting} />}
+              {(isUpdating || isCreating || isDeleting) && (
                 <div>
                   <Typography variant="h1" color="teal" textGradient>
-                    {modeForm == "edit" ? "Updated Car" : "Car Created"}
+                    {isUpdating ? "Updated Car" : (isDeleting ? "Deleted Car" : "Car Created")}
                   </Typography>
                   <div className="w-1/2">
                     <div className="w-full h-full" style={iconStyle}></div>
