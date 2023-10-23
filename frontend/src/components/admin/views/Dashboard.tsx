@@ -1,9 +1,9 @@
-import axios from 'axios';
 import moment from 'moment';
 
 import React,{ useState, useEffect } from 'react';
 import { Card, Typography } from '@material-tailwind/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { getOVMSDataFilter } from '../../../services/OVMSService';
 
 type DataPoint = {
   name: string;
@@ -13,78 +13,82 @@ type DataPoint = {
 }
 type DataPointList = DataPoint[] | [];
 
-const getChartingData = async (query: any) => {
-  const baseURL = 'http://127.0.0.1:8000/api/v1/ovms/';
-  try {
-      const response = await axios.get(baseURL, {
-          params: query
-      });
-
-      return response.data;
-  } catch (error) {
-      console.error('ERROR in getChartingData ',error);
-      throw error;
-  }
-}
-
-const formattedTodayDate = moment().format('YYYY-MM-DD');
+const today = moment()
 
 export const Dashboard = () => {
+
+  const [startDate, setStartDate] = useState<any>(today.startOf('day'));
+  const [endDate, setEndDate] = useState<any>(today.endOf('day'));
+
   const [elevationData, setElevationData] = useState<DataPointList>([]);
   const [batteryTempData, setBatteryTempData] = useState<DataPointList>([]);
   const [stateOfChargeData, setStateOfChargeData] = useState<DataPointList>([]);
   const [speedData, setSpeedData] = useState<DataPointList>([]);
 
   useEffect(() => {
-    (async () => {
-      const rawDataElevation = await getChartingData({
-        'timestamp__gte' : formattedTodayDate,
+    computeChartData();
+  }, [startDate]);
+
+  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setStartDate(moment(e.target.value).startOf('day'));
+  }
+
+  const computeChartData = async () => {
+
+    const rawData = await getOVMSDataFilter([
+      {
+        name : 'timestamp__gte',
+        value : startDate.format('YYYY-MM-DD')
+      },
+      // {
+      //   name : 'timestamp__lte',
+      //   value : endDate.format('YYYY-MM-DD')
+      // }
+    ]);
+
+    const elevationData: DataPoint[] = [];
+    const batteryData: DataPoint[] = [];
+    const socData: DataPoint[] = [];
+    const speedData: DataPoint[] = [];
+
+    rawData.forEach((dataPoint: any) => {
+      const formattedTime = moment(dataPoint.timestamp).format('HH:mm:ss');
+
+      elevationData.push({
+        name: formattedTime,
+        uv: dataPoint.elevation,
+        pv: 0,
+        amt: 0,
       });
 
-      const elevationData: DataPoint[] = [];
-      const batteryData: DataPoint[] = [];
-      const socData: DataPoint[] = [];
-      const speedData: DataPoint[] = [];
-
-      rawDataElevation.forEach((dataPoint: any) => {
-        const formattedTime = moment(dataPoint.timestamp).format('HH:mm:ss');
-
-        elevationData.push({
-          name: formattedTime,
-          uv: dataPoint.elevation,
-          pv: 0,
-          amt: 0,
-        });
-
-        batteryData.push({
-          name: formattedTime,
-          uv: parseFloat(dataPoint.batt_temp),
-          pv: 0,
-          amt: 0,
-        });
-
-        socData.push({
-          name: formattedTime,
-          uv: parseFloat(dataPoint.soc),
-          pv: 0,
-          amt: 0,
-        });
-
-        speedData.push({
-          name: formattedTime,
-          uv: parseFloat(dataPoint.speed),
-          pv: 0,
-          amt: 0,
-        });
+      batteryData.push({
+        name: formattedTime,
+        uv: parseFloat(dataPoint.batt_temp),
+        pv: 0,
+        amt: 0,
       });
 
-      setElevationData(elevationData);
-      setBatteryTempData(batteryData);
-      setStateOfChargeData(socData);
-      setSpeedData(speedData);
+      socData.push({
+        name: formattedTime,
+        uv: parseFloat(dataPoint.soc),
+        pv: 0,
+        amt: 0,
+      });
 
-    })();
-  }, []);
+      speedData.push({
+        name: formattedTime,
+        uv: parseFloat(dataPoint.speed),
+        pv: 0,
+        amt: 0,
+      });
+    });
+
+    setElevationData(elevationData);
+    setBatteryTempData(batteryData);
+    setStateOfChargeData(socData);
+    setSpeedData(speedData);
+  }
 
   return (
     <div className="flex flex-col justify-center items-center  p-5 md:p-0">
@@ -93,6 +97,22 @@ export const Dashboard = () => {
               General Dashboard - All vehicles
               </Typography>
       </Card>
+      <div className="mt-8">
+        <p className="text-xl text-center">Filters</p>
+        <div className="mt-2 mb-8">
+            <label htmlFor="startDate" className="mr-2">Starting Date:</label>
+            <input
+                type="date"
+                id="startDate"
+                value={startDate.format('YYYY-MM-DD')}
+                onChange={handleStartDateChange}
+                className="mr-4"
+            />
+
+            {/* <label htmlFor="endDate" className="mr-2">Ending Date:</label>
+            <input type="date" id="endDate" /> */}
+        </div>
+      </div>
       <div className="flex mt-4">
         <div>
           <p className="text-xl ml-8 mb-4">Elevation vs. Time Today</p>
@@ -124,7 +144,7 @@ export const Dashboard = () => {
           </LineChart>
         </div>
         <div>
-          <p className="text-xl ml-8 mb-4">Spped vs. Time Today</p>
+          <p className="text-xl ml-8 mb-4">Speed vs. Time Today</p>
           <LineChart width={500} height={300} data={speedData}>
             <Line type="monotone" dataKey="uv" stroke="#8884d8" />
             <CartesianGrid stroke="#ccc" />
