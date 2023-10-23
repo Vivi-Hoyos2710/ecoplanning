@@ -125,7 +125,7 @@ const MapView = () => {
                     </Button>
                   </Link>
                   <Typography color="gray" className="font-bold text-center text-xs">
-                    Settings
+                  Vehicle Settings
                   </Typography>
                 </div>
               </div>

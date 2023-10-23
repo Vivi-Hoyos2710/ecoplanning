@@ -55,7 +55,7 @@ const DefaultSidebar = ({ changeView }: { changeView: (newView: string) => void 
         <div className=" flex  space-x-2 text-gray-600">
         <AiFillCar/>
           <ListItemPrefix>
-          Cars
+          Brands and models
           </ListItemPrefix>
           </div>
         </ListItem>
