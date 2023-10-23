@@ -84,7 +84,7 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
                 if (carId != null && mode == "edit") {
                     setIsUpdating(true);
                     await updateCar(carUser, carId);
-                    
+
                 }
                 if (mode == "create") {
                     setIsCreating(true);
@@ -193,13 +193,17 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
                     }}
 
                 />
+                <div className="flex space-x-2">
                 {mode == "edit" && <Button variant="outlined" onClick={() => carId && handleOpen(false)}>
                     Delete
                 </Button>}
+
                 <Button variant="gradient" color="blue" type="submit">
                     {mode == "edit" ? "Update Car" : "Add New Car"}
                 </Button>
+                </div>
                 <ConfirmationModal handleOpen={handleOpen} open={open} info={"¿Are you sure do you want to delete this car?"} title={"Warning"}/>
+
             </form>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Avatar, Typography, Select, Option } from '@material-tailwind/react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 import fondo2 from '../../img/fondoRecomendacionesBateria1.svg';
-import messageSuccess from '../../img/updateSuccess.svg'
+import messageSuccess from '../../img/successfully.gif'
 import { UserMenu } from './utils/UserMenu';
 import { Link } from 'react-router-dom';
 import { Filter } from '../../types/ServiceTypes';
@@ -38,8 +38,8 @@ const UserSettings = () => {
     getUserCars();
   }, [modeForm, carId, isUpdating, isCreating, isDeleting]);
   const iconStyle = {
-    width: '300px',
-    height: '300px',
+    width: '1000px',
+    height: '1000px',
     backgroundImage: `url(${messageSuccess})`,
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
@@ -47,7 +47,7 @@ const UserSettings = () => {
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-screen"
-      style={{ backgroundImage: `url(${fondo1}), url(${fondo2})`, margin: '0', padding: '0' }}
+      style={{ backgroundImage: `url(${fondo1})`, margin: '0', padding: '0' }}
     >
       <div className="p-5 space-y-4 lg:space-y-0">
         <div className=" flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 flex text-left p-4 ">
@@ -57,65 +57,82 @@ const UserSettings = () => {
             </Button>
           </Link>
           <div className="flex flex-col space-y-3">
-            <div className="max-w-2xl mx-auto">
-            <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg p-4">
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-2">
-                  <div >
-                    <UserMenu userEmail={user.email} />
-                  </div>
-                  <div>
-                    <Typography variant="h5">User</Typography>
-                    <Typography variant="small" color="gray" className="font-normal">
-                      {user.email}
-                    </Typography>
-                  </div>
-                </div>
-              </div>
-            </Card>
-            </div>
-            <Button variant="gradient" color="green" onClick={() => {
-              setIsUpdating(false);
-              setIsCreating(false);
-              setIsDeleting(false);
-              setModeForm("create")
-              setSelectedCar(null);
-            }}>
-              Add Car
-            </Button>
-
+  <div className="max-w-2xl mx-auto">
+    <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg p-4">
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center gap-2">
+          <div>
+            <UserMenu userEmail={user.email} />
+          </div>
+          <div>
+            <Typography variant="h5">User</Typography>
+            <Typography variant="small" color="gray" className="font-normal">
+              {user.email}
+            </Typography>
           </div>
         </div>
+      </div>
+      </Card>
+      <div className="flex  w-full rounded-t-lg pt-4 text-center">
+        <Button
+          variant="gradient"
+          color="green"
+          onClick={() => {
+            setIsUpdating(false);
+            setIsCreating(false);
+            setIsDeleting(false);
+            setModeForm("create");
+            setSelectedCar(null);
+          }}
 
-        <div className="flex flex-col justify-center pt-10 items-center ">
+        >
+          Add Car
+        </Button>
+      </div>
 
-          <div className="flex flex-col items-center space-y-8 w-full max-w-screen-lg">
-            <div className="w-1/4 float-left">
-            <Select label="Select a car">
-              {cars.map((car: any) => (
-                <Option
-                  value={`${car.brand__name} ${car.model__name}`}
-                  key={car.id}
-                  onClick={() => {
-                    setIsUpdating(false);
-                    setIsCreating(false);
-                    setIsDeleting(false);
-                    setCarId(car.id);
-                    setModeForm("edit");
-                    setSelectedCar(car);
-                  }}
-                >
-                  {`${car.brand__name} ${car.model__name}`}
-                </Option>
-              ))}
-            </Select>
-            </div>
+  </div>
+</div>
+
+        </div>
+
+        <div className="flex flex-col justify-center  items-center ">
+
+          <div className="flex flex-col items-center w-full max-w-screen-lg">
+          <div className="w-1/4 self-start pb-5">
+  <Card className="flex items-center justify-center shadow-lg rounded-t-lg p-4">
+    <Select label="Select a car">
+      {cars.map((car: any) => (
+        <Option
+          value={`${car.brand__name} ${car.model__name}`}
+          key={car.id}
+          onClick={() => {
+            setIsUpdating(false);
+            setIsCreating(false);
+            setIsDeleting(false);
+            setCarId(car.id);
+            setModeForm("edit");
+            setSelectedCar(car);
+          }}
+        >
+          {`${car.brand__name} ${car.model__name}`}
+        </Option>
+      ))}
+    </Select>
+  </Card>
+          </div>
+
             <Card
               shadow={true}
-              className="shadow-lg w-full rounded-t-lg p-8 "
+              className="shadow-lg w-full rounded-t-lg p-5 space-y-4 w-full max-w-xl"
               style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)' }}
             >
-              <Typography color="gray" className="mt-1 font-normal text-center">
+              {(!isUpdating && !isCreating && !isDeleting) && selectedCar === null && modeForm !== "edit" && modeForm !== "create" && (
+    <Typography color="gray" variant="h5" className="mt-1 font-normal text-center">
+      Please select a car or create a new one.
+    </Typography>
+  )}
+
+              <Typography color="gray" variant="h5" className="mt-1 font-normal text-center">
                 {modeForm == "edit" && <span>Edit your selected car</span>}
                 {modeForm == "create" && <span>Register a new Car</span>}
               </Typography>
@@ -123,11 +140,16 @@ const UserSettings = () => {
               {modeForm == "create" && <CarForm mode={modeForm} carInfo={selectedCar} userId={user.id} setIsUpdating={setIsUpdating} setIsCreating={setIsCreating} setIsDeleting={setIsDeleting} />}
               {(isUpdating || isCreating || isDeleting) && (
                 <div>
-                  <Typography variant="h1" color="teal" textGradient>
-                    {isUpdating ? "Updated Car" : (isDeleting ? "Deleted Car" : "Car Created")}
+                  <div className="text-center">
+                  <Typography variant="h5" color="green" textGradient>
+                    {isUpdating ? "Car successfully upgraded" : (isDeleting ? "Car successfully removed" : "Successfully created car")}
                   </Typography>
-                  <div className="w-1/2">
-                    <div className="w-full h-full" style={iconStyle}></div>
+                  </div>
+          <div className="flex  flex-col space-y-2 justify-center items-center">
+          <Typography color="gray" variant="h6" className="mt-1 font-normal text-center">
+            Please select a car or create a new one.
+          </Typography>
+          <img width="240" height="240" src={messageSuccess} alt="ImgCar" />
                   </div>
                 </div>
               )}
