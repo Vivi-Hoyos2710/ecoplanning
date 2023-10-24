@@ -53,7 +53,7 @@ export const Dashboard = () => {
     const speedData: DataPoint[] = [];
 
     rawData.forEach((dataPoint: any) => {
-      const formattedTime = moment(dataPoint.timestamp).format('HH:mm:ss');
+      const formattedTime = moment(dataPoint.timestamp).format('HH:mm');
 
       elevationData.push({
         name: formattedTime,
