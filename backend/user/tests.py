@@ -6,7 +6,7 @@ from .views import UserView
 from djoser.views import UserViewSet as DjoserUserViewSet
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(databases=["default"])
 class TestUserViewset:
     def test_list_success(self, user, request_factory):
         """Test listing multiple users"""

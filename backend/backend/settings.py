@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "ecoparking",
+    "ovms",
     "user",
     "corsheaders",
     "django_filters",
@@ -83,17 +84,40 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("NAME", ""),
-        "USER": os.getenv("USER", ""),
-        "PASSWORD": os.getenv("PASSWORD", ""),
-        "HOST": os.getenv("HOST", ""),
-        "PORT": os.getenv("PORT", ""),
-    }
-}
 
+if os.getenv("OVMS_NAME", "") != "":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("NAME", ""),
+            "USER": os.getenv("USER", ""),
+            "PASSWORD": os.getenv("PASSWORD", ""),
+            "HOST": os.getenv("HOST", ""),
+            "PORT": os.getenv("PORT", ""),
+        },
+        "ovms": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("OVMS_NAME", ""),
+            "USER": os.getenv("OVMS_USER", ""),
+            "PASSWORD": os.getenv("OVMS_PASSWORD", ""),
+            "HOST": os.getenv("OVMS_HOST", ""),
+            "PORT": os.getenv("OVMS_PORT", ""),
+        },
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("NAME", ""),
+            "USER": os.getenv("USER", ""),
+            "PASSWORD": os.getenv("PASSWORD", ""),
+            "HOST": os.getenv("HOST", ""),
+            "PORT": os.getenv("PORT", ""),
+        },
+    }
+
+
+DATABASE_ROUTERS = ["backend.DatabaseRouter.DatabaseRouter"]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

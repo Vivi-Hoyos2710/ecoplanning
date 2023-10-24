@@ -5,7 +5,7 @@ from ecoparking.factories import BrandFactory
 from ecoparking.views import BrandView
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(databases=["default"])
 class TestBrandView:
     def test_get_brand_list_success(self, request_factory, user):
         view = BrandView.as_view({"get": "list"})

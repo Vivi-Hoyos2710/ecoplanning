@@ -5,7 +5,7 @@ from ecoparking.factories import AppModelFactory, BrandFactory
 from ecoparking.views import AppModelView
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(databases=["default"])
 class TestAppModelView:
     def test_get_app_model_list_success(self, request_factory, user):
         view = AppModelView.as_view({"get": "list"})
