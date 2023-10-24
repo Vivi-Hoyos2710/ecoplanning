@@ -2,7 +2,8 @@ import React, { useState, useRef, SetStateAction, useEffect } from 'react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 import { Input } from '@material-tailwind/react';
 import axios from 'axios';
-
+import SearchForm from './SearchForm';
+import SideBar from './SideBar';
 import {
   useLoadScript,
   GoogleMap,
@@ -10,45 +11,63 @@ import {
   Autocomplete,
   DirectionsRenderer,
   DirectionsService,
+  useGoogleMap,
 } from '@react-google-maps/api';
 
 type LatlngLiteral = google.maps.LatLngLiteral;
 type DirectionResult = google.maps.DirectionsResult;
+type IDirectionsService = google.maps.DirectionsService;
+type IDirectionsRenderer = google.maps.DirectionsRenderer;
 const { REACT_APP_GOOGLE_MAPS_API } = process.env;
-const Map = ({ children }: { children: React.ReactNode }) => {
-  const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.244203, lng: -75.581215});
-  const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.1673, lng: 75.5837 });
-  const [directions, setDirections] = useState<DirectionResult>();
+const Map = () => {
+  const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.1870354, lng:-75.56875661587414});
+  const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.203440, lng: -75.556541 });
+  const [directions, setDirections] = useState<DirectionResult|null>();
+  const [directionsRenderer,setDirectionsRenderer] = useState<IDirectionsRenderer | undefined>();
+  // const [service,setService] = useState<IDirectionsService | undefined>();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? '',
     libraries:['places']
   });
-  // const [map, setMap] = useState(null);
-  // const [directionsResponse, setDirectionsResponse] = useState(null);
-  // const originRef = useRef();
-  // const destiantionRef = useRef();
-  // const [IP, setIP] = useState('');
   const [center, setCenter] = useState({
     lat: 6.244203,
     lng: -75.581215
   });
-  // const getRoute = ()=>
-  // {
-  //   const service  = new google.maps.DirectionsService();
-  //   service.route(
-  //     {
-  //       origin,
-  //       destination,
-  //       travelMode : google.maps.TravelMode.DRIVING
-  //     },
-  //     (result,status) => {
-  //       if(status === 'OK' && result){
-  //         setDirections(result);
-  //       }
-  //     }
-  //   )
-  // }
 
+  useEffect(() => {
+    if (directions) {
+      // const directionsRenderer = new google.maps.DirectionsRenderer();
+      directionsRenderer?.setDirections(directions);
+    }
+  }, [directions]);
+
+    const getRoute = ()=>
+    {
+      if(!origin) return;
+      // directionsRenderer?.setMap(null);
+
+    const service= new google.maps.DirectionsService()
+    // setDirections(null);
+    console.log(origin), console.log(destination)
+    console.log("running");
+    service?.route(
+      {
+        origin,
+        destination,
+        travelMode : google.maps.TravelMode.DRIVING,
+      },
+      (result,status) => {
+        console.log(result)
+        console.log(status)
+        if(status == google.maps.DirectionsStatus.OK && result){
+          console.log(result.routes[0].legs[0].distance?.text);
+          console.log(result.routes[0].legs[0].duration?.text);
+          setDirections(result);
+        }
+      }
+    )
+    // setDirections(null)
+  }
   const options = {
     enableHighAccuracy: false,
     maximumAge: Infinity,
@@ -57,10 +76,10 @@ const Map = ({ children }: { children: React.ReactNode }) => {
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // console.log(position);
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         setCenter({ lat, lng });
+        // console.log(position);
         // console.log(center);
       },
       (err) => {
@@ -71,6 +90,13 @@ const Map = ({ children }: { children: React.ReactNode }) => {
   };
   useEffect(() => {
     getLocation();
+  }, []);
+
+  useEffect(() => {
+    if (typeof google !== 'undefined') {
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      setDirectionsRenderer(directionsRenderer);
+    }
   }, []);
 
   return isLoaded ? (
@@ -92,14 +118,23 @@ const Map = ({ children }: { children: React.ReactNode }) => {
 
         // onLoad={(map) => setMap(map)}
       >
+        {directions && (
+          <DirectionsRenderer
+          directions={directions}
+          options={{
+            polylineOptions:{
+              zIndex:50,
+              strokeColor : "#1976D2",
+              strokeWeight : 5
+            },
+          }}/>)
+          }
         <Marker position={center} />
-        <div className="w-full">{children}</div>
+        <div className="flex flex-col lg:flex-row p-5 justify-between">
+          <SearchForm setOrigin={setOrigin} setDestination={setDestination} getRoute={getRoute}/>
+         <SideBar/>
+        </div>
       </GoogleMap>
-      {/* <Marker position={center} /> */}
-      {/*
-      {directionsResponse && (
-        <DirectionsRenderer directions={directionsResponse} />
-      )} */}
     </div>
   ) : (
     <div></div>
