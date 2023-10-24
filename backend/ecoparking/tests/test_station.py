@@ -5,7 +5,7 @@ from ecoparking.factories import CoordinateFactory, StationFactory
 from ecoparking.views import StationView
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(databases=["default"])
 class TestStationView:
     def test_get_station_list_success(self, request_factory, user):
         view = StationView.as_view({"get": "list"})

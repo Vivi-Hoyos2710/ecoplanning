@@ -94,15 +94,17 @@ DATABASES = {
         "HOST": os.getenv("HOST", ""),
         "PORT": os.getenv("PORT", ""),
     },
-    "ovms": {
+}
+
+if os.getenv("OVMS_HOST", "") != "":
+    DATABASES["ovms"] = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.getenv("OVMS_NAME", ""),
         "USER": os.getenv("OVMS_USER", ""),
         "PASSWORD": os.getenv("OVMS_PASSWORD", ""),
         "HOST": os.getenv("OVMS_HOST", ""),
         "PORT": os.getenv("OVMS_PORT", ""),
-    },
-}
+    }
 
 DATABASE_ROUTERS = ["backend.DatabaseRouter.DatabaseRouter"]
 

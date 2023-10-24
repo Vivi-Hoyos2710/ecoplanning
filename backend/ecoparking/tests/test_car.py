@@ -5,7 +5,7 @@ from ecoparking.factories import CarFactory
 from ecoparking.views import CarView
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(databases=["default"])
 class TestCarView:
     def test_get_car_list_success(self, request_factory, user):
         view = CarView.as_view({"get": "list"})
