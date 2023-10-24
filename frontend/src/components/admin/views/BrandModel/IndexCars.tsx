@@ -42,12 +42,12 @@ export const IndexCars = () => {
       setOpenModel((cur: boolean) => !cur);
     }
   };
-  const handleActions: (action: string, id: number) => void = (action, id) => {
+  const handleActions: (action: string, info: any) => void = (action, info) => {
     if (action === 'DELETE') {
       setAction((cur: boolean) => !cur);
       const deleteModel = async () => {
         try {
-          await deleteModelById(id);
+          await deleteModelById(info.id);
         } catch (error) {
           console.log(error);
         }

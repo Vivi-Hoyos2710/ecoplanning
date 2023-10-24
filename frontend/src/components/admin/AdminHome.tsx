@@ -2,7 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { Dashboard } from './views/Dashboard';
 import { Stations } from './views/Stations';
-import { IndexCars } from './views/Cars/IndexCars';
+import { IndexCars } from './views/BrandModel/IndexCars';
+import { AdminCars } from './views/AdminCars/AdminCars';
 import LogoEco from '../driver/LogoEco';
 import { AiFillHome, AiFillCar} from 'react-icons/ai';
 import { FaChargingStation} from 'react-icons/fa';
@@ -20,6 +21,7 @@ export const AdminHome = () => {
         {view === 'dashboard' && <Dashboard />}
         {view === 'stations' && <Stations />}
         {view === 'cars' && <IndexCars />}
+        {view === 'adminCars' && <AdminCars/>}
       </div>
     </div>
   );
@@ -56,6 +58,14 @@ const DefaultSidebar = ({ changeView }: { changeView: (newView: string) => void 
         <AiFillCar/>
           <ListItemPrefix>
           Brands and models
+          </ListItemPrefix>
+          </div>
+        </ListItem>
+        <ListItem onClick={() => changeView('adminCars')}>
+        <div className=" flex  space-x-2 text-gray-600">
+        <AiFillCar/>
+          <ListItemPrefix>
+          My cars
           </ListItemPrefix>
           </div>
         </ListItem>
