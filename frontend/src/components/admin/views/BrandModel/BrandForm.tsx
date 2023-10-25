@@ -56,7 +56,7 @@ export const BrandForm = ({ handleOpen, open }: BrandForm) => {
               <AiFillCloseCircle size={30} />
             </button>
             <form className="w-full" onSubmit={handleSubmit(submitBrandForm)}>
-              <Input
+              <Input crossOrigin={undefined}
                 type="text"
                 label="Brand Name"
                 size="lg"

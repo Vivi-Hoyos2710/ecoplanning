@@ -77,7 +77,7 @@ export const Stations = () => {
       className="space-y-3"
     >
       <div className="flex flex-col space-y-2">
-        <Input
+        <Input crossOrigin={undefined}
           label="Name"
           {...register('name', {
             required: 'Name is required'
@@ -91,7 +91,7 @@ export const Stations = () => {
         )}
       </div>
       <div className="flex flex-col space-y-2">
-        <Input
+        <Input crossOrigin={undefined}
           label="Address"
           {...register('address', {
             required: 'Address is required'

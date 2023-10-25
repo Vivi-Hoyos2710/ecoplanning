@@ -47,7 +47,7 @@ const Login = () => {
                 Register your login information
               </Typography>
               <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
-                <Input
+                <Input crossOrigin={undefined}
                   type="text"
                   label="E-mail"
                   {...register('email', {
@@ -65,7 +65,7 @@ const Login = () => {
                   </Typography>
                 )}
 
-                <Input
+                <Input crossOrigin={undefined}
                   type="password"
                   label="Password"
                   {...register('password', {

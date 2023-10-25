@@ -5,6 +5,7 @@ import { FiBatteryCharging, FiMapPin } from 'react-icons/fi';
 import { HiMapPin } from 'react-icons/hi2';
 import { FaPercent } from 'react-icons/fa';
 import LogoEco from './LogoEco';
+import Places from './Places';
 
 type SearchProps = {
     setOrigin: (position: google.maps.LatLngLiteral) => void;
@@ -22,26 +23,27 @@ export default function SearchForm({ setOrigin ,setDestination, getRoute}: Searc
 
                     <Select label="My cars">
                         <Option
-                          value="hola">
-
+                          value="hola" color='black'>
                         </Option>
-
                     </Select>
 
               </div>
 
               <div className="flex items-center space-x-2">
                 <FiMapPin />
-                {/* <Input label="Starting address" className="bg-white flex-grow" /> */}
+                <div className="bg-white flex-grow">
+                  <Places setInputPlace={setOrigin} label = "Search Origin" />
+                </div>
               </div>
               <div className="flex items-center space-x-2">
                 <HiMapPin />
-                 placeholder="Destination Address"
-                 />
+                <div className="bg-white flex-grow">
+                <Places setInputPlace={setDestination} label ="Search Destination"/>
+                </div>
               </div>
               <div className="flex items-center space-x-2">
                 <FiBatteryCharging />
-                <Input label="Current battery" className="bg-white flex-grow" />
+                <Input  crossOrigin={undefined} label="Current battery" className="bg-white flex-grow" />
                 <FaPercent />
               </div>
               <div className="flex flex-col items-center justify-center">

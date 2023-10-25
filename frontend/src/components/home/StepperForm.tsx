@@ -48,7 +48,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
       }
     };
     if (brandId != 0) {
-      
+
       getModels();
     }
   }, [brandId, modelId]);
@@ -114,7 +114,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             Register your personal data
           </Typography>
           <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
-            <Input
+            <Input crossOrigin={undefined}
               type="text"
               label="Name"
               {...register('name', {
@@ -128,7 +128,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
               </Typography>
             )}
 
-            <Input
+            <Input crossOrigin={undefined}
               type="text"
               label="E-mail"
               {...register('email', {
@@ -151,7 +151,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
               </Typography>
             )}
 
-            <Input
+            <Input crossOrigin={undefined}
               type="password"
               label="Password"
               {...register('password', {
@@ -191,7 +191,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
             Register the details of one of your vehicles
           </Typography>
           <form onSubmit={handleSubmit(submitFun)} className="mt-4 space-y-4">
-            <Input
+            <Input crossOrigin={undefined}
               type="text"
               label="Vehicle plate"
               {...register('regisPlate', {
