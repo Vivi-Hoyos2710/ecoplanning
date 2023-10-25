@@ -59,6 +59,7 @@ class CarView(ModelViewSet):
         "license_plate": ["exact"],
         "model": ["exact"],
         "model__name": ["exact"],
+        "user__is_superuser": ["exact"],
     }
     ordering_fields = filterset_fields
 

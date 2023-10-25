@@ -1,12 +1,13 @@
 import React from 'react';
 import { Card, Typography, IconButton } from '@material-tailwind/react';
 import { FiEdit2, FiTrash } from 'react-icons/fi';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 interface DefaultTableProps {
   header: string[];
   tableRow: any[];
   tableKeys: string[];
   actions: string[];
-  handleActions: (type: string, id:number) => void;
+  handleActions: (type: string, data:any) => void;
 }
 export const DefaultTable = ({ header, tableRow, tableKeys, actions,handleActions }: DefaultTableProps) => {
   return (
@@ -41,9 +42,10 @@ export const DefaultTable = ({ header, tableRow, tableKeys, actions,handleAction
                 {actions.map((action: any) => (
                   <td key={action} className="p-4 border-b border-blue-gray-50">
                     <IconButton
-                      onClick={() => handleActions(action,row['id'])}
+                      onClick={() => handleActions(action,row)}
                     >
                       {' '}
+                      {action === 'LINK' && <AiOutlineInfoCircle />}
                       {action === 'EDIT' && <FiEdit2 />}
                       {action === 'DELETE' && <FiTrash />}
                     </IconButton>

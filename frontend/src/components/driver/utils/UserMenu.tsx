@@ -8,9 +8,18 @@ import {
   Avatar,
   Typography,
 } from "@material-tailwind/react";
+import { logOut } from '../../../services/AuthService';
 interface UserMenuProps {
   userEmail: string;
 }
+const handleLogOut = async () => {
+  console.log("here");
+  try {
+    await logOut();
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const UserMenu = ({ userEmail }: UserMenuProps) => {
   const letraEmail = userEmail.charAt(0).toUpperCase();
   return (
@@ -44,7 +53,7 @@ export const UserMenu = ({ userEmail }: UserMenuProps) => {
           </Typography>
         </MenuItem>
         <hr className="my-2 border-blue-gray-50" />
-        <MenuItem className="flex items-center gap-2 ">
+        <MenuItem onClick={handleLogOut} className="flex items-center gap-2 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

@@ -36,3 +36,16 @@ export async function getLoginToken(loginForm: LoginFormData): Promise<any> {
     return error;
   }
 }
+export async function logOut(): Promise<any> {
+  try {
+    console.log("here?");
+    const config = getAuthConfig();
+    const token = localStorage.getItem('tokenKey');
+    const response = await axios.post<any>('http://127.0.0.1:8000/auth/token/logout/', token, config);
+    localStorage.removeItem('tokenKey');
+    window.location.href = '/';
+  } catch (error) {
+    console.log(error);
+  }
+}
+

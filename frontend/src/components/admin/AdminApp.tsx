@@ -1,12 +1,26 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AdminHome } from './AdminHome';
+import { DefaultSidebar } from './DefaultSideBar';
+import { Stations } from './views/Stations';
+import { IndexCars } from './views/BrandModel/IndexCars';
+import { AdminCars } from './views/AdminCars/AdminCars';
+import { Dashboard } from './views/Dashboard';
+import { CarDashboard } from './views/CarDashboard';
 const AdminApp = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AdminHome />} />
-      </Routes>
+      <div className="flex h-screen">
+        <DefaultSidebar/>
+        <div className="w-full">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/stations" element={<Stations />} />
+            <Route path="/brand_models" element={<IndexCars />} />
+            <Route path="/admin_cars" element={<AdminCars />} />
+            <Route path='/admin_cars/:license_plate' element={<CarDashboard />} />
+          </Routes>
+        </div>
+      </div>
     </BrowserRouter>
   );
 };

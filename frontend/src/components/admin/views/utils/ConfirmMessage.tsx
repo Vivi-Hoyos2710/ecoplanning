@@ -6,13 +6,13 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-interface ConfirmationModal {
+interface ConfirmationMessage {
     handleOpen: (isConfirmed:boolean) => void;
     open: boolean;
     title:string|null;
     info:string;
   }
-export const ConfirmationModal=({handleOpen, open,title,info}:ConfirmationModal) =>{
+export const ConfirmationMessage=({handleOpen, open,title,info}:ConfirmationMessage) =>{
   return (
     <>
       

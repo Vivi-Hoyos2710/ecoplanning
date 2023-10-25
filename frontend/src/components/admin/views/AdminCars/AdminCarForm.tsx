@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Car, CarInfo } from '../../../types/CarTypes';
-import { Model } from '../../../types/ModelTypes';
-import { Brand } from '../../../types/BrandTypes';
+import { Car,CarInfo } from '../../../../types/CarTypes';
+import { Model } from '../../../../types/ModelTypes';
+import { Brand } from '../../../../types/BrandTypes';
 import { Select, Option, Input, Button, Typography } from '@material-tailwind/react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { getModelListFilter } from '../../../services/ModelService';
-import { getBrandListFilter, getBrandModelList } from '../../../services/BrandService';
-import { CarFormInfo } from '../../../types/AuthTypes';
-import { createCar, deleteCarById, updateCar } from '../../../services/CarService';
-import { ConfirmationModal } from './ConfirmationModal';
+import { getModelListFilter } from '../../../../services/ModelService';
+import { getBrandListFilter } from '../../../../services/BrandService';
+import { createCar, updateCar} from '../../../../services/CarService';
 
-interface CarForm {
+interface AdminCarForm {
     mode: string;
     carInfo: CarInfo | null;
     userId: number;
     setIsUpdating: (parameter: boolean) => void;
     setIsCreating: (parameter: boolean) => void;
-    setIsDeleting: (parameter: boolean) => void;
 }
 
-export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,setIsDeleting }: CarForm) => {
+export const AdminCarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating }: AdminCarForm) => {
     const [brands, setBrands] = useState<Brand[]>([]);
     const [models, setModels] = useState<Model[]>([]);
     const [brandId, setBrandId] = useState<number>(mode == "edit" && carInfo ? carInfo?.brand : 0);
@@ -27,7 +24,6 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
     const [selectedBrand, setSelectedBrand] = useState(mode == "edit" ? carInfo?.brand__name : "");
     const [selectedModel, setSelectedModel] = useState(mode == "edit" ? carInfo?.model__name : "");
     const [carId, setCarId] = useState(mode == "edit" ? carInfo?.id : null);
-    const [open, setOpen] = useState<boolean>(false);
     useEffect(() => {
         const getBrands = async () => {
             const brands = await getBrandListFilter([{
@@ -96,20 +92,7 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
         };
         submitCarForm();
     };
-    const handleDelete: (id: number) => void = async (id) => {
-        try {
-            await deleteCarById(id);
-            setIsDeleting(true);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    const handleOpen = (isConfirmed: boolean): void => {
-        if (isConfirmed && carId) {
-            handleDelete(carId);
-        }
-        setOpen(!open);
-      };
+    
     return (
         <div>
             <form onSubmit={handleSubmit(carSubmit)} className="mt-4 space-y-4">
@@ -194,15 +177,12 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
 
                 />
                 <div className="flex space-x-2">
-                {mode == "edit" && <Button variant="outlined" onClick={() => carId && handleOpen(false)}>
-                    Delete
-                </Button>}
+               
 
                 <Button variant="gradient" color="blue" type="submit">
                     {mode == "edit" ? "Update Car" : "Add New Car"}
                 </Button>
                 </div>
-                <ConfirmationModal handleOpen={handleOpen} open={open} info={"Are you sure do you want to delete this car?"} title={"Warning"}/>
 
             </form>
         </div>
