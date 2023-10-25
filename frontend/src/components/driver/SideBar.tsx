@@ -1,23 +1,25 @@
-import React,{useEffect} from 'react';
+import React,{useContext} from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Card, Button, Typography,Select, Option } from '@material-tailwind/react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { FiBatteryCharging, FiMapPin } from 'react-icons/fi';
-import { HiMapPin } from 'react-icons/hi2';
-import { FaPercent } from 'react-icons/fa';
+import { Input, Card, Button, Typography} from '@material-tailwind/react';
 import { GiBatteryPack } from 'react-icons/gi';
 import {
   BsExclamationCircleFill,
   BsFillBarChartLineFill,
   BsGearWideConnected
 } from 'react-icons/bs';
-import LogoEco from './LogoEco';
+import { UserMenu } from './utils/UserMenu';
+import { UserContext } from '../../types/UserTypes';
 export default function SideBar (){
+    const user = useContext(UserContext);
     return(
         <div className="w-full lg:w-1/12 lg:ml-4 mt-4 lg:mt-0">
         <Card className=" shadow-lg w-full rounded-t-lg p-5 ">
-        <div className="flex flex-col items-center justify-center space-y-5">
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col items-center justify-center space-y-5">
+                <div className="flex flex-col space-y-2">
+                    <div className="flex justify-center items-center pb-3">
+                        <UserMenu userEmail={user.email} />
+                    </div>
+
             <Button className="rounded-full" variant="gradient" color="blue">
                 <BsFillBarChartLineFill style={{ fontSize: '30px' }} />
             </Button>
