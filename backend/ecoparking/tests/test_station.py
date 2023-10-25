@@ -52,4 +52,4 @@ class TestStationView:
         response = view(request)
 
         assert response.status_code == 400
-        assert response.data["name"] == "This station already exist"
+        assert response.data["name"] == "This station already exists"
