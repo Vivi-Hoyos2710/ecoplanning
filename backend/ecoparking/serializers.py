@@ -26,7 +26,7 @@ class AppModelSerializer(ModelSerializer):
 class CarSerializer(ModelSerializer):
     brand__name = CharField(source="brand.name", read_only=True, required=False)
     model__name = CharField(source="model.name", read_only=True, required=False)
-
+    
     class Meta:
         model = Car
         fields = [
@@ -38,7 +38,6 @@ class CarSerializer(ModelSerializer):
             "model",
             "model__name",
         ]
-
 
 class StationSerializer(ModelSerializer):
     coordinate = PrimaryKeyRelatedField(read_only=True)
