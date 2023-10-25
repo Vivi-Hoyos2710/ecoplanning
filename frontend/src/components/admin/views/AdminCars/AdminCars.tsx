@@ -51,6 +51,10 @@ export const AdminCars = () => {
             handleOpenDeleteMessage(false);
         }
 
+        else if (action === 'LINK'){
+            window.location.assign(`/admin_cars/${dataInfo.license_plate}`);
+        }
+
     };
     const handleDelete: (id: number) => void = async (id) => {
         try {
@@ -122,10 +126,10 @@ export const AdminCars = () => {
                         >
                             {(!isUpdating && !isCreating && !isDeleting) && selectedCar === null && modeForm !== "edit" && modeForm !== "create" && (
                                 <DefaultTable
-                                    header={['Brand', 'Model', 'License Plate', 'Edit', 'Delete']}
+                                    header={['Brand', 'Model', 'License Plate', 'Info', 'Edit', 'Delete']}
                                     tableRow={cars}
                                     tableKeys={['brand__name', 'model__name', 'license_plate']}
-                                    actions={['EDIT', 'DELETE']}
+                                    actions={['LINK', 'EDIT', 'DELETE']}
                                     handleActions={handleActions}
                                 />
                             )}
@@ -169,4 +173,3 @@ export const AdminCars = () => {
         </div >
     );
 };
-

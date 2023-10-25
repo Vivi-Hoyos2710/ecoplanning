@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography, IconButton } from '@material-tailwind/react';
 import { FiEdit2, FiTrash } from 'react-icons/fi';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 interface DefaultTableProps {
   header: string[];
   tableRow: any[];
@@ -44,6 +45,7 @@ export const DefaultTable = ({ header, tableRow, tableKeys, actions,handleAction
                       onClick={() => handleActions(action,row)}
                     >
                       {' '}
+                      {action === 'LINK' && <AiOutlineInfoCircle />}
                       {action === 'EDIT' && <FiEdit2 />}
                       {action === 'DELETE' && <FiTrash />}
                     </IconButton>
