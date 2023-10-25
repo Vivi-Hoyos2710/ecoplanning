@@ -2,7 +2,6 @@ from rest_framework.serializers import (
     ModelSerializer,
     CharField,
     FloatField,
-    BooleanField,
     PrimaryKeyRelatedField,
     ValidationError,
 )
