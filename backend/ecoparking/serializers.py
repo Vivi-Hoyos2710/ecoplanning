@@ -39,7 +39,6 @@ class CarSerializer(ModelSerializer):
             "model__name",
         ]
 
-
 class StationSerializer(ModelSerializer):
     coordinate = PrimaryKeyRelatedField(read_only=True)
     coordinate__longitude = FloatField(
@@ -87,3 +86,4 @@ class BrandModelSerializer(ModelSerializer):
     class Meta:
         model = Brand
         fields = ("id", "name", "models")
+        
