@@ -7,7 +7,6 @@ from rest_framework.serializers import (
 )
 from .models import AppModel, Brand, Car, Station, Coordinate
 
-
 class BrandSerializer(ModelSerializer):
     class Meta:
         model = Brand
@@ -16,17 +15,15 @@ class BrandSerializer(ModelSerializer):
             "name",
         ]
 
-
 class AppModelSerializer(ModelSerializer):
     class Meta:
         model = AppModel
         fields = ["id", "name", "brand"]
 
-
 class CarSerializer(ModelSerializer):
     brand__name = CharField(source="brand.name", read_only=True, required=False)
-    model__name = CharField(source="model.name", read_only=True, required=False)
-    
+    model__name = CharField(source="model.name", read_only=True, required=False
+
     class Meta:
         model = Car
         fields = [
@@ -73,12 +70,11 @@ class StationSerializer(ModelSerializer):
                 coordinate=coordinate, name=validated_data["name"]
             ).first()
             if station_exist is not None:
-                raise ValidationError({"name": "This station already exist"})
+                raise ValidationError({"name": "This station already exists"})
         validated_data.pop("longitude")
         validated_data.pop("latitude")
         station = Station.objects.create(coordinate=coordinate, **validated_data)
         return station
-
 
 class BrandModelSerializer(ModelSerializer):
     models = AppModelSerializer(many=True, read_only=True, source="appmodel_set")
