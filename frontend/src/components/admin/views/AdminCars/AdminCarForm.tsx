@@ -92,11 +92,11 @@ export const AdminCarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreatin
         };
         submitCarForm();
     };
-    
+
     return (
         <div>
             <form onSubmit={handleSubmit(carSubmit)} className="mt-4 space-y-4">
-                <Input
+                <Input crossOrigin={undefined}
                     type="text"
                     label="Vehicle plate"
                     {...register('license_plate', {
@@ -111,7 +111,7 @@ export const AdminCarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreatin
                 />
                 {errors.license_plate && (
                     <Typography variant="small" color="red">
-                        {errors.license_plate?.message}
+                        {errors?.license_plate?.message?.toString()}
                     </Typography>
                 )}
 
@@ -177,7 +177,7 @@ export const AdminCarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreatin
 
                 />
                 <div className="flex space-x-2">
-               
+
 
                 <Button variant="gradient" color="blue" type="submit">
                     {mode == "edit" ? "Update Car" : "Add New Car"}

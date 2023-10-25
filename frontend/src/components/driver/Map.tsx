@@ -2,40 +2,54 @@ import React, { useState, useRef, SetStateAction, useEffect } from 'react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
 import { Input } from '@material-tailwind/react';
 import axios from 'axios';
+import SearchForm from './SearchForm';
+import SideBar from './SideBar';
 import {
-  useJsApiLoader,
+  useLoadScript,
   GoogleMap,
   Marker,
   Autocomplete,
-  DirectionsRenderer
+  DirectionsRenderer,
+  DirectionsService,
+  useGoogleMap,
 } from '@react-google-maps/api';
 
+type LatlngLiteral = google.maps.LatLngLiteral;
+type DirectionResult = google.maps.DirectionsResult;
 const { REACT_APP_GOOGLE_MAPS_API } = process.env;
-const Map = ({ children }: { children: React.ReactNode }) => {
-  // let map: google.maps.Map;
-  // const center: google.maps.LatLngLiteral = {lat: 30, lng: -110};
-
-  // function initMap(): void {
-  // map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-  //   center,
-  //   zoom: 8
-  // });
-  // }
-
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? ''
+const Map = () => {
+  const [origin, setOrigin] = useState<LatlngLiteral>({ lat: 6.1870354, lng: -75.56875661587414 });
+  const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.203440, lng: -75.556541 });
+  const [directions, setDirections] = useState<DirectionResult>();
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? '',
+    libraries: ['places']
   });
-  const [map, setMap] = useState(null);
-  const [directionsResponse, setDirectionsResponse] = useState(null);
-  const originRef = useRef();
-  const destiantionRef = useRef();
-  const [IP, setIP] = useState('');
   const [center, setCenter] = useState({
     lat: 6.244203,
     lng: -75.581215
   });
 
+  useEffect(() => {
+    console.log(directions);
+  }, [directions]);
+
+  const getRoute = () => {
+    if (!origin) return;
+    const service = new google.maps.DirectionsService()
+    service?.route(
+      {
+        origin,
+        destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (result, status) => {
+        if (status == google.maps.DirectionsStatus.OK && result) {
+          setDirections(result);
+        }
+      }
+    )
+  }
   const options = {
     enableHighAccuracy: false,
     maximumAge: Infinity,
@@ -44,11 +58,9 @@ const Map = ({ children }: { children: React.ReactNode }) => {
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position);
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         setCenter({ lat, lng });
-        console.log(center);
       },
       (err) => {
         console.log(err);
@@ -74,17 +86,29 @@ const Map = ({ children }: { children: React.ReactNode }) => {
           streetViewControl: false,
           mapTypeControl: false,
           fullscreenControl: false
+
         }}
-        // onLoad={(map) => setMap(map)}
+
+      // onLoad={(map) => setMap(map)}
       >
+        {(
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: "#1976D2",
+                strokeWeight: 5
+              },
+            }}
+          />)
+        }
         <Marker position={center} />
-        <div className="w-full">{children}</div>
+        <div className="flex flex-col lg:flex-row p-5 justify-between">
+          <SearchForm setOrigin={setOrigin} setDestination={setDestination} getRoute={getRoute} />
+          <SideBar />
+        </div>
       </GoogleMap>
-      {/* <Marker position={center} /> */}
-      {/*
-      {directionsResponse && (
-        <DirectionsRenderer directions={directionsResponse} />
-      )} */}
     </div>
   ) : (
     <div></div>
@@ -92,3 +116,10 @@ const Map = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default Map;
+
+
+/*
+
+juancamilo@gmail.com
+Mac123
+*/

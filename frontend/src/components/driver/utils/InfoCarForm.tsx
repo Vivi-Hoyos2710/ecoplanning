@@ -113,7 +113,7 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
     return (
         <div>
             <form onSubmit={handleSubmit(carSubmit)} className="mt-4 space-y-4">
-                <Input
+                <Input crossOrigin={undefined}
                     type="text"
                     label="Vehicle plate"
                     {...register('license_plate', {
@@ -128,7 +128,7 @@ export const CarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreating,set
                 />
                 {errors.license_plate && (
                     <Typography variant="small" color="red">
-                        {errors.license_plate?.message}
+                        {errors?.license_plate?.message?.toString()}
                     </Typography>
                 )}
 

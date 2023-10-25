@@ -62,7 +62,7 @@ export const ModelForm = ({ handleOpen, open, brandId, brandName }: ModelForm) =
               <AiFillCloseCircle size={30} />
             </button>
             <form className="w-full" onSubmit={handleSubmit(submitBrandForm)}>
-              <Input
+              <Input crossOrigin={undefined}
                 type="text"
                 label="Model name"
                 size="lg"
@@ -82,7 +82,7 @@ export const ModelForm = ({ handleOpen, open, brandId, brandName }: ModelForm) =
                 </Typography>
               )}
 
-              <input type="hidden" value={brandId} {...register('brand')} />
+              <input  type="hidden" value={brandId} {...register('brand')} />
               <CardFooter className="pt-0 flex justify-center mt-5">
                 <Button type="submit" variant="gradient">
                   Add

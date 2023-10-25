@@ -51,7 +51,9 @@ const Section1 = () => {
                 driving with ecoplanning
               </Typography>
               <Typography
-                size="sm"
+
+                // size="sm"
+                variant='small'
                 color="gray"
                 className=" text-lg text-center mb-2 text-base md:text-sm lg:text-md xl:text-xl"
               >
