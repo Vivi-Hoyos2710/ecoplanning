@@ -16,18 +16,14 @@ import {
 
 type LatlngLiteral = google.maps.LatLngLiteral;
 type DirectionResult = google.maps.DirectionsResult;
-type IDirectionsService = google.maps.DirectionsService;
-type IDirectionsRenderer = google.maps.DirectionsRenderer;
 const { REACT_APP_GOOGLE_MAPS_API } = process.env;
 const Map = () => {
-  const [origin, setOrigin] = useState<LatlngLiteral>({   lat: 6.1870354, lng:-75.56875661587414});
+  const [origin, setOrigin] = useState<LatlngLiteral>({ lat: 6.1870354, lng: -75.56875661587414 });
   const [destination, setDestination] = useState<LatlngLiteral>({ lat: 6.203440, lng: -75.556541 });
-  const [directions, setDirections] = useState<DirectionResult|null>();
-  const [directionsRenderer,setDirectionsRenderer] = useState<IDirectionsRenderer | undefined>();
-  // const [service,setService] = useState<IDirectionsService | undefined>();
+  const [directions, setDirections] = useState<DirectionResult>();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? '',
-    libraries:['places']
+    libraries: ['places']
   });
   const [center, setCenter] = useState({
     lat: 6.244203,
@@ -35,38 +31,24 @@ const Map = () => {
   });
 
   useEffect(() => {
-    if (directions) {
-      // const directionsRenderer = new google.maps.DirectionsRenderer();
-      directionsRenderer?.setDirections(directions);
-    }
+    console.log(directions);
   }, [directions]);
 
-    const getRoute = ()=>
-    {
-      if(!origin) return;
-      // directionsRenderer?.setMap(null);
-
-    const service= new google.maps.DirectionsService()
-    // setDirections(null);
-    console.log(origin), console.log(destination)
-    console.log("running");
+  const getRoute = () => {
+    if (!origin) return;
+    const service = new google.maps.DirectionsService()
     service?.route(
       {
         origin,
         destination,
-        travelMode : google.maps.TravelMode.DRIVING,
+        travelMode: google.maps.TravelMode.DRIVING,
       },
-      (result,status) => {
-        console.log(result)
-        console.log(status)
-        if(status == google.maps.DirectionsStatus.OK && result){
-          console.log(result.routes[0].legs[0].distance?.text);
-          console.log(result.routes[0].legs[0].duration?.text);
+      (result, status) => {
+        if (status == google.maps.DirectionsStatus.OK && result) {
           setDirections(result);
         }
       }
     )
-    // setDirections(null)
   }
   const options = {
     enableHighAccuracy: false,
@@ -79,8 +61,6 @@ const Map = () => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         setCenter({ lat, lng });
-        // console.log(position);
-        // console.log(center);
       },
       (err) => {
         console.log(err);
@@ -90,13 +70,6 @@ const Map = () => {
   };
   useEffect(() => {
     getLocation();
-  }, []);
-
-  useEffect(() => {
-    if (typeof google !== 'undefined') {
-      const directionsRenderer = new google.maps.DirectionsRenderer();
-      setDirectionsRenderer(directionsRenderer);
-    }
   }, []);
 
   return isLoaded ? (
@@ -116,23 +89,24 @@ const Map = () => {
 
         }}
 
-        // onLoad={(map) => setMap(map)}
+      // onLoad={(map) => setMap(map)}
       >
-        {directions && (
+        {(
           <DirectionsRenderer
-          directions={directions}
-          options={{
-            polylineOptions:{
-              zIndex:50,
-              strokeColor : "#1976D2",
-              strokeWeight : 5
-            },
-          }}/>)
-          }
+            directions={directions}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: "#1976D2",
+                strokeWeight: 5
+              },
+            }}
+          />)
+        }
         <Marker position={center} />
         <div className="flex flex-col lg:flex-row p-5 justify-between">
-          <SearchForm setOrigin={setOrigin} setDestination={setDestination} getRoute={getRoute}/>
-         <SideBar/>
+          <SearchForm setOrigin={setOrigin} setDestination={setDestination} getRoute={getRoute} />
+          <SideBar />
         </div>
       </GoogleMap>
     </div>
