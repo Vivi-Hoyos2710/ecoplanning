@@ -11,7 +11,7 @@ for filename in os.listdir("car_data"):
     for i in range(0, len(lines) - 1, 2):
         line1 = lines[i]
         line2 = lines[i + 1]
-        coords = (float(line1[2]), float(line1[3]), float(line2[2]), float(line2[3]))
+        coords = (line1[2], line1[3], line2[2], line2[3])
         if coords not in routes:
             routes[coords] = 1
         else:
