@@ -12,7 +12,7 @@ def brand_request():
 @pytest.fixture()
 def app_model_request():
     brand = BrandFactory()
-    return {"id": 2, "name": "app_model", "brand": brand.id}
+    return {"id": 2, "name": "app_model", "brand": brand.id, "range": 0}
 
 
 @pytest.fixture()

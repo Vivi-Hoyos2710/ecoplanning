@@ -16,6 +16,7 @@ class AppModelFactory(DjangoModelFactory):
         model = AppModel
 
     name = Sequence(lambda x: f"name_{x}")
+    range = Sequence(lambda x: x)
     brand = SubFactory(BrandFactory)
 
 

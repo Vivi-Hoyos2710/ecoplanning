@@ -5,6 +5,7 @@ type Model = {
 };
 type ModelInfo = {
   name: string;
+  range: number;
   brand: number;
 };
 

@@ -21,6 +21,7 @@ class TestAppModelView:
             assert res["id"] == app_model.id
             assert res["name"] == app_model.name
             assert res["brand"] == app_model.brand.id
+            assert res["range"] == app_model.range
 
     def test_create_app_model_success(self, request_factory, user, app_model_request):
         view = AppModelView.as_view({"post": "create"})
@@ -34,6 +35,7 @@ class TestAppModelView:
         assert response.status_code == 201
         assert response.data["name"] == app_model_request["name"]
         assert response.data["brand"] == app_model_request["brand"]
+        assert response.data["range"] == app_model_request["range"]
 
     def test_create_app_model_failure(self, request_factory, user, app_model_request):
         brand = BrandFactory()

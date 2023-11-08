@@ -26,13 +26,14 @@ class TestUserViewset:
             assert res["first_name"] == test_user.first_name
             assert res["last_name"] == test_user.last_name
 
-    def test_create_success(self, request_factory, user_request):
+    def test_create_success(self, user, request_factory, user_request):
         """Test listing multiple users"""
 
         view = DjoserUserViewSet.as_view({"post": "create"})
 
         url = reverse("user-list")
         request = request_factory.post(url, data=user_request[0], format="json")
+        force_authenticate(request, user=user)
 
         response = view(request)
         assert response.status_code == 201
