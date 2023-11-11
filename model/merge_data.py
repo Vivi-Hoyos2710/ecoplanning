@@ -22,9 +22,11 @@ for filename in os.listdir("car_data"):
         line1 = lines[i]
         line2 = lines[i + 1]
         coords = (float(line1[2]), float(line1[3]), float(line2[2]), float(line2[3]))
+        if coords not in routes:
+            continue
         dist, dur = routes[coords]
         diff_elevation = float(line2[4]) - float(line1[4])
-        diff_battery = float(line2[5]) - float(line2[5])
+        diff_battery = float(line2[5]) - float(line1[5])
         temp = float(line2[7]) + float(line1[7]) / 2
         traffic = int(line2[1]) - int(dur)
         if traffic < 0:
