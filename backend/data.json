@@ -10,24 +10,27 @@
         "model": "ecoparking.appmodel",
         "pk": 1,
         "fields":{
-            "name": "Zoe Phase 2",
-            "brand": 1
+            "name": "Zoe ZE50 R110",
+            "brand": 1,
+            "range": 315000
         }
     },
     {
         "model": "ecoparking.appmodel",
         "pk": 2,
         "fields":{
-            "name": "Twizy",
-            "brand": 1
+            "name": "Zoe ZE50 R135",
+            "brand": 1,
+            "range": 310000
         }
     },
     {
         "model": "ecoparking.appmodel",
         "pk": 3,
         "fields":{
-            "name": "Zoe",
-            "brand": 1
+            "name": "Twizy",
+            "brand": 1,
+            "range": 80000
         }
     },
     {
@@ -42,7 +45,8 @@
         "pk": 4,
         "fields":{
             "name": "Smart ED Gen.3",
-            "brand": 2
+            "brand": 2,
+            "range": 100000
         }
     },
     {
@@ -50,7 +54,8 @@
         "pk": 5,
         "fields":{
             "name": "Smart ED/EQ Gen.4",
-            "brand": 2
+            "brand": 2,
+            "range": 100000
         }
     },
     {
@@ -65,7 +70,8 @@
         "pk": 6,
         "fields":{
             "name": "Model S",
-            "brand": 3
+            "brand": 3,
+            "range": 560000
         }
     },
     {
@@ -73,7 +79,8 @@
         "pk": 7,
         "fields":{
             "name": "Roadsters",
-            "brand": 3
+            "brand": 3,
+            "range": 1000000
         }
     },
     {
@@ -88,7 +95,8 @@
         "pk": 8,
         "fields":{
             "name": "RAV4 EV",
-            "brand": 4
+            "brand": 4,
+            "range": 153000
         }
     },
     {
@@ -103,7 +111,8 @@
         "pk": 9,
         "fields":{
             "name": "e-Up",
-            "brand": 5
+            "brand": 5,
+            "range": 260000
         }
     },
     {
@@ -118,7 +127,8 @@
         "pk": 10,
         "fields":{
             "name": "i3",
-            "brand": 6
+            "brand": 6,
+            "range": 153000
         }
     },
     {
@@ -126,7 +136,8 @@
         "pk": 11,
         "fields":{
             "name": "i3s",
-            "brand": 6
+            "brand": 6,
+            "range": 230000
         }
     },
     {
@@ -141,7 +152,8 @@
         "pk": 12,
         "fields":{
             "name": "Cooper SE",
-            "brand": 7
+            "brand": 7,
+            "range": 270000
         }
     },
     {
@@ -156,7 +168,8 @@
         "pk": 13,
         "fields":{
             "name": "500e",
-            "brand": 8
+            "brand": 8,
+            "range": 235000
         }
     },
     {
@@ -171,7 +184,8 @@
         "pk": 14,
         "fields":{
             "name": "Ioniq vFL",
-            "brand": 9
+            "brand": 9,
+            "range": 481000
         }
     },
     {
@@ -179,7 +193,8 @@
         "pk": 15,
         "fields":{
             "name": "Ioniq 5",
-            "brand": 9
+            "brand": 9,
+            "range": 385000
         }
     },
     {
@@ -187,7 +202,8 @@
         "pk": 16,
         "fields":{
             "name": "Kona",
-            "brand": 9
+            "brand": 9,
+            "range": 390000
         }
     },
     {
@@ -195,7 +211,8 @@
         "pk": 17,
         "fields":{
             "name": "Ioniq FL",
-            "brand": 9
+            "brand": 9,
+            "range": 385000
         }
     },
     {
@@ -210,7 +227,8 @@
         "pk": 18,
         "fields":{
             "name": "IPace",
-            "brand": 10
+            "brand": 10,
+            "range": 470000
         }
     },
     {
@@ -225,7 +243,8 @@
         "pk": 19,
         "fields":{
             "name": "e-Niro",
-            "brand": 11
+            "brand": 11,
+            "range": 385000
         }
     },
     {
@@ -233,7 +252,8 @@
         "pk": 20,
         "fields":{
             "name": "Soul EV",
-            "brand": 11
+            "brand": 11,
+            "range": 370000
         }
     },
     {
@@ -248,7 +268,8 @@
         "pk": 21,
         "fields":{
             "name": "eDeliver3",
-            "brand": 12
+            "brand": 12,
+            "range": 344000
         }
     },
     {
@@ -256,14 +277,6 @@
         "pk": 13,
         "fields":{
             "name": "Mercedes-Benz"
-        }
-    },
-    {
-        "model": "ecoparking.appmodel",
-        "pk": 22,
-        "fields":{
-            "name": "B250E W242",
-            "brand": 13
         }
     },
     {
@@ -278,7 +291,8 @@
         "pk": 23,
         "fields":{
             "name": "EV",
-            "brand": 14
+            "brand": 14,
+            "range": 440000
         }
     },
     {
@@ -286,7 +300,8 @@
         "pk": 24,
         "fields":{
             "name": "ZS EV",
-            "brand": 14
+            "brand": 14,
+            "range": 461000
         }
     },
     {
@@ -300,8 +315,9 @@
         "model": "ecoparking.appmodel",
         "pk": 25,
         "fields":{
-            "name": "Trio",
-            "brand": 15
+            "name": "Triton",
+            "brand": 15,
+            "range": 1000000
         }
     },
     {
@@ -316,7 +332,8 @@
         "pk": 26,
         "fields":{
             "name": "Leaf",
-            "brand": 16
+            "brand": 16,
+            "range": 340000
         }
     },
     {
@@ -324,7 +341,8 @@
         "pk": 27,
         "fields":{
             "name": "e-NV200",
-            "brand": 16
+            "brand": 16,
+            "range": 130000
         }
     }
 ]
