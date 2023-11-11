@@ -1,6 +1,6 @@
 import googlemaps
 
-gmaps = googlemaps.Client()
+gmaps = googlemaps.Client(key="")
 
 my_dist = gmaps.distance_matrix("6.19695,-75.5602", "6.20218,-75.5573", mode="Drive")[
     "rows"

@@ -40,11 +40,18 @@ for vehicle_id, cur_data in data.items():
         coords1 = (float(filtered_data[i][2]), float(filtered_data[i][2]))
         coords2 = (float(filtered_data[i + 1][2]), float(filtered_data[i + 1][2]))
         diff = abs(coords1[0] - coords2[0]) + abs(coords1[1] - coords2[1])
-        if filtered_data[i][5] == "NULL" or diff < 0.0001:
+        if (
+            filtered_data[i][5] == "NULL"
+            or diff < 0.0001
+            or (
+                float(filtered_data[i + 1][7]) == 0.0
+                or float(filtered_data[i][7]) == 0.0
+            )
+            or filtered_data[i + 1][1] - filtered_data[i][1] <= 30
+        ):
             continue
-        if filtered_data[i + 1][1] - filtered_data[i][1] > 30:
-            final_data.append(filtered_data[i])
-            final_data.append(filtered_data[i + 1])
+        final_data.append(filtered_data[i])
+        final_data.append(filtered_data[i + 1])
 
     if len(final_data) == 0:
         continue

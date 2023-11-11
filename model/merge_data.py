@@ -4,13 +4,15 @@ routes = {}
 with open("routes_with_distance_and_duration.csv", "r") as file:
     for line in file:
         route = line.split(",")
-        coords = (line[2], line[3], line[4], line[5])
-        routes[route] = (line[0], line[1])
+        coords = (float(route[2]), float(route[3]), float(route[4]), float(route[5]))
+        routes[coords] = (route[0], route[1])
 
-outputs = []
+ttl_outputs = []
 
 for filename in os.listdir("car_data"):
+    outputs = []
     lines = []
+    vehicle_id = filename[0:5]
     with open(f"car_data/{filename}", "r") as file:
         for line in file:
             segments = line.split(",")
@@ -19,8 +21,50 @@ for filename in os.listdir("car_data"):
     for i in range(0, len(lines) - 1, 2):
         line1 = lines[i]
         line2 = lines[i + 1]
-        coords = (line1[2], line1[3], line2[2], line2[3])
-        dist_dur = routes[coords]
+        coords = (float(line1[2]), float(line1[3]), float(line2[2]), float(line2[3]))
+        dist, dur = routes[coords]
         diff_elevation = float(line2[4]) - float(line1[4])
         diff_battery = float(line2[5]) - float(line2[5])
-        output = [dist_dur, diff_elevation, diff_battery]
+        temp = float(line2[7]) + float(line1[7]) / 2
+        traffic = int(line2[1]) - int(dur)
+        if traffic < 0:
+            continue
+        output = (dist, dur, traffic, diff_battery, diff_elevation, temp)
+        outputs.append(output)
+        ttl_outputs.append(output)
+
+    with open(f"final_car_data/{vehicle_id}data.csv", "w") as file:
+        file.write(
+            ",".join(
+                [
+                    "Distance",
+                    "Duration",
+                    "Traffic",
+                    "Diff Batery",
+                    "Diff Elevation",
+                    "Mean Tempeture",
+                ]
+            )
+        )
+        file.write("\n")
+        for d in outputs:
+            file.write(",".join(list(map(str, d))))
+            file.write("\n")
+
+with open("final_data.csv", "w") as file:
+    file.write(
+        ",".join(
+            [
+                "Distance",
+                "Duration",
+                "Traffic",
+                "Diff Batery",
+                "Diff Elevation",
+                "Mean Tempeture",
+            ]
+        )
+    )
+    file.write("\n")
+    for d in ttl_outputs:
+        file.write(",".join(list(map(str, d))))
+        file.write("\n")
