@@ -39,6 +39,7 @@ class AppModelView(ModelViewSet):
         "id": ["exact"],
         "name": ["exact"],
         "brand": ["exact"],
+        "range": ["exact"],
     }
     ordering_fields = filterset_fields
 

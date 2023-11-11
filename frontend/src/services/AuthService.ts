@@ -2,14 +2,7 @@ import axios from 'axios';
 import { AxiosRequestConfig } from 'axios';
 import { User, NoUser } from '../types/UserTypes';
 import { LoginFormData, LoginRequest, LoginToken } from '../types/AuthTypes';
-
-function getAuthConfig(): AxiosRequestConfig {
-  return {
-    headers: {
-      Authorization: `Token ${localStorage.getItem('tokenKey')}`
-    }
-  };
-}
+import { getAuthConfig } from './GeneralService';
 
 export async function getLoggedUser(): Promise<User> {
   try {
@@ -48,4 +41,3 @@ export async function logOut(): Promise<any> {
     console.log(error);
   }
 }
-

@@ -20,7 +20,7 @@ class BrandSerializer(ModelSerializer):
 class AppModelSerializer(ModelSerializer):
     class Meta:
         model = AppModel
-        fields = ["id", "name", "brand"]
+        fields = ["id", "name", "brand", "range"]
 
 
 class CarSerializer(ModelSerializer):

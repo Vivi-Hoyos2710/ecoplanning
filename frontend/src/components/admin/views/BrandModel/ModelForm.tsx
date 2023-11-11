@@ -82,6 +82,21 @@ export const ModelForm = ({ handleOpen, open, brandId, brandName }: ModelForm) =
                 </Typography>
               )}
 
+              <Input crossOrigin={undefined}
+                type="number"
+                label="Range (meters)"
+                size="lg"
+                {...register('range', {
+                  required: 'You must enter the models range before submitting'
+                })}
+                error={errors.range !== undefined}
+              />
+              {errors.range && (
+                <Typography variant="small" color="red">
+                  {errors.range?.message}
+                </Typography>
+              )}
+
               <input  type="hidden" value={brandId} {...register('brand')} />
               <CardFooter className="pt-0 flex justify-center mt-5">
                 <Button type="submit" variant="gradient">

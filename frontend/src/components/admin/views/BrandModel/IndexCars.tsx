@@ -133,9 +133,9 @@ export const IndexCars = () => {
             </div>
             {brand.models.length > 0 ? (
               <DefaultTable
-                header={['Id', 'name', 'Delete', 'Edit']}
+                header={['Id', 'name', 'Range(m)', 'Delete', 'Edit']}
                 tableRow={brand.models}
-                tableKeys={['id', 'name']}
+                tableKeys={['id', 'name', 'range']}
                 actions={['DELETE', 'EDIT']}
                 handleActions={handleActions}
               />

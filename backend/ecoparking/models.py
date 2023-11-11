@@ -9,6 +9,7 @@ class Brand(models.Model):
 class AppModel(models.Model):
     brand = models.ForeignKey("Brand", on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    range = models.IntegerField()
 
     class Meta:
         unique_together = ["brand", "name"]
