@@ -12,6 +12,7 @@ export async function getStationList(filters: Filter[]): Promise<Station[]> {
   return response.data;
 }
 
+
 export async function createStation(station: StationInfo) {
   await axios.post<Station>('http://127.0.0.1:8000/api/v1/station/', station, getAuthConfig());
 }

@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <div
-        className="bg-cover bg-center bg-no-repeat w-screen absolute p-3"
+        className="bg-cover bg-center bg-no-repeat w-screen h-screen md:h-auto md:min-h-screen absolute p-3 home-background"
         style={{ backgroundImage: `url(${fondo1})` }}
       >
         <Section1 />
@@ -27,7 +27,7 @@ const Section1 = () => {
     <div>
       <NavbarDefault />
 
-      <div className="flex justify-center items-center pt-20">
+      <div className="flex justify-center items-center mt-10">
         <div className="relative w-full sm:w-1/3 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
         <Link to="/signin">
           <div
@@ -39,29 +39,30 @@ const Section1 = () => {
           >
             <img src={burbuja} alt="Imagen" className="w-full h-auto" />
 
-            <div className=" flex flex-col items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[90%]">
-              <img width="150" height="100" src={carro} alt="carro" />
+            <div className="flex flex-col items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-5/6">
+              <img className="w-24 md:w-32 lg:w-30 xl:w-40 "
+                  src={carro}
+                  alt="carro"/>
+                  <div>
               <Typography
                 variant="h2"
                 textGradient
-                className="text-white text-center mb-2 mt-2 text-2xl md:text-2xl lg:text-3xl xl:text-4xl "
-                style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.5)' }}
-              >
+                className="text-white text-center mb-2 mt-2 text-2xl sm:text-xs md:text-2xl lg:text-3xl xl:text-4xl"
+                style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.5)' }}>
                 Say goodbye to distance anxiety and embrace a new era of stress-free electric
-                driving with ecoplanning
+                driving 
               </Typography>
               <Typography
 
-                // size="sm"
                 variant='small'
                 color="gray"
-                className=" text-lg text-center mb-2 text-base md:text-sm lg:text-md xl:text-xl"
+                className="text-base sm:text-xs md:text-lg lg:text-md xl:text-xl text-center mb-2"
               >
                 You can travel and at the same time conserve your vehicle&apos;s electric battery,
                 save costs and help the planet.
               </Typography>
-
-              <div className="flex flex-col items-center justify-center mt-3">
+              </div>
+              <div className="flex flex-col items-center justify-center mt-2">
                 <Link to="/signin">
                   <Button type="submit" variant="gradient" color="cyan" className="rounded-full">
                     Sign Up

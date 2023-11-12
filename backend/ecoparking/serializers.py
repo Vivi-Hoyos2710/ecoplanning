@@ -5,7 +5,7 @@ from rest_framework.serializers import (
     PrimaryKeyRelatedField,
     ValidationError,
 )
-from .models import AppModel, Brand, Car, Station, Coordinate
+from .models import AppModel, Brand, Car, Station, Coordinate,Report
 
 
 class BrandSerializer(ModelSerializer):
@@ -105,3 +105,15 @@ class BrandModelSerializer(ModelSerializer):
     class Meta:
         model = Brand
         fields = ("id", "name", "models")
+
+
+class ReportStationSerializer(ModelSerializer):
+    station__name= CharField(source="station.name", read_only=True, required=False)
+    class Meta:
+        model = Report
+        fields = [
+            "id",
+            "station",
+            "station__name",
+            "description",
+        ]
