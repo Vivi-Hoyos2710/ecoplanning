@@ -9,10 +9,23 @@ with open("routes_with_distance_and_duration.csv", "r") as file:
 
 ttl_outputs = []
 
+range_est = {
+    "EGZ112": 307,
+    "FRV020": 198.629,
+    "FVQ731": 185.545,
+    "FXR906": 84,
+    "GFK695": 211,
+    "GHW284": 295,
+    "GVQ446": 364,
+    "GVQ514": 348,
+}
+
+
 for filename in os.listdir("car_data"):
     outputs = []
     lines = []
-    vehicle_id = filename[0:5]
+    vehicle_id = filename[0:6]
+
     with open(f"car_data/{filename}", "r") as file:
         for line in file:
             segments = line.split(",")
@@ -25,26 +38,24 @@ for filename in os.listdir("car_data"):
         if coords not in routes:
             continue
         dist, dur = routes[coords]
+        car_discharge = -float(dist) / range_est[vehicle_id]
+        time = int(line2[1]) - int(line1[1])
         diff_elevation = float(line2[4]) - float(line1[4])
         diff_battery = float(line2[5]) - float(line1[5])
         temp = float(line2[7]) + float(line1[7]) / 2
-        traffic = int(line2[1]) - int(dur)
-        if traffic < 0:
-            continue
-        output = (dist, dur, traffic, diff_battery, diff_elevation, temp)
+        output = (car_discharge, time, diff_elevation, temp, diff_battery)
         outputs.append(output)
         ttl_outputs.append(output)
 
-    with open(f"final_car_data/{vehicle_id}data.csv", "w") as file:
+    with open(f"final_car_data/{filename}", "w") as file:
         file.write(
             ",".join(
                 [
-                    "Distance",
-                    "Duration",
-                    "Traffic",
-                    "Diff Batery",
+                    "Car Discharge Estimation",
+                    "Time of Trip",
                     "Diff Elevation",
                     "Mean Tempeture",
+                    "Diff Batery",
                 ]
             )
         )
@@ -57,12 +68,11 @@ with open("final_data.csv", "w") as file:
     file.write(
         ",".join(
             [
-                "Distance",
-                "Duration",
-                "Traffic",
-                "Diff Batery",
+                "Car Discharge Estimation",
+                "Time of Trip",
                 "Diff Elevation",
                 "Mean Tempeture",
+                "Diff Batery",
             ]
         )
     )

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ecoparking",
     "ovms",
+    "mlmodel",
     "user",
     "corsheaders",
     "django_filters",
