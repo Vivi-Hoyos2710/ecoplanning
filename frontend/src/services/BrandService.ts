@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Brand, BrandInfo, BrandModel } from '../types/BrandTypes';
 import { Filter } from '../types/ServiceTypes';
-import { ponerFiltros } from './GeneralService';
+import { getAuthConfig, ponerFiltros } from './GeneralService';
 
 export async function getBrandListFilter(filter: any): Promise<Brand[]> {
   const response = await axios.get<Brand[]>(
@@ -22,5 +22,5 @@ export async function getBrandModelList(filter: any): Promise<BrandModel[]> {
 }
 
 export async function createBrand(car: BrandInfo) {
-  await axios.post<BrandInfo>('http://127.0.0.1:8000/api/v1/brand/', car);
+  await axios.post<BrandInfo>('http://127.0.0.1:8000/api/v1/brand/', car, getAuthConfig());
 }

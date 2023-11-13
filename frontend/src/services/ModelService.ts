@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Model, ModelInfo } from '../types/ModelTypes';
 import { Filter } from '../types/ServiceTypes';
-import { ponerFiltros } from './GeneralService';
+import { getAuthConfig, ponerFiltros } from './GeneralService';
 
 export async function getModelListFilter(filters: Filter[]): Promise<Model[]> {
   const response = await axios.get<Model[]>(
@@ -20,10 +20,10 @@ export async function getModelByID(id: number): Promise<Model[]> {
 }
 
 export async function createModel(model: ModelInfo) {
-  await axios.post<ModelInfo>('http://127.0.0.1:8000/api/v1/app-model/', model);
+  await axios.post<ModelInfo>('http://127.0.0.1:8000/api/v1/app-model/', model, getAuthConfig());
 }
 
 export async function deleteModelById(id: number) {
-  const response = await axios.delete(`http://127.0.0.1:8000/api/v1/app-model/${id}/`);
+  const response = await axios.delete(`http://127.0.0.1:8000/api/v1/app-model/${id}/`, getAuthConfig());
   return response.data;
 }

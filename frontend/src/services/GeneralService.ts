@@ -15,6 +15,16 @@ export function ponerFiltros(filters: Filter[]) : AxiosRequestConfig {
     params[filter.name] = filter.value;
   });
   return {
+    params
+  };
+}
+
+export function ponerFiltrosYAuthenticacion(filters: Filter[]) : AxiosRequestConfig {
+  const params: { [key: string]: string } = {};
+  filters.forEach((filter: Filter) => {
+    params[filter.name] = filter.value;
+  });
+  return {
     ...getAuthConfig(),
     params
   };

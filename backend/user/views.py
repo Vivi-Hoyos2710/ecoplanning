@@ -1,5 +1,4 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.mixins import Response
@@ -9,6 +8,7 @@ from rest_framework.views import status
 from rest_framework.viewsets import ModelViewSet
 from user.models import User
 import django.contrib.auth.password_validation as validators
+from user.permissions import UserPermission
 
 
 class UserSerializer(ModelSerializer):
@@ -35,6 +35,7 @@ class UserView(ModelViewSet):
         "last_name": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (UserPermission,)
 
     def get_queryset(self):
         return User.objects.all()
@@ -59,28 +60,3 @@ class UserView(ModelViewSet):
             return Response(response_data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    permission_classes = (permissions.IsAuthenticated,)
-
-    permission_classes_by_action = {
-        "create": permission_classes,
-        "list": permission_classes,
-        "retrieve": permission_classes,
-        "update": permission_classes,
-        "destroy": permission_classes,
-    }
-
-    def get_permissions(self):
-        try:
-            return [
-                permission()
-                for permission in self.permission_classes_by_action[self.action]
-            ]
-        except KeyError:
-            if self.action:
-                permission_classes = [permissions.AllowAny]
-
-            return [
-                permission()
-                for permission in (permission_classes or self.permission_classes)
-            ]

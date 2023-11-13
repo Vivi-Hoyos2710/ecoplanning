@@ -83,6 +83,7 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
         try {
           setLoading(true);
           const user = await createUser(userInfo);
+          await getLoginToken(data);
           const userCar: Car = {
             user: user.id,
             brand: brandId,
@@ -92,7 +93,6 @@ const StepperForm = ({ stepIndex, checkValid }: StepperProps) => {
           };
           console.log(userCar);
           const car = await createCar(userCar);
-          await getLoginToken(data);
           setLoading(false);
           checkValid(true);
         } catch (error: any) {

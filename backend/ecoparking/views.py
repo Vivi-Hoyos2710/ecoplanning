@@ -1,3 +1,5 @@
+from ecoparking.permissions import ViewEveryOneCreateModifyAdmin
+from .permissions import CarPermission
 from .models import AppModel, Car, Station, Brand
 from .serializers import (
     AppModelSerializer,
@@ -24,6 +26,7 @@ class BrandView(ModelViewSet):
         "name": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (ViewEveryOneCreateModifyAdmin,)
 
     def get_queryset(self):
         return Brand.objects.all()
@@ -42,6 +45,7 @@ class AppModelView(ModelViewSet):
         "range": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (ViewEveryOneCreateModifyAdmin,)
 
     def get_queryset(self):
         return AppModel.objects.all()
@@ -63,6 +67,7 @@ class CarView(ModelViewSet):
         "user__is_superuser": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (CarPermission,)
 
     def get_queryset(self):
         return Car.objects.all()
@@ -81,6 +86,7 @@ class StationView(ModelViewSet):
         "address": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (ViewEveryOneCreateModifyAdmin,)
 
     def get_queryset(self):
         return Station.objects.all()
@@ -97,6 +103,7 @@ class BrandModel(ModelViewSet):
         "name": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (ViewEveryOneCreateModifyAdmin,)
 
     def get_queryset(self):
         queryset = Brand.objects.prefetch_related("appmodel_set").all()
