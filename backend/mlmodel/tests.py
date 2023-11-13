@@ -1,13 +1,11 @@
 import pytest
 from rest_framework.reverse import reverse
-from rest_framework.test import APIClient
 
 
 @pytest.mark.django_db(databases=["default"])
 class TestDischargePrediction:
-    def test_discharge_prediction(self, user):
+    def test_discharge_prediction(self, user, client):
         url = reverse("discharge_prediction")
-        client = APIClient()
         prediction_data = {
             "car_discharge_estimation": -62.838862559241704,
             "time_of_trip": 3813,

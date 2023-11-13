@@ -1,7 +1,12 @@
 from joblib import load
 
 
-class RegressionModel:
+class RegressionModel(object):
+    def __new__(cls):
+        if not hasattr(cls, "instance"):
+            cls.instance = super(RegressionModel, cls).__new__(cls)
+        return cls.instance
+
     def __init__(self) -> None:
         self.regressor = load(
             "./mlmodel/model_components/multiple_linear_regression.joblib"
