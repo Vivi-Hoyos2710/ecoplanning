@@ -19,17 +19,15 @@ export async function getOVMSDataFilter(filters: Filter[]): Promise<OVMSData[]> 
   }
 }
 
-export async function getOVMsDataCSVFilter(filters: Filter[]): Promise<OVMSData[]> {
+export function constructOVMsDataCSVFilterURL(filters: Filter[]): string {
   const baseURL = 'http://127.0.0.1:8000/api/v1/ovms/export_ovms_data_list/';
-  try {
-      const response = await axios.get<OVMSData[]>(
-        baseURL,
-        ponerFiltros(filters)
-      );
 
-      return response.data;
-  } catch (error) {
-      console.error('ERROR in getChartingData ',error);
-      throw error;
+  function createQueryString(filters: Filter[]) {
+    return filters.map(filter => `${encodeURIComponent(filter.name)}=${encodeURIComponent(filter.value)}`).join('&');
   }
+
+  const queryString = createQueryString(filters);
+  const fullURL = `${baseURL}?${queryString}`;
+
+  return fullURL;
 }

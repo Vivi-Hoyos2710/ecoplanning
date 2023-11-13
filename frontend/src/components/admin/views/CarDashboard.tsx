@@ -3,7 +3,7 @@ import moment from 'moment';
 import React,{ useState, useEffect } from 'react';
 import { Card, Typography, Button} from '@material-tailwind/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { getOVMSDataFilter,getOVMsDataCSVFilter } from '../../../services/OVMSService';
+import { getOVMSDataFilter,constructOVMsDataCSVFilterURL } from '../../../services/OVMSService';
 import { useParams } from 'react-router';
 import { OVMSData } from '../../../types/OVMSTypes';
 import { DefaultTable } from './utils/Table';
@@ -73,10 +73,6 @@ export const CarDashboard = () => {
     setRawData(rawData);
   }
 
-  const handleDownload = async () => {
-    await getOVMsDataCSVFilter(filters);
-  };
-
   return (
     <div className="flex flex-col justify-center items-center  p-5 md:p-0">
       <Card shadow={true} className="text-gray-600 mt-5 shadow-lg rounded-tl rounded-br p-4 ">
@@ -85,15 +81,16 @@ export const CarDashboard = () => {
               </Typography>
       </Card>
       <div className='flex mt-2 justify-center'>
-        <Button
-          className="p-4"
-          size="sm"
-          variant="gradient"
-          color="blue-gray"
-          onClick={handleDownload}
-          >
-            Download
-        </Button>
+        <a href={constructOVMsDataCSVFilterURL(filters)}>
+          <Button
+            className="p-4"
+            size="sm"
+            variant="gradient"
+            color="blue-gray"
+            >
+              Download
+          </Button>
+        </a>
       </div>
       <div className="mt-8">
         <p className="text-xl text-center">Filters</p>
