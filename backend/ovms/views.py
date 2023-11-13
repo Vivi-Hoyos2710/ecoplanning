@@ -1,5 +1,7 @@
 import csv
 import datetime
+
+from rest_framework.permissions import IsAdminUser
 from .models import OVMSData
 from .serializers import OVMSSerializer
 from rest_framework.viewsets import ModelViewSet
@@ -17,6 +19,7 @@ class OVMSView(ModelViewSet):
         DjangoFilterBackend,
         OrderingFilter,
     ]
+    permission_classes = (IsAdminUser,)
     filterset_fields = {
         "id": ["exact", "lte", "gte"],
         "timestamp": ["exact", "lte", "gte"],
