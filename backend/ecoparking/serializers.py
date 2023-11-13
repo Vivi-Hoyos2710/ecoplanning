@@ -77,7 +77,25 @@ class StationSerializer(ModelSerializer):
                 raise ValidationError({"name": "This station already exists"})
         validated_data.pop("longitude")
         validated_data.pop("latitude")
-        station = Station.objects.create(coordinate=coordinate, **validated_data)
+        validated_data["coordinate"] = coordinate
+        station = super().create(validated_data)
+        return station
+
+    def update(self, instance, validated_data):
+        coordinate, created = Coordinate.objects.get_or_create(
+            longitude=validated_data["longitude"],
+            latitude=validated_data["latitude"],
+        )
+        if not created:
+            station_exist = Station.objects.filter(
+                coordinate=coordinate, name=validated_data["name"]
+            ).first()
+            if station_exist is not None:
+                raise ValidationError({"name": "This station already exists"})
+        validated_data.pop("longitude")
+        validated_data.pop("latitude")
+        validated_data["coordinate"] = coordinate
+        station = super().update(instance, validated_data)
         return station
 
 

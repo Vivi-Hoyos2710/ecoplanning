@@ -8,7 +8,7 @@ from djoser.views import UserViewSet as DjoserUserViewSet
 
 @pytest.mark.django_db(databases=["default"])
 class TestUserViewset:
-    def test_list_success(self, user, request_factory):
+    def test_list_success(self, admin_user, request_factory):
         """Test listing multiple users"""
 
         view = UserView.as_view({"get": "list"})
@@ -16,11 +16,11 @@ class TestUserViewset:
         users = UserFactory.create_batch(3)
         url = reverse("user-list")
         request = request_factory.get(url)
-        force_authenticate(request, user=user)
+        force_authenticate(request, user=admin_user)
 
         response = view(request)
         assert response.status_code == 200
-        for res, test_user in zip(response.data, [user] + list(users)):
+        for res, test_user in zip(response.data, [admin_user] + list(users)):
             assert res["id"] == test_user.id
             assert res["email"] == test_user.email
             assert res["first_name"] == test_user.first_name

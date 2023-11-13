@@ -6,6 +6,7 @@ from rest_framework.reverse import reverse
 class TestDischargePrediction:
     def test_discharge_prediction(self, user, client):
         url = reverse("discharge_prediction")
+        client.force_authenticate(user=user)
         prediction_data = {
             "car_discharge_estimation": -62.838862559241704,
             "time_of_trip": 3813,

@@ -9,6 +9,11 @@ def user():
 
 
 @pytest.fixture()
+def admin_user():
+    return UserFactory(is_superuser=True)
+
+
+@pytest.fixture()
 def user_request():
     return (
         {
