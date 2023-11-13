@@ -1,9 +1,9 @@
 import moment from 'moment';
 
 import React,{ useState, useEffect } from 'react';
-import { Card, Typography } from '@material-tailwind/react';
+import { Card, Typography, Button} from '@material-tailwind/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { getOVMSDataFilter } from '../../../services/OVMSService';
+import { getOVMSDataFilter,getOVMsDataCSVFilter } from '../../../services/OVMSService';
 import { useParams } from 'react-router';
 import { OVMSData } from '../../../types/OVMSTypes';
 import { DefaultTable } from './utils/Table';
@@ -40,6 +40,21 @@ export const CarDashboard = () => {
   const [startDate, setStartDate] = useState<any>(today.startOf('day'));
   const [endDate, setEndDate] = useState<any>(today.endOf('day'));
 
+  const filters = [
+    {
+      name : 'timestamp__gte',
+      value : startDate.format('YYYY-MM-DD')
+    },
+    {
+      name : 'timestamp__lte',
+      value : endDate.format('YYYY-MM-DDTHH:mm:ss')
+    },
+    {
+      name : 'vehicle_id',
+      value : license_plate
+    }
+  ]
+
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     setStartDate(moment(e.target.value).startOf('day'));
@@ -54,23 +69,13 @@ export const CarDashboard = () => {
   }, [startDate]);
 
   const getRawData = async () => {
-    console.log(license_plate);
-    const rawData = await getOVMSDataFilter([
-      {
-        name : 'timestamp__gte',
-        value : startDate.format('YYYY-MM-DD')
-      },
-      {
-        name : 'timestamp__lte',
-        value : endDate.format('YYYY-MM-DDTHH:mm:ss')
-      },
-      {
-        name : 'vehicle_id',
-        value : license_plate
-      }
-    ]);
+    const rawData = await getOVMSDataFilter(filters);
     setRawData(rawData);
   }
+
+  const handleDownload = async () => {
+    await getOVMsDataCSVFilter(filters);
+  };
 
   return (
     <div className="flex flex-col justify-center items-center  p-5 md:p-0">
@@ -79,6 +84,17 @@ export const CarDashboard = () => {
               Car {license_plate} Dashboard
               </Typography>
       </Card>
+      <div className='flex mt-2 justify-center'>
+        <Button
+          className="p-4"
+          size="sm"
+          variant="gradient"
+          color="blue-gray"
+          onClick={handleDownload}
+          >
+            Download
+        </Button>
+      </div>
       <div className="mt-8">
         <p className="text-xl text-center">Filters</p>
         <div className="mt-2 mb-8">
