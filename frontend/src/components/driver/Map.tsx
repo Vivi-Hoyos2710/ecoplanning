@@ -1,6 +1,6 @@
 import React, { useState, useRef, SetStateAction, useEffect } from 'react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
-import { Input } from '@material-tailwind/react';
+import { Input, Spinner } from '@material-tailwind/react';
 import axios from 'axios';
 import SearchForm from './SearchForm';
 import SideBar from './SideBar';
@@ -88,8 +88,6 @@ const Map = () => {
           fullscreenControl: false
 
         }}
-
-      // onLoad={(map) => setMap(map)}
       >
         {(
           <DirectionsRenderer
@@ -111,7 +109,7 @@ const Map = () => {
       </GoogleMap>
     </div>
   ) : (
-    <div></div>
+    <Spinner />
   );
 };
 

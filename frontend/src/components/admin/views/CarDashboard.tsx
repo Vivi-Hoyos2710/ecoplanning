@@ -3,7 +3,7 @@ import moment from 'moment';
 import React,{ useState, useEffect } from 'react';
 import { Card, Typography, Button} from '@material-tailwind/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { getOVMSDataFilter,constructOVMsDataCSVFilterURL } from '../../../services/OVMSService';
+import { getOVMSDataFilter,getOVMSDataCSVFilter } from '../../../services/OVMSService';
 import { useParams } from 'react-router';
 import { OVMSData } from '../../../types/OVMSTypes';
 import { DefaultTable } from './utils/Table';
@@ -17,7 +17,7 @@ type DataPoint = {
 type DataPointList = DataPoint[] | [];
 
 const dataKeys = [
-  "operative_state", "latitude", "longitude", "elevation", "slope",
+  "timestamp", "operative_state", "latitude", "longitude", "elevation", "slope",
   "speed", "odometer", "batt_temp", "ext_temp", "power_kw",
   "capacity", "vehicle_id", "soc", "soh", "voltage", "current",
   "throttle", "regen_brake", "consumption", "range_est",
@@ -81,16 +81,15 @@ export const CarDashboard = () => {
               </Typography>
       </Card>
       <div className='flex mt-2 justify-center'>
-        <a href={constructOVMsDataCSVFilterURL(filters)}>
           <Button
             className="p-4"
             size="sm"
             variant="gradient"
             color="blue-gray"
+            onClick={() => {getOVMSDataCSVFilter(filters);}}
             >
               Download
           </Button>
-        </a>
       </div>
       <div className="mt-8">
         <p className="text-xl text-center">Filters</p>

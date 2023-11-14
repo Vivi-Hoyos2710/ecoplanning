@@ -21,6 +21,14 @@ export async function getBrandModelList(filter: any): Promise<BrandModel[]> {
   return response.data;
 }
 
-export async function createBrand(car: BrandInfo) {
-  await axios.post<BrandInfo>('http://127.0.0.1:8000/api/v1/brand/', car, getAuthConfig());
+export async function createBrand(brand: BrandInfo) {
+  await axios.post<BrandInfo>('http://127.0.0.1:8000/api/v1/brand/', brand, getAuthConfig());
+}
+
+export async function editBrand(id: number, brand: BrandInfo) {
+  await axios.put<BrandInfo>(`http://127.0.0.1:8000/api/v1/brand/${id}/`, brand, getAuthConfig());
+}
+
+export async function deleteBrand(id: number) {
+  await axios.delete<BrandInfo>(`http://127.0.0.1:8000/api/v1/brand/${id}`, getAuthConfig());
 }

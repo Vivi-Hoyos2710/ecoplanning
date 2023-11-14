@@ -2,28 +2,41 @@ import React from 'react';
 import {Button,Dialog,Card,CardHeader,CardBody,CardFooter,Typography,Input} from '@material-tailwind/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { BrandInfo } from '../../../../types/BrandTypes';
-import { createBrand } from '../../../../services/BrandService';
+import { Brand, BrandInfo } from '../../../../types/BrandTypes';
+import { createBrand, editBrand } from '../../../../services/BrandService';
 import { useState, useEffect } from 'react';
 interface BrandForm {
+  brand: Brand | null;
   handleOpen: (type: string) => void;
   open: boolean;
 }
-export const BrandForm = ({ handleOpen, open }: BrandForm) => {
+export const BrandForm = ({ brand, handleOpen, open }: BrandForm) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue
   } = useForm<BrandInfo>();
   const [dataError, setDataError] = useState<string>('');
   useEffect(() => {
     setDataError('');
   }, [open]);
+  useEffect(() => {
+    if(brand){
+      setValue("name", brand.name);
+    }else{
+      setValue("name", "");
+    }
+  }, [brand]);
   const submitBrandForm: SubmitHandler<BrandInfo> = (data: BrandInfo) => {
     setDataError('');
     const submitBrandName = async () => {
       try {
-        await createBrand(data);
+        if(brand === null){
+          await createBrand(data);
+        }else{
+          await editBrand(brand.id, data);
+        }
         handleOpen('brand');
       } catch (error: any) {
         setDataError(error.response.data.name);
