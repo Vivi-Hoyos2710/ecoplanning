@@ -42,7 +42,9 @@ export const DefaultTable = ({ header, tableRow, tableKeys, actions,handleAction
                 {actions.map((action: any) => (
                   <td key={action} className="p-4 border-b border-blue-gray-50">
                     <IconButton
-                      onClick={() => handleActions(action,row)}
+                      onClick={() => {
+                        handleActions(action,row)
+                      }}
                     >
                       {' '}
                       {action === 'LINK' && <AiOutlineInfoCircle />}

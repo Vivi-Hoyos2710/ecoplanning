@@ -2,6 +2,7 @@ type Station = {
   id: number;
   name: string;
   coordinate: number;
+  address: string;
   coordinate__longitude: number;
   coordinate__latitude: number;
 };

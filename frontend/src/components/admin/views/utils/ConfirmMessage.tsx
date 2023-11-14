@@ -15,9 +15,9 @@ interface ConfirmationMessage {
 export const ConfirmationMessage=({handleOpen, open,title,info}:ConfirmationMessage) =>{
   return (
     <>
-      
+
       <Dialog open={open}  handler={() => {
-          handleOpen;
+          handleOpen(false);
         }}>
         <DialogHeader>{title}</DialogHeader>
         <DialogBody>

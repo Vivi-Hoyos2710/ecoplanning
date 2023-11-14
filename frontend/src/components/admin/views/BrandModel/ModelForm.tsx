@@ -2,23 +2,32 @@ import React from 'react';
 import {Button,Dialog,Card,CardHeader,CardBody,CardFooter,Typography,Input} from '@material-tailwind/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ModelInfo } from '../../../../types/ModelTypes';
-import { createModel } from '../../../../services/ModelService';
+import { Model, ModelInfo } from '../../../../types/ModelTypes';
+import { createModel, editModel } from '../../../../services/ModelService';
 import { useState, useEffect } from 'react';
 interface ModelForm {
+  model: Model | null;
   handleOpen: (type: string) => void;
   open: boolean;
   brandId: number;
   brandName: string;
 }
-export const ModelForm = ({ handleOpen, open, brandId, brandName }: ModelForm) => {
+export const ModelForm = ({ model, handleOpen, open, brandId, brandName }: ModelForm) => {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
+    setValue,
   } = useForm<ModelInfo>();
   const [dataError, setDataError] = useState<string>('');
+  useEffect(() => {
+    if(model){
+      setValue("name", model.name);
+      setValue("brand", model.brand);
+      setValue("range", model.range);
+    }
+  }, [model])
   useEffect(() => {
     if (!open) {
       reset();
@@ -29,7 +38,11 @@ export const ModelForm = ({ handleOpen, open, brandId, brandName }: ModelForm) =
     setDataError('');
     const submitBrandName = async () => {
       try {
-        await createModel(data);
+        if(model === null){
+          await createModel(data);
+        }else{
+          await editModel(model.id, data);
+        }
         handleOpen('model');
       } catch (error: any) {
         console.log(error);

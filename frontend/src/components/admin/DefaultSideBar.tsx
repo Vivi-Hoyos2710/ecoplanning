@@ -1,11 +1,20 @@
 import React from 'react';
 import LogoEco from '../driver/LogoEco';
 import { AiFillHome, AiFillCar} from 'react-icons/ai';
+import { BiLogOutCircle } from "react-icons/bi";
 import { FaChargingStation} from 'react-icons/fa';
-import { Card, Typography, List, ListItem, ListItemPrefix } from '@material-tailwind/react';
+import { Card, Typography, List, ListItem, ListItemPrefix, Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import { logOut } from '../../services/AuthService';
 
 export const DefaultSidebar = () => {
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Card className="h-screen w-full max-w-[20rem] p-4 shadow-blue-500 shadow-xl rounded-tl-lg rounded-br-lg p-4">
       <div className="p-2">
@@ -55,6 +64,14 @@ export const DefaultSidebar = () => {
             </div>
           </ListItem>
         </Link>
+        <ListItem onClick={handleLogOut}>
+        <div className=" flex  space-x-2 text-gray-600">
+        <BiLogOutCircle/>
+          <ListItemPrefix>
+          Logout
+          </ListItemPrefix>
+          </div>
+        </ListItem>
       </List>
     </Card>
   );

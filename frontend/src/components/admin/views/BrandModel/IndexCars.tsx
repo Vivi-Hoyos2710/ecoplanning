@@ -4,10 +4,13 @@ import { Filter } from '../../../../types/ServiceTypes';
 import { useState, useEffect } from 'react';
 import { Brand, BrandModel } from '../../../../types/BrandTypes';
 import { IconButton, Alert, Select, Option, Card, Typography } from '@material-tailwind/react';
-import { getBrandListFilter, getBrandModelList } from '../../../../services/BrandService';
+import { deleteBrand, getBrandListFilter, getBrandModelList } from '../../../../services/BrandService';
 import { BrandForm } from './BrandForm';
 import { ModelForm } from './ModelForm';
 import { deleteModelById } from '../../../../services/ModelService';
+import { Model } from '../../../../types/ModelTypes';
+import { FiEdit2, FiTrash } from 'react-icons/fi';
+import { ConfirmationMessage } from '../utils/ConfirmMessage';
 export const IndexCars = () => {
   const [brands, setBrands] = useState<BrandModel[]>([]);
   const [openBrand, setOpenBrand] = useState<boolean>(false);
@@ -17,6 +20,12 @@ export const IndexCars = () => {
   const [selectBrandId, setSelectBrandId] = useState<number | null>(null);
   const [brandsFilter, setbrandsFilter] = useState<Brand[]>([]);
   const [action,setAction]=useState<boolean>(false);
+  const [model, setModel] = useState<Model | null>(null);
+  const [brand, setBrand] = useState<Brand | null>(null);
+  const [brandDeleteId, setBrandDeleteId] = useState<number>(0);
+  const [modelDeleteId, setModelDeleteId] = useState<number>(0);
+  const [openDeleteBrand, setOpenDeleteBrand] = useState<boolean>(false);
+  const [openDeleteModel, setOpenDeleteModel] = useState<boolean>(false);
   const brandOrder: Filter = {
     name: 'ordering',
     value: 'id'
@@ -35,24 +44,48 @@ export const IndexCars = () => {
     };
     getBrandsAndModels();
   }, [openModel, openBrand, selectBrandId,action]);
-  const handleOpen: (type: string) => void = (type) => {
+  const handleAddOpen: (type: string) => void = (type) => {
     if (type === 'brand') {
       setOpenBrand((cur: boolean) => !cur);
     } else {
+      setModel(null);
       setOpenModel((cur: boolean) => !cur);
     }
   };
-  const handleActions: (action: string, info: any) => void = (action, info) => {
-    if (action === 'DELETE') {
+  const handleEditBrandOpen = (brand: any) => {
+    setBrand(brand);
+    setOpenBrand((cur: boolean) => !cur);
+  };
+  const handleDeleteBrandOpen = (id: number) =>{
+    setBrandDeleteId(id);
+    handleDeleteBrand(false);
+  }
+  const handleDeleteBrand = async (isConfirmed : boolean) => {
+    if(brandDeleteId && isConfirmed){
+      await deleteBrand(brandDeleteId);
       setAction((cur: boolean) => !cur);
-      const deleteModel = async () => {
-        try {
-          await deleteModelById(info.id);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      deleteModel();
+    }
+    setOpenDeleteBrand((cur: boolean) => !cur);
+  }
+  const handleDeleteModelOpen = (id: number) =>{
+    setModelDeleteId(id);
+    handleDeleteModel(false);
+  }
+  const handleDeleteModel = async (isConfirmed : boolean) => {
+    if(modelDeleteId && isConfirmed){
+      await deleteModelById(modelDeleteId);
+      setAction((cur: boolean) => !cur);
+    }
+    setOpenDeleteModel((cur: boolean) => !cur);
+  }
+  const handleActions: (action: string, info: any) => void = (action, info) => {
+    if (action === 'EDIT'){
+      setModel(info);
+      setOpenModel((cur: boolean) => !cur);
+    }
+    if (action === 'DELETE') {
+      console.log(info.id);
+      handleDeleteModelOpen(info.id);
     }
   }
   return (
@@ -88,15 +121,18 @@ export const IndexCars = () => {
           <Typography color="gray" className="text-center ">
             Add Brand
           </Typography>
-          <IconButton variant="gradient" color="cyan" className="rounded-full text-xl" onClick={() => handleOpen('brand')}>
+          <IconButton variant="gradient" color="cyan" className="rounded-full text-xl" onClick={() => handleAddOpen('brand')}>
             +
           </IconButton>
 
         </div>
-        <BrandForm handleOpen={handleOpen} open={openBrand} />
+        <ConfirmationMessage handleOpen={handleDeleteBrand} open={openDeleteBrand} info={"Are you sure do you want to delete this car?"} title={"Warning"} />
+        <ConfirmationMessage handleOpen={handleDeleteModel} open={openDeleteModel} info={"Are you sure do you want to delete this car?"} title={"Warning"} />
+        <BrandForm brand={brand} handleOpen={handleAddOpen} open={openBrand} />
         {
           <ModelForm
-            handleOpen={handleOpen}
+            model={model}
+            handleOpen={handleAddOpen}
             open={openModel}
             brandId={brandId}
             brandName={brandName}
@@ -120,16 +156,36 @@ export const IndexCars = () => {
                   size="sm"
                   variant="gradient"
                   color="blue-gray"
-                  onClick={() => {
-                    setBrandId(brand.id);
-                    setBrandName(brand.name);
-                    handleOpen('model');
-                  }}
+                  onClick={() => {handleEditBrandOpen(brand);}}
                 >
-                  +
+                  <FiEdit2 />
                 </IconButton>
-                <span className="text-xs text-gray-500 ml-1">Add Model</span>
+                <IconButton
+                  className="rounded-full"
+                  size="sm"
+                  variant="gradient"
+                  color="blue-gray"
+                  onClick={() => {handleDeleteBrandOpen(brand.id);}}
+                >
+                  <FiTrash />
+                </IconButton>
               </div>
+              <div className="flex">
+                  <IconButton
+                    className="rounded-full"
+                    size="sm"
+                    variant="gradient"
+                    color="blue-gray"
+                    onClick={() => {
+                      setBrandId(brand.id);
+                      setBrandName(brand.name);
+                      handleAddOpen('model');
+                    }}
+                  >
+                    +
+                  </IconButton>
+                  <span className="text-xs text-gray-500 ml-1">Add Model</span>
+                </div>
             </div>
             {brand.models.length > 0 ? (
               <DefaultTable
@@ -144,6 +200,7 @@ export const IndexCars = () => {
                 <span>No models added in the brand {brand.name}</span>
               </Alert>
             )}
+
           </div>
         ))}
       </div>

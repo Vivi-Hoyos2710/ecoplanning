@@ -23,6 +23,10 @@ export async function createModel(model: ModelInfo) {
   await axios.post<ModelInfo>('http://127.0.0.1:8000/api/v1/app-model/', model, getAuthConfig());
 }
 
+export async function editModel(id: number, model: ModelInfo) {
+  await axios.put<ModelInfo>(`http://127.0.0.1:8000/api/v1/app-model/${id}/`, model, getAuthConfig());
+}
+
 export async function deleteModelById(id: number) {
   const response = await axios.delete(`http://127.0.0.1:8000/api/v1/app-model/${id}/`, getAuthConfig());
   return response.data;
