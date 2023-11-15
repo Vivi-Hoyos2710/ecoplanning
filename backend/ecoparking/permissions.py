@@ -3,7 +3,7 @@ from rest_framework.permissions import BasePermission
 
 class ViewEveryOneCreateModifyAdmin(BasePermission):
     def has_permission(self, request, view):
-        if view.action == "list":
+        if view.action in ["list", "retrieve"]:
             return True
         elif view.action in [
             "create",

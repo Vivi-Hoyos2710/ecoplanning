@@ -14,5 +14,10 @@ type CarInfo = {
   model: number;
   model__name: string;
 };
-
-export type { Car,CarInfo };
+type DriverFormData = {
+  carModel : string;
+  origin: string;
+  destination: string;
+  battery : string;
+}
+export type { Car,CarInfo, DriverFormData };
