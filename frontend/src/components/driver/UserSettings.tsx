@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Avatar, Typography, Select, Option } from '@material-tailwind/react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
-import fondo2 from '../../img/fondoRecomendacionesBateria1.svg';
 import messageSuccess from '../../img/successfully.gif'
 import { UserMenu } from './utils/UserMenu';
 import { Link } from 'react-router-dom';
-import { Filter } from '../../types/ServiceTypes';
-import { createCar, getCarList } from '../../services/CarService';
+import { getCarList } from '../../services/CarService';
 import { UserContext } from '../../types/UserTypes';
 import { CarInfo } from '../../types/CarTypes';
 import { CarForm } from './utils/InfoCarForm';
@@ -37,13 +35,7 @@ const UserSettings = () => {
     }
     getUserCars();
   }, [modeForm, carId, isUpdating, isCreating, isDeleting]);
-  const iconStyle = {
-    width: '1000px',
-    height: '1000px',
-    backgroundImage: `url(${messageSuccess})`,
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-  };
+
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-screen"

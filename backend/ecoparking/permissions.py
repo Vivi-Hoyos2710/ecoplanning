@@ -15,7 +15,22 @@ class ViewEveryOneCreateModifyAdmin(BasePermission):
             print(request.user.is_superuser)
             return request.user.is_superuser
         else:
-            print("HI")
+            return False
+
+
+class CreateEveryOneAccessAdmin(BasePermission):
+    def has_permission(self, request, view):
+        if view.action == "create":
+            return True
+        elif view.action in [
+            "list",
+            "retrieve",
+            "update",
+            "partial_update",
+            "destroy",
+        ]:
+            return request.user.is_superuser
+        else:
             return False
 
 

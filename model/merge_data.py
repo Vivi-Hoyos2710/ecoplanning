@@ -38,7 +38,7 @@ for filename in os.listdir("car_data"):
         if coords not in routes:
             continue
         dist, dur = routes[coords]
-        car_discharge = -float(dist) / range_est[vehicle_id]
+        car_discharge = -float(dist) / (range_est[vehicle_id] * 1000)
         time = int(line2[1]) - int(line1[1])
         diff_elevation = float(line2[4]) - float(line1[4])
         diff_battery = float(line2[5]) - float(line1[5])

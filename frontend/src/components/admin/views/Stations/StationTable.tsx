@@ -26,10 +26,10 @@ export const StationTable = ({ reloadTable, setReloadTable, handleActions }: Sta
     return (
         <div>
             <DefaultTable
-                header={['Name', 'Address', 'Edit', 'Delete']}
+                header={['Name', 'Address', "Information", 'Edit', 'Delete']}
                 tableRow={tableData}
                 tableKeys={['name', 'address']}
-                actions={['EDIT', 'DELETE']}
+                actions={['LINK', 'EDIT', 'DELETE']}
                 handleActions={handleActions}
             />
         </div>

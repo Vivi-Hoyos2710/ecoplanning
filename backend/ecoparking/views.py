@@ -1,4 +1,8 @@
-from .permissions import ViewEveryOneCreateModifyAdmin, CarPermission
+from .permissions import (
+    CreateEveryOneAccessAdmin,
+    ViewEveryOneCreateModifyAdmin,
+    CarPermission,
+)
 from .models import AppModel, Car, Station, Brand, Report
 from .serializers import (
     AppModelSerializer,
@@ -6,7 +10,7 @@ from .serializers import (
     CarSerializer,
     StationSerializer,
     BrandModelSerializer,
-    ReportStationSerializer
+    ReportStationSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import OrderingFilter
@@ -14,7 +18,6 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import (
     DjangoFilterBackend,
 )
-from rest_framework import permissions
 
 
 class BrandView(ModelViewSet):
@@ -88,7 +91,7 @@ class StationView(ModelViewSet):
         "coordinate": ["exact"],
         "address": ["exact"],
     }
-    search_fields = ['name','address']
+    search_fields = ["name", "address"]
 
     ordering_fields = filterset_fields
     permission_classes = (ViewEveryOneCreateModifyAdmin,)
@@ -113,7 +116,6 @@ class BrandModel(ModelViewSet):
     def get_queryset(self):
         queryset = Brand.objects.prefetch_related("appmodel_set").all()
         return queryset
-    
 
 
 class ReportView(ModelViewSet):
@@ -127,6 +129,7 @@ class ReportView(ModelViewSet):
         "station": ["exact"],
     }
     ordering_fields = filterset_fields
+    permission_classes = (CreateEveryOneAccessAdmin,)
 
     def get_queryset(self):
         return Report.objects.all()
