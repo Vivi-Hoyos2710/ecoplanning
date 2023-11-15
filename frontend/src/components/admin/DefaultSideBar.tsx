@@ -64,14 +64,6 @@ export const DefaultSidebar = () => {
             </div>
           </ListItem>
         </Link>
-        <ListItem onClick={handleLogOut}>
-        <div className=" flex  space-x-2 text-gray-600">
-        <BiLogOutCircle/>
-          <ListItemPrefix>
-          Logout
-          </ListItemPrefix>
-          </div>
-        </ListItem>
       </List>
     </Card>
   );

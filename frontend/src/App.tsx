@@ -6,7 +6,7 @@ import AdminApp from './components/admin/AdminApp';
 import HomeApp from './components/home/HomeApp';
 import DriverApp from './components/driver/DriverApp';
 import { getLoggedUser } from './services/AuthService';
-
+import { SpinnerComponent } from './components/SpinnerComponent';
 function App() {
   const [user, setUser] = useState<User>(NoUser);
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,7 +30,7 @@ function App() {
       display = <DriverApp />
     }
   } else {
-    display = <Spinner />;
+    display = <SpinnerComponent />;
   }
 
   return <UserContext.Provider value={user}>{display}</UserContext.Provider>;

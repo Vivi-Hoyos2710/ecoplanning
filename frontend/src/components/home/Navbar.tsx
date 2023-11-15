@@ -20,28 +20,26 @@ export function NavbarDefault() {
       <Button variant="outlined" color="gray" size="sm" className="rounded-full shadow-md">
         Analytics
       </Button>
+      
+      <Link to="/signin">
+      <Button variant="outlined" color="gray" size="sm" className="rounded-full shadow-md w-full">
+      Sign Up
+      </Button>
+      </Link>
+      
     </ul>
   );
 
   return (
     <Navbar
-      className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 mb-30"
+      className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 "
       style={{ borderRadius: '50px', backgroundColor: 'white' }}
     >
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <img width="160" height="100" src={logo} alt="logo" />
         <div className="hidden lg:block">{navList}</div>
         <div className="flex space-x-4">
-        <Link to="/signin">
-                  <Button
-                  variant="outlined"
-                  color="gray"
-                  size="sm"
-                  className="rounded-full shadow-md"
-                  >
-                    Sign Up
-                  </Button>
-        </Link>
+       
         <Link to="/login">
           <Button
             variant="gradient"

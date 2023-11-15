@@ -65,8 +65,8 @@ const BatteryCareTips = () => {
   ];
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat h-screen"
-      style={{ backgroundImage: `url(${fondo1}), url(${fondo2})`, margin: '0', padding: '0' }}
+    className="bg-cover bg-center bg-no-repeat w-screen h-screen md:h-auto md:min-h-screen absolute p-3 home-background"
+      style={{ backgroundImage: `url(${fondo1})`, margin: '0', padding: '0' }}
     >
       <div className="p-5 space-y-4 lg:space-y-0">
         <div className=" flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 flex text-left p-4 ">
@@ -76,7 +76,7 @@ const BatteryCareTips = () => {
               Back
             </Button>
           </Link>
-          <LogoEco />
+
         </div>
 
         <div className="flex flex-col justify-center pt-10 items-center ">

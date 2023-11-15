@@ -23,6 +23,7 @@ export const AdminCars = () => {
         const getUserCars = async () => {
             try {
                 const cars = await getCarList([{ name: 'user__is_superuser', value: 'true' }]);
+                console.log(cars);
                 setCars(cars);
 
             } catch (error) {

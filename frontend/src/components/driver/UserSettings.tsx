@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Avatar, Typography, Select, Option } from '@material-tailwind/react';
 import fondo1 from '../../img/fondoRecomendacionesBateria.svg';
-import fondo2 from '../../img/fondoRecomendacionesBateria1.svg';
 import messageSuccess from '../../img/successfully.gif'
 import { UserMenu } from './utils/UserMenu';
 import { Link } from 'react-router-dom';
-import { Filter } from '../../types/ServiceTypes';
-import { createCar, getCarList } from '../../services/CarService';
+import { getCarList } from '../../services/CarService';
 import { UserContext } from '../../types/UserTypes';
 import { CarInfo } from '../../types/CarTypes';
 import { CarForm } from './utils/InfoCarForm';
@@ -37,13 +35,7 @@ const UserSettings = () => {
     }
     getUserCars();
   }, [modeForm, carId, isUpdating, isCreating, isDeleting]);
-  const iconStyle = {
-    width: '1000px',
-    height: '1000px',
-    backgroundImage: `url(${messageSuccess})`,
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-  };
+
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-screen"
@@ -51,11 +43,15 @@ const UserSettings = () => {
     >
       <div className="p-5 space-y-4 lg:space-y-0">
         <div className=" flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 flex text-left p-4 ">
-          <Link to="/">
-            <Button variant="gradient" color="gray" size="lg" className="rounded-full ml-4">
-              Back
-            </Button>
-          </Link>
+
+
+<Link to="/">
+  <Button variant="gradient" color="gray" size="lg" className="rounded-full ml-4">
+    Back
+  </Button>
+</Link>
+
+
           <div className="flex flex-col space-y-3">
   <div className="max-w-2xl mx-auto">
     <Card className="flex items-center justify-center shadow-lg w-full rounded-t-lg p-4">
@@ -98,8 +94,9 @@ const UserSettings = () => {
         <div className="flex flex-col justify-center  items-center ">
 
           <div className="flex flex-col items-center w-full max-w-screen-lg">
-          <div className="w-1/4 self-start pb-5">
-  <Card className="flex items-center justify-center shadow-lg rounded-t-lg p-4">
+          <div className="w-1/4 self-start pb-5 w-full sm:w-auto">
+          <Card className="flex items-center justify-center shadow-lg rounded-t-lg p-4 ">
+  <div className="w-full sm:w-auto">
     <Select label="Select a car">
       {cars.map((car: any) => (
         <Option
@@ -118,7 +115,10 @@ const UserSettings = () => {
         </Option>
       ))}
     </Select>
-  </Card>
+  </div>
+</Card>
+
+
           </div>
 
             <Card

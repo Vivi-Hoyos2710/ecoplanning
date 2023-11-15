@@ -41,3 +41,7 @@ class Station(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     coordinate = models.ForeignKey("Coordinate", on_delete=models.CASCADE)
+
+class Report(models.Model):
+    station= models.ForeignKey("Station", on_delete=models.CASCADE)
+    description= models.CharField(max_length=300)

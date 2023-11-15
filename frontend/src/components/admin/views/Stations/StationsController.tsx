@@ -26,6 +26,9 @@ export const StationsController = () => {
       setStationId(dataInfo.id);
       handleOpenDeleteMessage(false);
     }
+    if (action === 'LINK') {
+      window.location.assign(`/stations/${dataInfo.id}`);
+    }
   };
   const openAddMenu = () => {
     setStation(null);
