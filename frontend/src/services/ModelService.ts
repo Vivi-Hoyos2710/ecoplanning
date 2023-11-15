@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Model, ModelInfo } from '../types/ModelTypes';
 import { Filter } from '../types/ServiceTypes';
 import { getAuthConfig, ponerFiltros } from './GeneralService';
+import { BrandInfo } from '../types/BrandTypes';
 
 export async function getModelListFilter(filters: Filter[]): Promise<Model[]> {
   const response = await axios.get<Model[]>(
@@ -14,8 +15,14 @@ export async function getModelList(): Promise<Model[]> {
   const response = await axios.get<Model[]>('http://127.0.0.1:8000/api/v1/app-model/');
   return response.data;
 }
-export async function getModelByID(id: number): Promise<Model[]> {
+
+export async function getModelByID(id: string): Promise<Model[]> {
   const response = await axios.get<Model[]>(`http://127.0.0.1:8000/api/v1/app-model/${id}`);
+  return response.data;
+}
+
+export async function getModelByName(name: string): Promise<Model[]> {
+  const response = await axios.get<Model[]>(`http://127.0.0.1:8000/api/v1/app-model/?name=${name}`,getAuthConfig());
   return response.data;
 }
 
