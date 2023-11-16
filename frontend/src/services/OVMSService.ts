@@ -4,8 +4,10 @@ import { OVMSData } from '../types/OVMSTypes';
 import { Filter } from '../types/ServiceTypes';
 import { ponerFiltrosYAuthenticacion } from './GeneralService';
 
+const {DJANGO_HOST} = process.env;
+
 export async function getOVMSDataFilter(filters: Filter[]): Promise<OVMSData[]> {
-  const baseURL = 'http://127.0.0.1:8000/api/v1/ovms/';
+  const baseURL = `http://${DJANGO_HOST}:8000/api/v1/ovms/`;
   try {
       const response = await axios.get<OVMSData[]>(
         baseURL,
@@ -47,6 +49,6 @@ async function axiosDownloadFile(url: string, filters: Filter[]) {
 }
 
 export function getOVMSDataCSVFilter(filters: Filter[]): void {
-  const baseURL = 'http://127.0.0.1:8000/api/v1/ovms/export_ovms_data_list/';
+  const baseURL = `http://${DJANGO_HOST}:8000/api/v1/ovms/export_ovms_data_list/`;
   axiosDownloadFile(baseURL, filters);
 }

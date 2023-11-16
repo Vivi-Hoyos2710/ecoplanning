@@ -4,10 +4,12 @@ import { User, NoUser } from '../types/UserTypes';
 import { LoginFormData, LoginRequest, LoginToken } from '../types/AuthTypes';
 import { getAuthConfig } from './GeneralService';
 
+const {DJANGO_HOST} = process.env;
+
 export async function getLoggedUser(): Promise<User> {
   try {
     const config: AxiosRequestConfig = getAuthConfig();
-    const { data, status } = await axios.get<User>('http://127.0.0.1:8000/auth/users/me/', config);
+    const { data, status } = await axios.get<User>(`http://${DJANGO_HOST}:8000/auth/users/me/`, config);
     return data;
   } catch (error) {
     return NoUser;
@@ -21,7 +23,7 @@ export async function getLoginToken(loginForm: LoginFormData): Promise<any> {
   };
   try {
     const response = await axios.post<LoginToken>(
-      'http://127.0.0.1:8000/auth/token/login',
+      `http://${DJANGO_HOST}:8000/auth/token/login`,
       loginRequest
     );
     localStorage.setItem('tokenKey', response.data.auth_token);
@@ -34,7 +36,7 @@ export async function logOut(): Promise<any> {
     console.log("here?");
     const config = getAuthConfig();
     const token = localStorage.getItem('tokenKey');
-    const response = await axios.post<any>('http://127.0.0.1:8000/auth/token/logout/', token, config);
+    const response = await axios.post<any>(`http://${DJANGO_HOST}:8000/auth/token/logout/`, token, config);
     localStorage.removeItem('tokenKey');
     window.location.href = '/';
   } catch (error) {
