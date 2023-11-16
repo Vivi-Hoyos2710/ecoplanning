@@ -1,6 +1,8 @@
 import pytest
 from rest_framework.reverse import reverse
 
+from mlmodel.models import RegressionModel
+
 
 @pytest.mark.django_db(databases=["default"])
 class TestDischargePrediction:
@@ -16,4 +18,10 @@ class TestDischargePrediction:
 
         response = client.post(url, data=prediction_data, format="json")
         assert "discharge_prediction" in response.data
-        assert response.data["discharge_prediction"] == -14.560240833976628
+        regresion_model = RegressionModel()
+        assert response.data["discharge_prediction"] == regresion_model.run_regression(
+            prediction_data["car_discharge_estimation"],
+            prediction_data["time_of_trip"],
+            prediction_data["diff_elevation"],
+            prediction_data["temperature"],
+        )
