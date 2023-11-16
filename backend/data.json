@@ -12,7 +12,7 @@
         "fields":{
             "name": "Zoe ZE50 R110",
             "brand": 1,
-            "range": 315000
+            "range": 315
         }
     },
     {
@@ -21,7 +21,7 @@
         "fields":{
             "name": "Zoe ZE50 R135",
             "brand": 1,
-            "range": 310000
+            "range": 310
         }
     },
     {
@@ -30,7 +30,7 @@
         "fields":{
             "name": "Twizy",
             "brand": 1,
-            "range": 80000
+            "range": 80
         }
     },
     {
@@ -46,7 +46,7 @@
         "fields":{
             "name": "Smart ED Gen.3",
             "brand": 2,
-            "range": 100000
+            "range": 100
         }
     },
     {
@@ -55,7 +55,7 @@
         "fields":{
             "name": "Smart ED/EQ Gen.4",
             "brand": 2,
-            "range": 100000
+            "range": 100
         }
     },
     {
@@ -71,7 +71,7 @@
         "fields":{
             "name": "Model S",
             "brand": 3,
-            "range": 560000
+            "range": 560
         }
     },
     {
@@ -80,7 +80,7 @@
         "fields":{
             "name": "Roadsters",
             "brand": 3,
-            "range": 1000000
+            "range": 100
         }
     },
     {
@@ -96,7 +96,7 @@
         "fields":{
             "name": "RAV4 EV",
             "brand": 4,
-            "range": 153000
+            "range": 153
         }
     },
     {
@@ -112,7 +112,7 @@
         "fields":{
             "name": "e-Up",
             "brand": 5,
-            "range": 260000
+            "range": 260
         }
     },
     {
@@ -128,7 +128,7 @@
         "fields":{
             "name": "i3",
             "brand": 6,
-            "range": 153000
+            "range": 153
         }
     },
     {
@@ -137,7 +137,7 @@
         "fields":{
             "name": "i3s",
             "brand": 6,
-            "range": 230000
+            "range": 230
         }
     },
     {
@@ -153,7 +153,7 @@
         "fields":{
             "name": "Cooper SE",
             "brand": 7,
-            "range": 270000
+            "range": 270
         }
     },
     {
@@ -169,7 +169,7 @@
         "fields":{
             "name": "500e",
             "brand": 8,
-            "range": 235000
+            "range": 235
         }
     },
     {
@@ -185,7 +185,7 @@
         "fields":{
             "name": "Ioniq vFL",
             "brand": 9,
-            "range": 481000
+            "range": 481
         }
     },
     {
@@ -194,7 +194,7 @@
         "fields":{
             "name": "Ioniq 5",
             "brand": 9,
-            "range": 385000
+            "range": 385
         }
     },
     {
@@ -203,7 +203,7 @@
         "fields":{
             "name": "Kona",
             "brand": 9,
-            "range": 390000
+            "range": 390
         }
     },
     {
@@ -212,7 +212,7 @@
         "fields":{
             "name": "Ioniq FL",
             "brand": 9,
-            "range": 385000
+            "range": 385
         }
     },
     {
@@ -228,7 +228,7 @@
         "fields":{
             "name": "IPace",
             "brand": 10,
-            "range": 470000
+            "range": 470
         }
     },
     {
@@ -244,7 +244,7 @@
         "fields":{
             "name": "e-Niro",
             "brand": 11,
-            "range": 385000
+            "range": 385
         }
     },
     {
@@ -253,7 +253,7 @@
         "fields":{
             "name": "Soul EV",
             "brand": 11,
-            "range": 370000
+            "range": 370
         }
     },
     {
@@ -269,7 +269,7 @@
         "fields":{
             "name": "eDeliver3",
             "brand": 12,
-            "range": 344000
+            "range": 344
         }
     },
     {
@@ -292,7 +292,7 @@
         "fields":{
             "name": "EV",
             "brand": 14,
-            "range": 440000
+            "range": 440
         }
     },
     {
@@ -301,7 +301,7 @@
         "fields":{
             "name": "ZS EV",
             "brand": 14,
-            "range": 461000
+            "range": 461
         }
     },
     {
@@ -317,7 +317,7 @@
         "fields":{
             "name": "Triton",
             "brand": 15,
-            "range": 1000000
+            "range": 100
         }
     },
     {
@@ -333,7 +333,7 @@
         "fields":{
             "name": "Leaf",
             "brand": 16,
-            "range": 340000
+            "range": 340
         }
     },
     {
@@ -342,7 +342,7 @@
         "fields":{
             "name": "e-NV200",
             "brand": 16,
-            "range": 130000
+            "range": 130
         }
     }
 ]

@@ -17,10 +17,13 @@ type SearchProps = {
   setDestination: (position: google.maps.LatLngLiteral) => void;
   getRoute: () => void;
   setBatteryPercentage: (percentage: number) => void;
+  carModel: string;
   setCarModel: (carModel: string) => void;
+  routeErrror: string;
+  routeSuccess: string;
 };
 
-export default function SearchForm({ setOrigin, setDestination, getRoute, setBatteryPercentage, setCarModel }: SearchProps) {
+export default function SearchForm({ setOrigin, setDestination, getRoute, setBatteryPercentage, carModel, setCarModel, routeErrror, routeSuccess }: SearchProps) {
   const {
     register,
     handleSubmit,
@@ -45,10 +48,9 @@ export default function SearchForm({ setOrigin, setDestination, getRoute, setBat
     };
     getUserCars();
   }, []);
-  const submit: SubmitHandler<DriverFormData> = (data: DriverFormData) => {
+  const submit: SubmitHandler<any> = (data: any) => {
+      console.log(data);
     setBatteryPercentage(parseInt(data.battery));
-    setCarModel(data.carModel);
-    console.log(data.carModel)
     getRoute();
   }
 
@@ -89,18 +91,26 @@ export default function SearchForm({ setOrigin, setDestination, getRoute, setBat
                   name="carModel"
                   control={control}
                   rules={{ required: 'You must enter the car' }}
-                  render={({ field }) => (
-                    <Select label="Select a car" error={errors.carModel !== undefined} {...field}>
+                  render={({ field, fieldState}) => {
+                    if ((fieldState && !field.value && carModel !== "") || (fieldState && field.value !== carModel && carModel === "")) {
+                        field.onChange(carModel);
+                    }
+                    return (
+                    <Select label="Select a car" error={errors.carModel !== undefined} value={carModel}>
                       {cars.map((car: any) => (
                         <Option
                           value={`${car.model__name}`}
                           key={car.id}
+                          onClick={() => {
+                              setCarModel(car.model__name);
+                              field.onChange(car.model__name);
+                          }}
                         >
                           {`${car.brand__name} ${car.model__name}`}
                         </Option>
                       ))}
                     </Select>
-                  )}
+                  )}}
                 />
               </div>
 
@@ -144,6 +154,12 @@ export default function SearchForm({ setOrigin, setDestination, getRoute, setBat
                   Calculate Route
                 </Button>
               </div>
+              <Typography variant="small" color="red">
+                {routeErrror}
+              </Typography>
+              <Typography variant="small" color="green">
+                {routeSuccess}
+              </Typography>
             </form>
           </div>
         </Card>

@@ -33,7 +33,8 @@ const Map = () => {
   const [directions, setDirections] = useState<DirectionResult>();
   const [stations, setStations] = useState<Station[]>();
   const [batteryPercentage, setBatteryPercentage] = useState<number>(0.0);
-  const [carModel, setCarModel] = useState<string>();
+  const [carModel, setCarModel] = useState<string>("");
+  const [routeError, setRouteError] = useState<string>('');
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API ?? '',
     libraries: ['places']
@@ -42,6 +43,7 @@ const Map = () => {
     lat: 6.244203,
     lng: -75.581215
   });
+  const [routeSuccess, setRouteSuccess] = useState<string>('');
   useEffect(() => {
     const getStations = async () => {
       const curStations = await getStationList([{ name: 'ordering', value: 'id' }]);
@@ -67,16 +69,6 @@ const Map = () => {
     return temp;
   }
 
-  const runFloyd = ( graph:Array<Array<number>>) => {//pass by reference
-    const len = graph.length;
-    for (let k = 0; k < len; k++) {
-      for (let u = 0; u < len; u++) {
-        for (let v = 0; v < len; v++) {
-          graph[u][v] = Math.min(Math.max(graph[u][v], graph[u][k] + graph[k][v]),100.0);
-        }
-      }
-    }
-  }
   const getStop = (s : number, t : number,n : number, percentageLeft : number, graph : Array<Array<number>>, distanceMatrix : any)=>{
     let  minDistToT = inf, minDistToTIdx = -1;
     if(graph[s][t] + percentageLeft > 5){
@@ -137,7 +129,7 @@ const Map = () => {
 const inf = 1e15;
 
   const generateGraph = async (elevations:number[], temps:number[], distanceMatrix:any, coords:Coords[], range:number) =>{
-    if(!range)throw Error("Division By Zero");
+    if(!range)return [];
     const graph : Array<Array<number>> = [];
 
     for(let i  = 0; i < coords.length; ++i){
@@ -169,17 +161,27 @@ const inf = 1e15;
     }
   }
   const getRoute = async()=>{
-    if(!origin)return;
+    setRouteError("");
+    if(!origin || !destination){
+        setRouteError("Must fill out origin and destination");
+        return;
+    }
     const {elevations, temps, distanceMatrix, coords, range} = await prepare();
     // console.log(elevations);
     // console.log(temps);
     // console.log(distanceMatrix);
     // console.log(elevations);
+    console.log("range", range);
    const  graph:Array<Array<number>> = await generateGraph(elevations,temps,distanceMatrix,coords,range);
+   if(graph.length === 0){
+       setRouteError("Something went wrong with the system. Try again.")
+       return;
+   }
    showGraph(graph,coords);
    const stops : Array<number> = getRouteStops(graph.length,batteryPercentage,graph, distanceMatrix);
    if(stops[0] == -1){
-    throw new Error("Couldn't Arrive to your Destination, Try Again");
+       setRouteError("Couldn't find route that gets from your origin to the destination with your current batery. Try charging your car where you are now")
+       return;
    }
    const finalStops : Array<LatlngLiteral> = [];
 
@@ -187,6 +189,7 @@ const inf = 1e15;
     finalStops.push(coords[index]);
    }
    renderDirections(finalStops);
+   setRouteSuccess("If in your route there is a stop remember to charge you car to 80% capacity because this is the reccomend amout to maintain your batteries health.");
   }
 
   const renderDirections = (waypoints : Array<LatlngLiteral>)=>{
@@ -282,7 +285,10 @@ const inf = 1e15;
           setDestination={setDestination}
           getRoute={getRoute}
           setBatteryPercentage={setBatteryPercentage}
+          carModel={carModel}
           setCarModel={setCarModel}
+          routeErrror={routeError}
+          routeSuccess={routeSuccess}
           />
           <SideBar />
         </div>

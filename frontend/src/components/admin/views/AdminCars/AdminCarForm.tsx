@@ -64,7 +64,7 @@ export const AdminCarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreatin
         reset,
         formState: { errors },
         setValue,
-        control
+        control,
     } = useForm<any>();
     const carSubmit: SubmitHandler<any> = (data: any) => {
 
@@ -122,7 +122,6 @@ export const AdminCarForm = ({ mode, carInfo, userId, setIsUpdating,setIsCreatin
                     rules={{ required: 'You must enter the brand' }}
                     render={({ field, fieldState }) => {
                         if (fieldState && !field.value && selectedBrand != "" || fieldState && field.value !== selectedBrand && selectedBrand != "") {
-                            console.log("Cambia");
                             field.onChange(selectedBrand);
                         }
                         return (
